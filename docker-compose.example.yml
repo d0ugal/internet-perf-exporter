@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  internet-perf-exporter:
+    image: ghcr.io/d0ugal/internet-perf-exporter:latest
+    container_name: internet-perf-exporter
+    ports:
+      - "8080:8080"
+    volumes:
+      # Mount your configuration file
+      - ./config.yaml:/root/config.yaml:ro
+    environment:
+      - TZ=UTC
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 128M
+
+# Example with environment variables:
+
+# services:
+#   internet-perf-exporter:
+#     image: ghcr.io/d0ugal/internet-perf-exporter:latest
+#     container_name: internet-perf-exporter
+#     ports:
+#       - "8080:8080"
+#     environment:
+#       - TZ=Europe/London
+#       - INTERNET_PERF_EXPORTER_CONFIG_FROM_ENV=true
+#       - INTERNET_PERF_EXPORTER_SPEEDTEST_ENABLED=true
+#       - INTERNET_PERF_EXPORTER_SPEEDTEST_INTERVAL=1h
+#       - INTERNET_PERF_EXPORTER_FAST_ENABLED=true
+#       - INTERNET_PERF_EXPORTER_FAST_INTERVAL=1h
+#     restart: unless-stopped
+
