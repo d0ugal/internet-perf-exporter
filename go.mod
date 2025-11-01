@@ -63,6 +63,7 @@ require (
 	go.opentelemetry.io/otel/trace v1.38.0 // indirect
 	go.opentelemetry.io/proto/otlp v1.8.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
+	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/arch v0.22.0 // indirect
 	golang.org/x/crypto v0.43.0 // indirect
 	golang.org/x/mod v0.29.0 // indirect
@@ -75,7 +76,7 @@ require (
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20251029180050-ab9386a59fda // indirect
 	google.golang.org/grpc v1.76.0 // indirect
 	google.golang.org/protobuf v1.36.10 // indirect
-	gopkg.in/ddo/go-dlog.v1 v1.0.2 // indirect
+	gopkg.in/ddo/go-dlog.v2 v2.1.0 // indirect
 	gopkg.in/ddo/go-dlog.v2 v2.1.0 // indirect
 	gopkg.in/ddo/pick.v1 v1.2.2 // indirect
 	gopkg.in/ddo/request.v1 v1.4.2 // indirect
