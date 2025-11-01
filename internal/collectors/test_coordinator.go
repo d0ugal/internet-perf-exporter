@@ -27,4 +27,3 @@ func (tc *TestCoordinator) TryLock() bool {
 func (tc *TestCoordinator) Unlock() {
 	tc.mu.Unlock()
 }
-
