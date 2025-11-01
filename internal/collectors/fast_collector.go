@@ -74,6 +74,19 @@ func (fc *FastCollector) run(ctx context.Context, backendCfg config.BackendConfi
 }
 
 func (fc *FastCollector) collect(ctx context.Context, backendCfg config.BackendConfig) {
+	// Try to acquire the test lock to ensure only one test runs at a time
+	coordinator := GetCoordinator()
+	
+	// Try to acquire lock with a timeout to avoid blocking indefinitely
+	// If another test is running, skip this collection cycle
+	if !coordinator.TryLock() {
+		slog.Warn("Another test is currently running, skipping fast.com collection", "backend", "fast")
+		return
+	}
+	
+	// Ensure we unlock even if there's an error
+	defer coordinator.Unlock()
+	
 	startTime := time.Now()
 	interval := int(backendCfg.Interval.Seconds())
 
