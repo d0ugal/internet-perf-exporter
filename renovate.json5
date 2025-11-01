@@ -1,0 +1,84 @@
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:recommended',
+  ],
+  automerge: true,
+  packageRules: [
+    {
+      matchUpdateTypes: [
+        'minor',
+        'patch',
+      ],
+      automerge: true,
+    },
+    {
+      matchDepTypes: [
+        'devDependencies',
+      ],
+      automerge: true,
+    },
+    {
+      matchManagers: [
+        'gomod',
+      ],
+      matchDepTypes: [
+        'indirect',
+      ],
+      enabled: true,
+    },
+    {
+      matchManagers: [
+        'custom.regex',
+      ],
+      matchFileNames: [
+        '**/*.md',
+        '**/docker-compose*.yml',
+        '**/docker-compose*.yaml',
+      ],
+      commitMessagePrefix: 'docs:',
+    },
+    {
+      matchManagers: [
+        'gomod',
+      ],
+      postUpdateOptions: [
+        'gomodTidy',
+      ],
+    },
+    {
+      matchManagers: [
+        'gomod',
+      ],
+      commitMessagePrefix: 'fix:',
+      commitMessageAction: 'update',
+    },
+  ],
+  customManagers: [
+    {
+      customType: 'regex',
+      managerFilePatterns: [
+        '/Makefile/',
+      ],
+      matchStrings: [
+        'GOLANGCI_LINT_VERSION := (?<currentValue>v[\\d\\.]+)',
+      ],
+      depNameTemplate: 'golangci/golangci-lint',
+      datasourceTemplate: 'docker',
+      versioningTemplate: 'semver',
+    },
+    {
+      customType: 'regex',
+      managerFilePatterns: [
+        '**/*.md',
+      ],
+      matchStrings: [
+        'ghcr\\.io/d0ugal/internet-perf-exporter:(?<currentValue>v[\\d\\.]+)',
+      ],
+      depNameTemplate: 'ghcr.io/d0ugal/internet-perf-exporter',
+      datasourceTemplate: 'docker',
+      versioningTemplate: 'semver',
+    },
+  ],
+}
+

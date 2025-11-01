@@ -1,0 +1,267 @@
+package collectors
+
+import (
+	"context"
+	"fmt"
+	"log/slog"
+	"time"
+
+	"internet-perf-exporter/internal/config"
+	"internet-perf-exporter/internal/metrics"
+	"github.com/d0ugal/promexporter/app"
+	"github.com/d0ugal/promexporter/tracing"
+	"github.com/prometheus/client_golang/prometheus"
+	"go.opentelemetry.io/otel/attribute"
+	"gopkg.in/ddo/go-fast.v0"
+)
+
+// FastCollector manages fast.com tests
+type FastCollector struct {
+	config  *config.Config
+	metrics *metrics.InternetRegistry
+	app     *app.App
+	backend Backend
+}
+
+// NewFastCollector creates a new fast.com collector
+func NewFastCollector(cfg *config.Config, registry *metrics.InternetRegistry, app *app.App) *FastCollector {
+	backend := &FastBackend{}
+	return &FastCollector{
+		config:  cfg,
+		metrics: registry,
+		app:     app,
+		backend:  backend,
+	}
+}
+
+// Stop stops the collector
+func (fc *FastCollector) Stop() {
+	// No cleanup needed
+}
+
+// Start starts the collector
+func (fc *FastCollector) Start(ctx context.Context) {
+	backendCfg, exists := fc.config.Backends["fast"]
+	if !exists || !backendCfg.Enabled {
+		slog.Info("Fast.com backend not enabled, skipping collector")
+		return
+	}
+
+	go fc.run(ctx, backendCfg)
+}
+
+func (fc *FastCollector) run(ctx context.Context, backendCfg config.BackendConfig) {
+	interval := backendCfg.Interval.Duration
+	if interval == 0 {
+		interval = time.Hour
+	}
+
+	ticker := time.NewTicker(interval)
+	defer ticker.Stop()
+
+	// Initial collection
+	fc.collect(ctx, backendCfg)
+
+	for {
+		select {
+		case <-ctx.Done():
+			slog.Info("Fast.com collector stopped")
+			return
+		case <-ticker.C:
+			fc.collect(ctx, backendCfg)
+		}
+	}
+}
+
+func (fc *FastCollector) collect(ctx context.Context, backendCfg config.BackendConfig) {
+	startTime := time.Now()
+	interval := int(backendCfg.Interval.Seconds())
+
+	// Create span for collection
+	tracer := fc.app.GetTracer()
+	var collectorSpan *tracing.CollectorSpan
+
+	if tracer != nil && tracer.IsEnabled() {
+		collectorSpan = tracer.NewCollectorSpan(ctx, "fast-collector", "collect-fast")
+		ctx = collectorSpan.Context()
+		defer collectorSpan.End()
+	}
+
+	slog.Info("Starting fast.com collection")
+
+	result, err := fc.backend.RunTest(ctx, backendCfg)
+
+	duration := time.Since(startTime).Seconds()
+
+	if err != nil {
+		slog.Error("Fast.com collection failed", "error", err)
+		fc.metrics.CollectionFailed.WithLabelValues("fast", fmt.Sprintf("%d", interval)).Inc()
+		if collectorSpan != nil {
+			collectorSpan.RecordError(err)
+		}
+		return
+	}
+
+	// Record metrics
+	labels := prometheus.Labels{
+		"backend":        result.Backend,
+		"server_id":      result.ServerID,
+		"server_location": result.ServerLocation,
+	}
+
+	fc.metrics.DownloadSpeedMbps.With(labels).Set(result.DownloadMbps)
+	fc.metrics.UploadSpeedMbps.With(labels).Set(result.UploadMbps)
+	fc.metrics.LatencyMs.With(labels).Observe(result.LatencyMs)
+	fc.metrics.JitterMs.With(labels).Set(result.JitterMs)
+	fc.metrics.PacketLossPct.With(labels).Set(result.PacketLossPct)
+	fc.metrics.TestDurationSeconds.With(labels).Observe(result.TestDurationSec)
+
+	if result.Success {
+		fc.metrics.TestSuccess.With(labels).Set(1)
+	} else {
+		fc.metrics.TestSuccess.With(labels).Set(0)
+		fc.metrics.TestFailedTotal.WithLabelValues("fast", "test_failed").Inc()
+	}
+
+	// Server info (fast.com doesn't have server selection, but we still record it)
+	infoLabels := prometheus.Labels{
+		"backend":         result.Backend,
+		"server_id":      result.ServerID,
+		"server_location": result.ServerLocation,
+		"server_name":    result.ServerName,
+		"server_country": result.ServerCountry,
+	}
+	fc.metrics.ServerInfo.With(infoLabels).Set(1)
+
+	// Collection metrics
+	fc.metrics.CollectionDuration.WithLabelValues("fast", fmt.Sprintf("%d", interval)).Set(duration)
+	fc.metrics.CollectionSuccess.WithLabelValues("fast", fmt.Sprintf("%d", interval)).Inc()
+	fc.metrics.CollectionTimestampGauge.WithLabelValues("fast", fmt.Sprintf("%d", interval)).Set(float64(time.Now().Unix()))
+	fc.metrics.CollectionIntervalGauge.WithLabelValues("fast").Set(float64(interval))
+
+	slog.Info("Fast.com collection completed",
+		"download_mbps", result.DownloadMbps,
+		"upload_mbps", result.UploadMbps,
+		"latency_ms", result.LatencyMs,
+		"duration_seconds", duration)
+
+	if collectorSpan != nil {
+		collectorSpan.SetAttributes(
+			attribute.Float64("download.mbps", result.DownloadMbps),
+			attribute.Float64("upload.mbps", result.UploadMbps),
+			attribute.Float64("latency.ms", result.LatencyMs),
+			attribute.Float64("duration.seconds", duration),
+		)
+		collectorSpan.AddEvent("collection_completed")
+	}
+}
+
+// FastBackend implements the Backend interface for fast.com
+type FastBackend struct{}
+
+func (fb *FastBackend) Name() string {
+	return "fast"
+}
+
+func (fb *FastBackend) IsEnabled() bool {
+	return true
+}
+
+func (fb *FastBackend) RunTest(ctx context.Context, cfg config.BackendConfig) (*TestResult, error) {
+	fastCom := fast.New()
+
+	// Initialize
+	if err := fastCom.Init(); err != nil {
+		return &TestResult{
+			Backend: "fast",
+			ServerID: "fast-com",
+			ServerLocation: "auto",
+			ServerName: "Fast.com",
+			ServerCountry: "US",
+			Success: false,
+			Error: fmt.Errorf("failed to initialize fast.com: %w", err),
+		}, err
+	}
+
+	// Get URLs
+	urls, err := fastCom.GetUrls()
+	if err != nil {
+		return &TestResult{
+			Backend: "fast",
+			ServerID: "fast-com",
+			ServerLocation: "auto",
+			ServerName: "Fast.com",
+			ServerCountry: "US",
+			Success: false,
+			Error: fmt.Errorf("failed to get fast.com URLs: %w", err),
+		}, err
+	}
+
+	// Measure download speed
+	startTime := time.Now()
+	KbpsChan := make(chan float64)
+	var maxKbps float64
+
+	// Collect measurements
+	go func() {
+		for Kbps := range KbpsChan {
+			if Kbps > maxKbps {
+				maxKbps = Kbps
+			}
+		}
+	}()
+
+	// Run measurement with context
+	done := make(chan error, 1)
+	go func() {
+		done <- fastCom.Measure(urls, KbpsChan)
+	}()
+
+	// Wait for completion or timeout
+	select {
+	case <-ctx.Done():
+		return &TestResult{
+			Backend: "fast",
+			ServerID: "fast-com",
+			ServerLocation: "auto",
+			ServerName: "Fast.com",
+			ServerCountry: "US",
+			Success: false,
+			Error: ctx.Err(),
+		}, ctx.Err()
+	case err := <-done:
+		duration := time.Since(startTime).Seconds()
+		
+		if err != nil {
+			return &TestResult{
+				Backend: "fast",
+				ServerID: "fast-com",
+				ServerLocation: "auto",
+				ServerName: "Fast.com",
+				ServerCountry: "US",
+				TestDurationSec: duration,
+				Success: false,
+				Error: fmt.Errorf("failed to measure: %w", err),
+			}, err
+		}
+
+		// Convert Kbps to Mbps
+		downloadMbps := maxKbps / 1000.0
+
+		return &TestResult{
+			Backend: "fast",
+			ServerID: "fast-com",
+			ServerLocation: "auto",
+			ServerName: "Fast.com",
+			ServerCountry: "US",
+			DownloadMbps: downloadMbps,
+			UploadMbps: 0, // Fast.com only measures download
+			LatencyMs: 0,  // Fast.com doesn't provide latency
+			JitterMs: 0,
+			PacketLossPct: 0,
+			TestDurationSec: duration,
+			Success: true,
+		}, nil
+	}
+}
+

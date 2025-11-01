@@ -1,0 +1,310 @@
+package collectors
+
+import (
+	"context"
+	"fmt"
+	"log/slog"
+	"time"
+
+	"internet-perf-exporter/internal/config"
+	"internet-perf-exporter/internal/metrics"
+	"github.com/d0ugal/promexporter/app"
+	"github.com/d0ugal/promexporter/tracing"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/showwin/speedtest-go/speedtest"
+	"go.opentelemetry.io/otel/attribute"
+)
+
+// SpeedtestCollector manages speedtest.net tests
+type SpeedtestCollector struct {
+	config  *config.Config
+	metrics *metrics.InternetRegistry
+	app     *app.App
+	backend Backend
+}
+
+// NewSpeedtestCollector creates a new speedtest collector
+func NewSpeedtestCollector(cfg *config.Config, registry *metrics.InternetRegistry, app *app.App) *SpeedtestCollector {
+	backend := &SpeedtestBackend{}
+	return &SpeedtestCollector{
+		config:  cfg,
+		metrics: registry,
+		app:     app,
+		backend:  backend,
+	}
+}
+
+// Stop stops the collector
+func (sc *SpeedtestCollector) Stop() {
+	// No cleanup needed
+}
+
+// Start starts the collector
+func (sc *SpeedtestCollector) Start(ctx context.Context) {
+	backendCfg, exists := sc.config.Backends["speedtest"]
+	if !exists || !backendCfg.Enabled {
+		slog.Info("Speedtest backend not enabled, skipping collector")
+		return
+	}
+
+	go sc.run(ctx, backendCfg)
+}
+
+func (sc *SpeedtestCollector) run(ctx context.Context, backendCfg config.BackendConfig) {
+	interval := backendCfg.Interval.Duration
+	if interval == 0 {
+		interval = time.Hour
+	}
+
+	ticker := time.NewTicker(interval)
+	defer ticker.Stop()
+
+	// Initial collection
+	sc.collect(ctx, backendCfg)
+
+	for {
+		select {
+		case <-ctx.Done():
+			slog.Info("Speedtest collector stopped")
+			return
+		case <-ticker.C:
+			sc.collect(ctx, backendCfg)
+		}
+	}
+}
+
+func (sc *SpeedtestCollector) collect(ctx context.Context, backendCfg config.BackendConfig) {
+	startTime := time.Now()
+	interval := int(backendCfg.Interval.Seconds())
+
+	// Create span for collection
+	tracer := sc.app.GetTracer()
+	var collectorSpan *tracing.CollectorSpan
+
+	if tracer != nil && tracer.IsEnabled() {
+		collectorSpan = tracer.NewCollectorSpan(ctx, "speedtest-collector", "collect-speedtest")
+		ctx = collectorSpan.Context()
+		defer collectorSpan.End()
+	}
+
+	slog.Info("Starting speedtest collection")
+
+	result, err := sc.backend.RunTest(ctx, backendCfg)
+
+	duration := time.Since(startTime).Seconds()
+
+	if err != nil {
+		slog.Error("Speedtest collection failed", "error", err)
+		sc.metrics.CollectionFailed.WithLabelValues("speedtest", fmt.Sprintf("%d", interval)).Inc()
+		if collectorSpan != nil {
+			collectorSpan.RecordError(err)
+		}
+		return
+	}
+
+	// Record metrics
+	labels := prometheus.Labels{
+		"backend":        result.Backend,
+		"server_id":      result.ServerID,
+		"server_location": result.ServerLocation,
+	}
+
+	sc.metrics.DownloadSpeedMbps.With(labels).Set(result.DownloadMbps)
+	sc.metrics.UploadSpeedMbps.With(labels).Set(result.UploadMbps)
+	sc.metrics.LatencyMs.With(labels).Observe(result.LatencyMs)
+	sc.metrics.JitterMs.With(labels).Set(result.JitterMs)
+	sc.metrics.PacketLossPct.With(labels).Set(result.PacketLossPct)
+	sc.metrics.TestDurationSeconds.With(labels).Observe(result.TestDurationSec)
+
+	if result.Success {
+		sc.metrics.TestSuccess.With(labels).Set(1)
+	} else {
+		sc.metrics.TestSuccess.With(labels).Set(0)
+		sc.metrics.TestFailedTotal.WithLabelValues("speedtest", "test_failed").Inc()
+	}
+
+	// Server info
+	infoLabels := prometheus.Labels{
+		"backend":         result.Backend,
+		"server_id":      result.ServerID,
+		"server_location": result.ServerLocation,
+		"server_name":    result.ServerName,
+		"server_country": result.ServerCountry,
+	}
+	sc.metrics.ServerInfo.With(infoLabels).Set(1)
+
+	// Collection metrics
+	sc.metrics.CollectionDuration.WithLabelValues("speedtest", fmt.Sprintf("%d", interval)).Set(duration)
+	sc.metrics.CollectionSuccess.WithLabelValues("speedtest", fmt.Sprintf("%d", interval)).Inc()
+	sc.metrics.CollectionTimestampGauge.WithLabelValues("speedtest", fmt.Sprintf("%d", interval)).Set(float64(time.Now().Unix()))
+	sc.metrics.CollectionIntervalGauge.WithLabelValues("speedtest").Set(float64(interval))
+
+	slog.Info("Speedtest collection completed",
+		"download_mbps", result.DownloadMbps,
+		"upload_mbps", result.UploadMbps,
+		"latency_ms", result.LatencyMs,
+		"duration_seconds", duration)
+
+	if collectorSpan != nil {
+		collectorSpan.SetAttributes(
+			attribute.Float64("download.mbps", result.DownloadMbps),
+			attribute.Float64("upload.mbps", result.UploadMbps),
+			attribute.Float64("latency.ms", result.LatencyMs),
+			attribute.Float64("duration.seconds", duration),
+		)
+		collectorSpan.AddEvent("collection_completed")
+	}
+}
+
+// SpeedtestBackend implements the Backend interface for speedtest.net
+type SpeedtestBackend struct{}
+
+func (sb *SpeedtestBackend) Name() string {
+	return "speedtest"
+}
+
+func (sb *SpeedtestBackend) IsEnabled() bool {
+	return true
+}
+
+func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfig) (*TestResult, error) {
+	// Fetch server list
+	serverList, err := speedtest.FetchServerListContext(ctx)
+	if err != nil {
+		return &TestResult{
+			Backend: "speedtest",
+			ServerID: "0",
+			ServerLocation: "unknown",
+			ServerName: "unknown",
+			ServerCountry: "unknown",
+			Success: false,
+			Error: fmt.Errorf("failed to fetch server list: %w", err),
+		}, err
+	}
+
+	if len(serverList) == 0 {
+		return &TestResult{
+			Backend: "speedtest",
+			ServerID: "0",
+			ServerLocation: "unknown",
+			ServerName: "unknown",
+			ServerCountry: "unknown",
+			Success: false,
+			Error: fmt.Errorf("no servers available"),
+		}, fmt.Errorf("no servers available")
+	}
+
+	var targetServer *speedtest.Server
+
+	// Select server based on config
+	if cfg.Speedtest != nil {
+		if cfg.Speedtest.ServerID > 0 {
+			// Find server by ID
+			for _, server := range serverList {
+				if server.ID == fmt.Sprintf("%d", cfg.Speedtest.ServerID) {
+					targetServer = server
+					break
+				}
+			}
+		} else if cfg.Speedtest.ServerName != "" {
+			// Find server by name
+			for _, server := range serverList {
+				if server.Name == cfg.Speedtest.ServerName {
+					targetServer = server
+					break
+				}
+			}
+		} else if cfg.Speedtest.ServerCountry != "" {
+			// Find server by country
+			for _, server := range serverList {
+				if server.Country == cfg.Speedtest.ServerCountry {
+					targetServer = server
+					break
+				}
+			}
+		}
+	}
+
+	// If no specific server selected, use closest (first in list)
+	if targetServer == nil {
+		targetServer = serverList[0]
+	}
+
+	startTime := time.Now()
+
+	// Test latency (ping)
+	var latency time.Duration
+	err = targetServer.PingTest(func(result time.Duration) {
+		latency = result
+	})
+	if err != nil {
+		return &TestResult{
+			Backend: "speedtest",
+			ServerID: targetServer.ID,
+			ServerLocation: targetServer.Name, // Use Name as location since Location field doesn't exist
+			ServerName: targetServer.Name,
+			ServerCountry: targetServer.Country,
+			LatencyMs: float64(latency.Milliseconds()),
+			TestDurationSec: time.Since(startTime).Seconds(),
+			Success: false,
+			Error: fmt.Errorf("ping test failed: %w", err),
+		}, err
+	}
+
+	latencyMs := float64(latency.Milliseconds())
+
+	// Run download test
+	err = targetServer.DownloadTest()
+	if err != nil {
+		return &TestResult{
+			Backend: "speedtest",
+			ServerID: targetServer.ID,
+			ServerLocation: targetServer.Name,
+			ServerName: targetServer.Name,
+			ServerCountry: targetServer.Country,
+			LatencyMs: latencyMs,
+			TestDurationSec: time.Since(startTime).Seconds(),
+			Success: false,
+			Error: fmt.Errorf("download test failed: %w", err),
+		}, err
+	}
+
+	// Convert ByteRate to Mbps (ByteRate is in bits per second)
+	downloadMbps := float64(targetServer.DLSpeed) / 1000000.0
+
+	// Run upload test
+	err = targetServer.UploadTest()
+	if err != nil {
+		return &TestResult{
+			Backend: "speedtest",
+			ServerID: targetServer.ID,
+			ServerLocation: targetServer.Name,
+			ServerName: targetServer.Name,
+			ServerCountry: targetServer.Country,
+			DownloadMbps: downloadMbps,
+			LatencyMs: latencyMs,
+			TestDurationSec: time.Since(startTime).Seconds(),
+			Success: false,
+			Error: fmt.Errorf("upload test failed: %w", err),
+		}, err
+	}
+
+	uploadMbps := float64(targetServer.ULSpeed) / 1000000.0
+	duration := time.Since(startTime).Seconds()
+
+	return &TestResult{
+		Backend: "speedtest",
+		ServerID: targetServer.ID,
+		ServerLocation: targetServer.Name,
+		ServerName: targetServer.Name,
+		ServerCountry: targetServer.Country,
+		DownloadMbps: downloadMbps,
+		UploadMbps: uploadMbps,
+		LatencyMs: latencyMs,
+		JitterMs: 0, // Speedtest library doesn't provide jitter
+		PacketLossPct: 0, // Speedtest library doesn't provide packet loss
+		TestDurationSec: duration,
+		Success: true,
+	}, nil
+}
+

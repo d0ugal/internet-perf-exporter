@@ -1,0 +1,61 @@
+# Internet Performance Exporter Configuration Example
+# Copy this file to config.yaml and customize for your environment
+
+server:
+  host: "0.0.0.0"  # Server host address
+  port: 8080        # Server port
+
+logging:
+  level: "info"     # Log level: debug, info, warn, error
+  format: "json"    # Log format: json or text
+
+metrics:
+  collection:
+    default_interval: "5m"  # Default collection interval for all metrics
+
+# Backend configurations
+# Each backend can be configured independently with its own test interval
+backends:
+  # Speedtest.net backend
+  speedtest:
+    type: "speedtest"
+    enabled: true
+    interval: "1h"      # Run test every hour
+    timeout: "5m"       # Test timeout
+    
+    speedtest:
+      # Optional: Select specific server by ID (0 = auto-select closest)
+      # server_id: 12345
+      
+      # Optional: Filter by server name
+      # server_name: "Example ISP"
+      
+      # Optional: Filter by server country
+      # server_country: "US"
+
+  # Fast.com backend (Netflix)
+  fast:
+    type: "fast"
+    enabled: true
+    interval: "1h"      # Run test every hour
+    timeout: "5m"       # Test timeout
+    
+    fast:
+      # Optional: Number of retries on failure (default: 1)
+      retries: 1
+
+# Example: Run tests more frequently during peak hours
+# You can create multiple backend instances with different intervals
+# backends:
+#   speedtest_frequent:
+#     type: "speedtest"
+#     enabled: true
+#     interval: "15m"
+#     timeout: "2m"
+#   
+#   fast_daily:
+#     type: "fast"
+#     enabled: true
+#     interval: "24h"
+#     timeout: "10m"
+
