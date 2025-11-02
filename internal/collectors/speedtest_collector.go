@@ -181,8 +181,16 @@ func (sb *SpeedtestBackend) IsEnabled() bool {
 }
 
 func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfig) (*TestResult, error) {
+	// Create a context with timeout if configured
+	testCtx := ctx
+	if cfg.Timeout.Duration > 0 {
+		var cancel context.CancelFunc
+		testCtx, cancel = context.WithTimeout(ctx, cfg.Timeout.Duration)
+		defer cancel()
+	}
+
 	// Fetch server list
-	serverList, err := speedtest.FetchServerListContext(ctx)
+	serverList, err := speedtest.FetchServerListContext(testCtx)
 	if err != nil {
 		return &TestResult{
 			Backend: "speedtest",
@@ -243,18 +251,24 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 		targetServer = serverList[0]
 	}
 
+	slog.Debug("Using speedtest server",
+		"server_id", targetServer.ID,
+		"server_name", targetServer.Name,
+		"server_country", targetServer.Country,
+		"distance", targetServer.Distance)
+
 	startTime := time.Now()
 
-	// Test latency (ping)
+	// Test latency (ping) with context
 	var latency time.Duration
-	err = targetServer.PingTest(func(result time.Duration) {
+	err = targetServer.PingTestContext(testCtx, func(result time.Duration) {
 		latency = result
 	})
 	if err != nil {
 		return &TestResult{
 			Backend: "speedtest",
 			ServerID: targetServer.ID,
-			ServerLocation: targetServer.Name, // Use Name as location since Location field doesn't exist
+			ServerLocation: targetServer.Name,
 			ServerName: targetServer.Name,
 			ServerCountry: targetServer.Country,
 			LatencyMs: float64(latency.Milliseconds()),
@@ -266,8 +280,8 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 
 	latencyMs := float64(latency.Milliseconds())
 
-	// Run download test
-	err = targetServer.DownloadTest()
+	// Run download test with context
+	err = targetServer.DownloadTestContext(testCtx)
 	if err != nil {
 		return &TestResult{
 			Backend: "speedtest",
@@ -282,11 +296,11 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 		}, err
 	}
 
-	// Convert ByteRate to Mbps (ByteRate is in bits per second)
-	downloadMbps := float64(targetServer.DLSpeed) / 1000000.0
+	// Use the ByteRate.Mbps() method for accurate conversion
+	downloadMbps := targetServer.DLSpeed.Mbps()
 
-	// Run upload test
-	err = targetServer.UploadTest()
+	// Run upload test with context
+	err = targetServer.UploadTestContext(testCtx)
 	if err != nil {
 		return &TestResult{
 			Backend: "speedtest",
@@ -302,8 +316,18 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 		}, err
 	}
 
-	uploadMbps := float64(targetServer.ULSpeed) / 1000000.0
+	// Use the ByteRate.Mbps() method for accurate conversion
+	uploadMbps := targetServer.ULSpeed.Mbps()
 	duration := time.Since(startTime).Seconds()
+
+	// Extract jitter and packet loss from server if available
+	var jitterMs float64
+	if targetServer.Jitter > 0 {
+		jitterMs = float64(targetServer.Jitter.Milliseconds())
+	}
+
+	// Use the LossPercent() method to get packet loss percentage
+	packetLossPct := targetServer.PacketLoss.LossPercent()
 
 	return &TestResult{
 		Backend: "speedtest",
@@ -314,8 +338,8 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 		DownloadMbps: downloadMbps,
 		UploadMbps: uploadMbps,
 		LatencyMs: latencyMs,
-		JitterMs: 0, // Speedtest library doesn't provide jitter
-		PacketLossPct: 0, // Speedtest library doesn't provide packet loss
+		JitterMs: jitterMs,
+		PacketLossPct: packetLossPct,
 		TestDurationSec: duration,
 		Success: true,
 	}, nil
