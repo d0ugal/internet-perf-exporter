@@ -7,12 +7,13 @@ import (
 	"time"
 
 	"internet-perf-exporter/internal/config"
+	"internet-perf-exporter/internal/fastcom"
 	"internet-perf-exporter/internal/metrics"
+
 	"github.com/d0ugal/promexporter/app"
 	"github.com/d0ugal/promexporter/tracing"
 	"github.com/prometheus/client_golang/prometheus"
 	"go.opentelemetry.io/otel/attribute"
-	"gopkg.in/ddo/go-fast.v0"
 )
 
 // FastCollector manages fast.com tests
@@ -30,7 +31,7 @@ func NewFastCollector(cfg *config.Config, registry *metrics.InternetRegistry, ap
 		config:  cfg,
 		metrics: registry,
 		app:     app,
-		backend:  backend,
+		backend: backend,
 	}
 }
 
@@ -76,17 +77,17 @@ func (fc *FastCollector) run(ctx context.Context, backendCfg config.BackendConfi
 func (fc *FastCollector) collect(ctx context.Context, backendCfg config.BackendConfig) {
 	// Try to acquire the test lock to ensure only one test runs at a time
 	coordinator := GetCoordinator()
-	
+
 	// Try to acquire lock with a timeout to avoid blocking indefinitely
 	// If another test is running, skip this collection cycle
 	if !coordinator.TryLock() {
 		slog.Warn("Another test is currently running, skipping fast.com collection", "backend", "fast")
 		return
 	}
-	
+
 	// Ensure we unlock even if there's an error
 	defer coordinator.Unlock()
-	
+
 	startTime := time.Now()
 	interval := int(backendCfg.Interval.Seconds())
 
@@ -117,16 +118,29 @@ func (fc *FastCollector) collect(ctx context.Context, backendCfg config.BackendC
 
 	// Record metrics
 	labels := prometheus.Labels{
-		"backend":        result.Backend,
-		"server_id":      result.ServerID,
+		"backend":         result.Backend,
+		"server_id":       result.ServerID,
 		"server_location": result.ServerLocation,
 	}
 
 	fc.metrics.DownloadSpeedMbps.With(labels).Set(result.DownloadMbps)
-	fc.metrics.UploadSpeedMbps.With(labels).Set(result.UploadMbps)
-	fc.metrics.LatencyMs.With(labels).Observe(result.LatencyMs)
-	fc.metrics.JitterMs.With(labels).Set(result.JitterMs)
-	fc.metrics.PacketLossPct.With(labels).Set(result.PacketLossPct)
+
+	// Set upload metric if we have a valid value (now supported by our custom client)
+	if result.UploadMbps > 0 {
+		fc.metrics.UploadSpeedMbps.With(labels).Set(result.UploadMbps)
+	}
+
+	// Set latency if we have a valid value (now supported by our custom client)
+	if result.LatencyMs > 0 {
+		fc.metrics.LatencyMs.With(labels).Observe(result.LatencyMs)
+	}
+	if result.JitterMs > 0 {
+		fc.metrics.JitterMs.With(labels).Set(result.JitterMs)
+	}
+	if result.PacketLossPct > 0 {
+		fc.metrics.PacketLossPct.With(labels).Set(result.PacketLossPct)
+	}
+
 	fc.metrics.TestDurationSeconds.With(labels).Observe(result.TestDurationSec)
 
 	if result.Success {
@@ -139,10 +153,10 @@ func (fc *FastCollector) collect(ctx context.Context, backendCfg config.BackendC
 	// Server info (fast.com doesn't have server selection, but we still record it)
 	infoLabels := prometheus.Labels{
 		"backend":         result.Backend,
-		"server_id":      result.ServerID,
+		"server_id":       result.ServerID,
 		"server_location": result.ServerLocation,
-		"server_name":    result.ServerName,
-		"server_country": result.ServerCountry,
+		"server_name":     result.ServerName,
+		"server_country":  result.ServerCountry,
 	}
 	fc.metrics.ServerInfo.With(infoLabels).Set(1)
 
@@ -181,100 +195,45 @@ func (fb *FastBackend) IsEnabled() bool {
 }
 
 func (fb *FastBackend) RunTest(ctx context.Context, cfg config.BackendConfig) (*TestResult, error) {
-	fastCom := fast.New()
+	startTime := time.Now()
 
-	// Initialize
-	if err := fastCom.Init(); err != nil {
-		return &TestResult{
-			Backend: "fast",
-			ServerID: "fast-com",
-			ServerLocation: "auto",
-			ServerName: "Fast.com",
-			ServerCountry: "US",
-			Success: false,
-			Error: fmt.Errorf("failed to initialize fast.com: %w", err),
-		}, err
+	// Determine max time for test
+	maxTime := cfg.Timeout.Duration
+	if maxTime == 0 {
+		maxTime = 15 * time.Second // Default to 15 seconds
 	}
 
-	// Get URLs
-	urls, err := fastCom.GetUrls()
+	// Create Fast.com client and run test
+	client := fastcom.NewClient()
+	fastResult, err := client.RunTest(ctx, maxTime)
+
+	duration := time.Since(startTime).Seconds()
+
 	if err != nil {
 		return &TestResult{
-			Backend: "fast",
-			ServerID: "fast-com",
-			ServerLocation: "auto",
-			ServerName: "Fast.com",
-			ServerCountry: "US",
-			Success: false,
-			Error: fmt.Errorf("failed to get fast.com URLs: %w", err),
+			Backend:         "fast",
+			ServerID:        "fast-com",
+			ServerLocation:  "auto",
+			ServerName:      "Fast.com",
+			ServerCountry:   "US",
+			TestDurationSec: duration,
+			Success:         false,
+			Error:           fmt.Errorf("failed to run fast.com test: %w", err),
 		}, err
 	}
 
-	// Measure download speed
-	startTime := time.Now()
-	KbpsChan := make(chan float64)
-	var maxKbps float64
-
-	// Collect measurements
-	go func() {
-		for Kbps := range KbpsChan {
-			if Kbps > maxKbps {
-				maxKbps = Kbps
-			}
-		}
-	}()
-
-	// Run measurement with context
-	done := make(chan error, 1)
-	go func() {
-		done <- fastCom.Measure(urls, KbpsChan)
-	}()
-
-	// Wait for completion or timeout
-	select {
-	case <-ctx.Done():
-		return &TestResult{
-			Backend: "fast",
-			ServerID: "fast-com",
-			ServerLocation: "auto",
-			ServerName: "Fast.com",
-			ServerCountry: "US",
-			Success: false,
-			Error: ctx.Err(),
-		}, ctx.Err()
-	case err := <-done:
-		duration := time.Since(startTime).Seconds()
-		
-		if err != nil {
-			return &TestResult{
-				Backend: "fast",
-				ServerID: "fast-com",
-				ServerLocation: "auto",
-				ServerName: "Fast.com",
-				ServerCountry: "US",
-				TestDurationSec: duration,
-				Success: false,
-				Error: fmt.Errorf("failed to measure: %w", err),
-			}, err
-		}
-
-		// Convert Kbps to Mbps
-		downloadMbps := maxKbps / 1000.0
-
-		return &TestResult{
-			Backend: "fast",
-			ServerID: "fast-com",
-			ServerLocation: "auto",
-			ServerName: "Fast.com",
-			ServerCountry: "US",
-			DownloadMbps: downloadMbps,
-			UploadMbps: 0, // Fast.com only measures download
-			LatencyMs: 0,  // Fast.com doesn't provide latency
-			JitterMs: 0,
-			PacketLossPct: 0,
-			TestDurationSec: duration,
-			Success: true,
-		}, nil
-	}
+	return &TestResult{
+		Backend:         "fast",
+		ServerID:        "fast-com",
+		ServerLocation:  "auto",
+		ServerName:      "Fast.com",
+		ServerCountry:   "US",
+		DownloadMbps:    fastResult.DownloadMbps,
+		UploadMbps:      fastResult.UploadMbps,
+		LatencyMs:       fastResult.LatencyMs,
+		JitterMs:        0, // Fast.com doesn't provide jitter
+		PacketLossPct:   0, // Fast.com doesn't provide packet loss
+		TestDurationSec: duration,
+		Success:         true,
+	}, nil
 }
-
