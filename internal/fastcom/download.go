@@ -64,13 +64,22 @@ func (c *Client) runDownloadTest(ctx context.Context, maxTime time.Duration) (fl
 					chunkSize := 64 * 1024 // 64KB chunks
 					buffer := make([]byte, chunkSize)
 
+				readLoop:
 					for {
 						select {
 						case <-ctx.Done():
-							resp.Body.Close()
+							if err := resp.Body.Close(); err != nil {
+								if c.logger != nil {
+									c.logger.Debug("Failed to close response body on context cancel", "error", err)
+								}
+							}
 							return
 						case <-done:
-							resp.Body.Close()
+							if err := resp.Body.Close(); err != nil {
+								if c.logger != nil {
+									c.logger.Debug("Failed to close response body on done", "error", err)
+								}
+							}
 							return
 						default:
 							n, err := resp.Body.Read(buffer)
@@ -90,15 +99,18 @@ func (c *Client) runDownloadTest(ctx context.Context, maxTime time.Duration) (fl
 							}
 
 							if err == io.EOF {
-								break
+								break readLoop
 							}
 							if err != nil {
-								resp.Body.Close()
-								break
+								break readLoop
 							}
 						}
 					}
-					resp.Body.Close()
+					if err := resp.Body.Close(); err != nil {
+						if c.logger != nil {
+							c.logger.Debug("Failed to close response body after read", "error", err)
+						}
+					}
 				}
 			}
 		}(i)
