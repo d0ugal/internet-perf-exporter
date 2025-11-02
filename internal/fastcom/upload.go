@@ -77,7 +77,11 @@ func (c *Client) runUploadTest(ctx context.Context, maxTime time.Duration) (floa
 						continue
 					}
 					uploadDuration := time.Since(uploadStart)
-					resp.Body.Close()
+					if err := resp.Body.Close(); err != nil {
+						if c.logger != nil {
+							c.logger.Debug("Failed to close response body after upload", "error", err)
+						}
+					}
 
 					if uploadDuration.Seconds() > 0 {
 						// Calculate speed: (payloadSize * 8 bits) / duration in seconds

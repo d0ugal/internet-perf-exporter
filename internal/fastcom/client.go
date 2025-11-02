@@ -92,7 +92,13 @@ func (c *Client) getToken(ctx context.Context) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("failed to fetch fast.com homepage: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			if logger != nil {
+				logger.Debug("Failed to close response body", "error", err)
+			}
+		}
+	}()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -125,7 +131,13 @@ func (c *Client) getToken(ctx context.Context) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("failed to fetch JavaScript file: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			if c.logger != nil {
+				c.logger.Debug("Failed to close response body", "error", err)
+			}
+		}
+	}()
 
 	jsBody, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -160,7 +172,13 @@ func (c *Client) getTestURLs(ctx context.Context, token string) ([]string, error
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch test URLs: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			if c.logger != nil {
+				c.logger.Debug("Failed to close response body", "error", err)
+			}
+		}
+	}()
 
 	var result []struct {
 		URL string `json:"url"`
@@ -207,7 +225,10 @@ func pingHost(host string, count int, timeout time.Duration) (float64, error) {
 			if err != nil {
 				continue
 			}
-			conn.Close()
+			if err := conn.Close(); err != nil {
+				// Connection close errors during ping are typically not critical
+				continue
+			}
 			rtt := time.Since(start)
 			totalRTT += rtt
 			successCount++
