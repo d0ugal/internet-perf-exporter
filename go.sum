@@ -188,6 +188,7 @@ gopkg.in/ddo/pick.v1 v1.2.2 h1:5Ue60YhDOzjwaQp3vwHwyuJ4ufj4DyKIxn95W4G7iZI=
 gopkg.in/ddo/pick.v1 v1.2.2/go.mod h1:AgGJKIMzwG3nzr1OX4nqa2+J27vPZXFgFnEWI3zh8Ow=
 gopkg.in/ddo/request.v1 v1.4.2 h1:8AtuC5MrCggAAeKnfUKqagI35L7mTmytQMa2ateyOvY=
 gopkg.in/ddo/request.v1 v1.4.2/go.mod h1:+au/LGBhGrn40Y4nxt9ppd5LdXPSgwskjsIMZY1sZ4s=
+gopkg.in/ddo/request.v2 v2.0.0/go.mod h1:wl9Wa4B5PCR9lyfL3ymV4MquN0S1yzEeUSOdJf9td4c=
 gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
 gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
 gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
