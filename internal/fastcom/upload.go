@@ -9,12 +9,25 @@ import (
 	"net/http"
 	"sync"
 	"time"
+
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/codes"
 )
 
 // runUploadTest performs upload speed test
 func (c *Client) runUploadTest(ctx context.Context, maxTime time.Duration) (float64, error) {
+	ctx, span := otel.Tracer("fastcom").Start(ctx, "fastcom.uploadTest")
+	defer span.End()
+
+	span.SetAttributes(
+		attribute.String("upload.max_time", maxTime.String()),
+	)
 	if len(c.urls) == 0 {
-		return 0, fmt.Errorf("no test URLs available")
+		err := fmt.Errorf("no test URLs available")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
+		return 0, err
 	}
 
 	var wg sync.WaitGroup
@@ -145,10 +158,19 @@ func (c *Client) runUploadTest(ctx context.Context, maxTime time.Duration) (floa
 	defer mu.Unlock()
 	
 	if maxSpeedBps == 0 {
-		return 0, fmt.Errorf("no speed measurements recorded")
+		err := fmt.Errorf("no speed measurements recorded")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
+		return 0, err
 	}
 
 	// Convert bits per second to Mbps
-	return maxSpeedBps / 1e6, nil
+	resultMbps := maxSpeedBps / 1e6
+	span.SetAttributes(
+		attribute.Float64("upload.result_mbps", resultMbps),
+		attribute.Float64("upload.max_speed_bps", maxSpeedBps),
+	)
+
+	return resultMbps, nil
 }
 

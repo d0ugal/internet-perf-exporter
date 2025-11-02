@@ -24,6 +24,11 @@ import (
 	"regexp"
 	"strings"
 	"time"
+
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/codes"
 )
 
 // Client is a Fast.com speed test client
@@ -67,8 +72,14 @@ func NewClient() *Client {
 func NewClientWithConfig(cfg Config) *Client {
 	httpClient := cfg.HTTPClient
 	if httpClient == nil {
+		// Create an instrumented HTTP client with otelhttp
 		httpClient = &http.Client{
 			Timeout: 30 * time.Second,
+			Transport: otelhttp.NewTransport(http.DefaultTransport,
+				otelhttp.WithSpanNameFormatter(func(_ string, r *http.Request) string {
+					return r.Method + " " + r.URL.Host
+				}),
+			),
 		}
 	}
 
@@ -80,6 +91,9 @@ func NewClientWithConfig(cfg Config) *Client {
 
 // getToken fetches the token from fast.com's JavaScript file
 func (c *Client) getToken(ctx context.Context) (string, error) {
+	ctx, span := otel.Tracer("fastcom").Start(ctx, "fastcom.getToken")
+	defer span.End()
+
 	logger := c.logger
 	
 	// Fetch fast.com homepage
@@ -90,8 +104,11 @@ func (c *Client) getToken(ctx context.Context) (string, error) {
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 		return "", fmt.Errorf("failed to fetch fast.com homepage: %w", err)
 	}
+	span.SetAttributes(attribute.Int("http.status_code", resp.StatusCode))
 	defer func() {
 		if err := resp.Body.Close(); err != nil {
 			if logger != nil {
@@ -120,17 +137,23 @@ func (c *Client) getToken(ctx context.Context) (string, error) {
 	if logger != nil {
 		logger.Debug("Found JavaScript URL", "url", jsURL)
 	}
+	span.SetAttributes(attribute.String("js.url", jsURL))
 
 	// Fetch JavaScript file
 	req, err = http.NewRequestWithContext(ctx, "GET", jsURL, nil)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 		return "", fmt.Errorf("failed to create request for JS file: %w", err)
 	}
 
 	resp, err = c.httpClient.Do(req)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 		return "", fmt.Errorf("failed to fetch JavaScript file: %w", err)
 	}
+	span.SetAttributes(attribute.Int("js.http.status_code", resp.StatusCode))
 	defer func() {
 		if err := resp.Body.Close(); err != nil {
 			if c.logger != nil {
@@ -155,23 +178,33 @@ func (c *Client) getToken(ctx context.Context) (string, error) {
 	if c.logger != nil {
 		c.logger.Debug("Extracted token from JavaScript")
 	}
+	span.SetAttributes(attribute.Bool("token.extracted", true))
 
 	return token, nil
 }
 
 // getTestURLs fetches test URLs from Fast.com API
 func (c *Client) getTestURLs(ctx context.Context, token string) ([]string, error) {
+	ctx, span := otel.Tracer("fastcom").Start(ctx, "fastcom.getTestURLs")
+	defer span.End()
+
 	apiURL := fmt.Sprintf("https://api.fast.com/netflix/speedtest?https=true&token=%s&urlCount=3", token)
+	span.SetAttributes(attribute.String("api.url", "https://api.fast.com/netflix/speedtest"))
 	
 	req, err := http.NewRequestWithContext(ctx, "GET", apiURL, nil)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 		return nil, fmt.Errorf("failed to create request: %w", err)
 	}
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 		return nil, fmt.Errorf("failed to fetch test URLs: %w", err)
 	}
+	span.SetAttributes(attribute.Int("http.status_code", resp.StatusCode))
 	defer func() {
 		if err := resp.Body.Close(); err != nil {
 			if c.logger != nil {
@@ -196,6 +229,7 @@ func (c *Client) getTestURLs(ctx context.Context, token string) ([]string, error
 	if c.logger != nil {
 		c.logger.Debug("Retrieved test URLs", "count", len(urls))
 	}
+	span.SetAttributes(attribute.Int("urls.count", len(urls)))
 
 	return urls, nil
 }
@@ -254,35 +288,57 @@ func pingHost(host string, count int, timeout time.Duration) (float64, error) {
 // RunTest runs a complete Fast.com speed test including download, upload, and ping.
 // The maxTime parameter controls how long each test phase should run.
 func (c *Client) RunTest(ctx context.Context, maxTime time.Duration) (*Result, error) {
+	ctx, span := otel.Tracer("fastcom").Start(ctx, "fastcom.RunTest")
+	defer span.End()
+
+	span.SetAttributes(
+		attribute.String("test.max_time", maxTime.String()),
+	)
+
 	// Get token
 	token, err := c.getToken(ctx)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "failed to get token")
 		return nil, fmt.Errorf("failed to get token: %w", err)
 	}
 	c.token = token
+	span.SetAttributes(attribute.Bool("token.obtained", true))
 
 	// Get test URLs
 	urls, err := c.getTestURLs(ctx, token)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "failed to get test URLs")
 		return nil, fmt.Errorf("failed to get test URLs: %w", err)
 	}
 	c.urls = urls
+	span.SetAttributes(attribute.Int("urls.count", len(urls)))
 
 	if len(urls) == 0 {
-		return nil, fmt.Errorf("no URLs returned from API")
+		err := fmt.Errorf("no URLs returned from API")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
+		return nil, err
 	}
 
 	// Extract hostname for ping test
 	hostname, err := extractHostname(urls[0])
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 		return nil, fmt.Errorf("failed to extract hostname: %w", err)
 	}
+	span.SetAttributes(attribute.String("test.hostname", hostname))
 
 	result := &Result{}
 
 	// Run ping test (unloaded)
 	pingCtx, pingCancel := context.WithTimeout(ctx, 5*time.Second)
 	defer pingCancel()
+	
+	pingCtx, pingSpan := otel.Tracer("fastcom").Start(pingCtx, "fastcom.pingTest")
+	pingSpan.SetAttributes(attribute.String("ping.hostname", hostname))
 	
 	// Run ping in goroutine with context
 	pingDone := make(chan struct {
@@ -302,13 +358,19 @@ func (c *Client) RunTest(ctx context.Context, maxTime time.Duration) (*Result, e
 		if c.logger != nil {
 			c.logger.Debug("Ping test timed out")
 		}
+		pingSpan.SetAttributes(attribute.Bool("ping.timeout", true))
 	case pingResult := <-pingDone:
 		if pingResult.err == nil {
 			result.LatencyMs = pingResult.latency
-		} else if c.logger != nil {
-			c.logger.Debug("Ping test failed, skipping", "error", pingResult.err)
+			pingSpan.SetAttributes(attribute.Float64("ping.latency_ms", pingResult.latency))
+		} else {
+			pingSpan.RecordError(pingResult.err)
+			if c.logger != nil {
+				c.logger.Debug("Ping test failed, skipping", "error", pingResult.err)
+			}
 		}
 	}
+	pingSpan.End()
 
 	// Run download test
 	downloadCtx, downloadCancel := context.WithTimeout(ctx, maxTime)
@@ -316,9 +378,12 @@ func (c *Client) RunTest(ctx context.Context, maxTime time.Duration) (*Result, e
 	
 	downloadMbps, err := c.runDownloadTest(downloadCtx, maxTime)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "download test failed")
 		return nil, fmt.Errorf("download test failed: %w", err)
 	}
 	result.DownloadMbps = downloadMbps
+	span.SetAttributes(attribute.Float64("test.download_mbps", downloadMbps))
 
 	// Run upload test
 	uploadCtx, uploadCancel := context.WithTimeout(ctx, maxTime)
@@ -327,13 +392,22 @@ func (c *Client) RunTest(ctx context.Context, maxTime time.Duration) (*Result, e
 	uploadMbps, err := c.runUploadTest(uploadCtx, maxTime)
 	if err != nil {
 		// Upload might fail, but don't fail the entire test
+		span.RecordError(err)
+		span.SetAttributes(attribute.Bool("test.upload_failed", true))
 		if c.logger != nil {
 			c.logger.Debug("Upload test failed", "error", err)
 		}
 		result.UploadMbps = 0
 	} else {
 		result.UploadMbps = uploadMbps
+		span.SetAttributes(attribute.Float64("test.upload_mbps", uploadMbps))
 	}
+
+	span.SetAttributes(
+		attribute.Float64("result.download_mbps", result.DownloadMbps),
+		attribute.Float64("result.upload_mbps", result.UploadMbps),
+		attribute.Float64("result.latency_ms", result.LatencyMs),
+	)
 
 	return result, nil
 }
