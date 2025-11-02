@@ -77,7 +77,6 @@ require (
 	google.golang.org/grpc v1.76.0 // indirect
 	google.golang.org/protobuf v1.36.10 // indirect
 	gopkg.in/ddo/go-dlog.v2 v2.1.0 // indirect
-	gopkg.in/ddo/go-dlog.v2 v2.1.0 // indirect
 	gopkg.in/ddo/pick.v1 v1.2.2 // indirect
-	gopkg.in/ddo/request.v1 v1.4.2 // indirect
+	gopkg.in/ddo/request.v2 v2.0.0 // indirect
 )
