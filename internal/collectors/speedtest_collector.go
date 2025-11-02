@@ -8,6 +8,7 @@ import (
 
 	"internet-perf-exporter/internal/config"
 	"internet-perf-exporter/internal/metrics"
+
 	"github.com/d0ugal/promexporter/app"
 	"github.com/d0ugal/promexporter/tracing"
 	"github.com/prometheus/client_golang/prometheus"
@@ -30,7 +31,7 @@ func NewSpeedtestCollector(cfg *config.Config, registry *metrics.InternetRegistr
 		config:  cfg,
 		metrics: registry,
 		app:     app,
-		backend:  backend,
+		backend: backend,
 	}
 }
 
@@ -76,17 +77,17 @@ func (sc *SpeedtestCollector) run(ctx context.Context, backendCfg config.Backend
 func (sc *SpeedtestCollector) collect(ctx context.Context, backendCfg config.BackendConfig) {
 	// Try to acquire the test lock to ensure only one test runs at a time
 	coordinator := GetCoordinator()
-	
+
 	// Try to acquire lock with a timeout to avoid blocking indefinitely
 	// If another test is running, skip this collection cycle
 	if !coordinator.TryLock() {
 		slog.Warn("Another test is currently running, skipping speedtest collection", "backend", "speedtest")
 		return
 	}
-	
+
 	// Ensure we unlock even if there's an error
 	defer coordinator.Unlock()
-	
+
 	startTime := time.Now()
 	interval := int(backendCfg.Interval.Seconds())
 
@@ -117,16 +118,25 @@ func (sc *SpeedtestCollector) collect(ctx context.Context, backendCfg config.Bac
 
 	// Record metrics
 	labels := prometheus.Labels{
-		"backend":        result.Backend,
-		"server_id":      result.ServerID,
+		"backend":         result.Backend,
+		"server_id":       result.ServerID,
 		"server_location": result.ServerLocation,
 	}
 
 	sc.metrics.DownloadSpeedMbps.With(labels).Set(result.DownloadMbps)
 	sc.metrics.UploadSpeedMbps.With(labels).Set(result.UploadMbps)
-	sc.metrics.LatencyMs.With(labels).Observe(result.LatencyMs)
-	sc.metrics.JitterMs.With(labels).Set(result.JitterMs)
-	sc.metrics.PacketLossPct.With(labels).Set(result.PacketLossPct)
+
+	// Only set metrics if we have valid values (skip 0 to avoid false outage alerts)
+	if result.LatencyMs > 0 {
+		sc.metrics.LatencyMs.With(labels).Observe(result.LatencyMs)
+	}
+	if result.JitterMs > 0 {
+		sc.metrics.JitterMs.With(labels).Set(result.JitterMs)
+	}
+	if result.PacketLossPct > 0 {
+		sc.metrics.PacketLossPct.With(labels).Set(result.PacketLossPct)
+	}
+
 	sc.metrics.TestDurationSeconds.With(labels).Observe(result.TestDurationSec)
 
 	if result.Success {
@@ -139,10 +149,10 @@ func (sc *SpeedtestCollector) collect(ctx context.Context, backendCfg config.Bac
 	// Server info
 	infoLabels := prometheus.Labels{
 		"backend":         result.Backend,
-		"server_id":      result.ServerID,
+		"server_id":       result.ServerID,
 		"server_location": result.ServerLocation,
-		"server_name":    result.ServerName,
-		"server_country": result.ServerCountry,
+		"server_name":     result.ServerName,
+		"server_country":  result.ServerCountry,
 	}
 	sc.metrics.ServerInfo.With(infoLabels).Set(1)
 
@@ -193,25 +203,25 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 	serverList, err := speedtest.FetchServerListContext(testCtx)
 	if err != nil {
 		return &TestResult{
-			Backend: "speedtest",
-			ServerID: "0",
+			Backend:        "speedtest",
+			ServerID:       "0",
 			ServerLocation: "unknown",
-			ServerName: "unknown",
-			ServerCountry: "unknown",
-			Success: false,
-			Error: fmt.Errorf("failed to fetch server list: %w", err),
+			ServerName:     "unknown",
+			ServerCountry:  "unknown",
+			Success:        false,
+			Error:          fmt.Errorf("failed to fetch server list: %w", err),
 		}, err
 	}
 
 	if len(serverList) == 0 {
 		return &TestResult{
-			Backend: "speedtest",
-			ServerID: "0",
+			Backend:        "speedtest",
+			ServerID:       "0",
 			ServerLocation: "unknown",
-			ServerName: "unknown",
-			ServerCountry: "unknown",
-			Success: false,
-			Error: fmt.Errorf("no servers available"),
+			ServerName:     "unknown",
+			ServerCountry:  "unknown",
+			Success:        false,
+			Error:          fmt.Errorf("no servers available"),
 		}, fmt.Errorf("no servers available")
 	}
 
@@ -266,15 +276,15 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 	})
 	if err != nil {
 		return &TestResult{
-			Backend: "speedtest",
-			ServerID: targetServer.ID,
-			ServerLocation: targetServer.Name,
-			ServerName: targetServer.Name,
-			ServerCountry: targetServer.Country,
-			LatencyMs: float64(latency.Milliseconds()),
+			Backend:         "speedtest",
+			ServerID:        targetServer.ID,
+			ServerLocation:  targetServer.Name,
+			ServerName:      targetServer.Name,
+			ServerCountry:   targetServer.Country,
+			LatencyMs:       float64(latency.Milliseconds()),
 			TestDurationSec: time.Since(startTime).Seconds(),
-			Success: false,
-			Error: fmt.Errorf("ping test failed: %w", err),
+			Success:         false,
+			Error:           fmt.Errorf("ping test failed: %w", err),
 		}, err
 	}
 
@@ -284,15 +294,15 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 	err = targetServer.DownloadTestContext(testCtx)
 	if err != nil {
 		return &TestResult{
-			Backend: "speedtest",
-			ServerID: targetServer.ID,
-			ServerLocation: targetServer.Name,
-			ServerName: targetServer.Name,
-			ServerCountry: targetServer.Country,
-			LatencyMs: latencyMs,
+			Backend:         "speedtest",
+			ServerID:        targetServer.ID,
+			ServerLocation:  targetServer.Name,
+			ServerName:      targetServer.Name,
+			ServerCountry:   targetServer.Country,
+			LatencyMs:       latencyMs,
 			TestDurationSec: time.Since(startTime).Seconds(),
-			Success: false,
-			Error: fmt.Errorf("download test failed: %w", err),
+			Success:         false,
+			Error:           fmt.Errorf("download test failed: %w", err),
 		}, err
 	}
 
@@ -303,16 +313,16 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 	err = targetServer.UploadTestContext(testCtx)
 	if err != nil {
 		return &TestResult{
-			Backend: "speedtest",
-			ServerID: targetServer.ID,
-			ServerLocation: targetServer.Name,
-			ServerName: targetServer.Name,
-			ServerCountry: targetServer.Country,
-			DownloadMbps: downloadMbps,
-			LatencyMs: latencyMs,
+			Backend:         "speedtest",
+			ServerID:        targetServer.ID,
+			ServerLocation:  targetServer.Name,
+			ServerName:      targetServer.Name,
+			ServerCountry:   targetServer.Country,
+			DownloadMbps:    downloadMbps,
+			LatencyMs:       latencyMs,
 			TestDurationSec: time.Since(startTime).Seconds(),
-			Success: false,
-			Error: fmt.Errorf("upload test failed: %w", err),
+			Success:         false,
+			Error:           fmt.Errorf("upload test failed: %w", err),
 		}, err
 	}
 
@@ -330,18 +340,17 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 	packetLossPct := targetServer.PacketLoss.LossPercent()
 
 	return &TestResult{
-		Backend: "speedtest",
-		ServerID: targetServer.ID,
-		ServerLocation: targetServer.Name,
-		ServerName: targetServer.Name,
-		ServerCountry: targetServer.Country,
-		DownloadMbps: downloadMbps,
-		UploadMbps: uploadMbps,
-		LatencyMs: latencyMs,
-		JitterMs: jitterMs,
-		PacketLossPct: packetLossPct,
+		Backend:         "speedtest",
+		ServerID:        targetServer.ID,
+		ServerLocation:  targetServer.Name,
+		ServerName:      targetServer.Name,
+		ServerCountry:   targetServer.Country,
+		DownloadMbps:    downloadMbps,
+		UploadMbps:      uploadMbps,
+		LatencyMs:       latencyMs,
+		JitterMs:        jitterMs,
+		PacketLossPct:   packetLossPct,
 		TestDurationSec: duration,
-		Success: true,
+		Success:         true,
 	}, nil
 }
-

@@ -9,12 +9,10 @@ require (
 	github.com/prometheus/client_golang v1.23.2
 	github.com/showwin/speedtest-go v1.7.10
 	go.opentelemetry.io/otel v1.38.0
-	gopkg.in/ddo/go-fast.v0 v0.0.0-20190807090025-2ab4a3dd618c
 	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
-	github.com/antonholmquist/jason v1.0.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bytedance/gopkg v0.1.3 // indirect
 	github.com/bytedance/sonic v1.14.2 // indirect
@@ -22,9 +20,6 @@ require (
 	github.com/cenkalti/backoff/v5 v5.0.3 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/cloudwego/base64x v0.1.6 // indirect
-	github.com/ddo/go-spin v0.0.0-20160718105357-ab0a40e623c0 // indirect
-	github.com/ddo/pick-json v0.0.0-20170207095303-c8760e09e0fe // indirect
-	github.com/ddo/rq v0.0.0-20190828174524-b3daa55fcaba // indirect
 	github.com/gabriel-vasile/mimetype v1.4.11 // indirect
 	github.com/gin-contrib/sse v1.1.0 // indirect
 	github.com/gin-gonic/gin v1.11.0 // indirect
@@ -63,7 +58,6 @@ require (
 	go.opentelemetry.io/otel/trace v1.38.0 // indirect
 	go.opentelemetry.io/proto/otlp v1.8.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
-	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/arch v0.22.0 // indirect
 	golang.org/x/crypto v0.43.0 // indirect
 	golang.org/x/mod v0.29.0 // indirect
@@ -76,7 +70,4 @@ require (
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20251029180050-ab9386a59fda // indirect
 	google.golang.org/grpc v1.76.0 // indirect
 	google.golang.org/protobuf v1.36.10 // indirect
-	gopkg.in/ddo/go-dlog.v2 v2.1.0 // indirect
-	gopkg.in/ddo/pick.v1 v1.2.2 // indirect
-	gopkg.in/ddo/request.v2 v2.0.0 // indirect
 )
