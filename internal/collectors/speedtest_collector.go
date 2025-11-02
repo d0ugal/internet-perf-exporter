@@ -126,16 +126,14 @@ func (sc *SpeedtestCollector) collect(ctx context.Context, backendCfg config.Bac
 	sc.metrics.DownloadSpeedMbps.With(labels).Set(result.DownloadMbps)
 	sc.metrics.UploadSpeedMbps.With(labels).Set(result.UploadMbps)
 
-	// Only set metrics if we have valid values (skip 0 to avoid false outage alerts)
+	// Only set latency if we have a valid value (skip 0 to avoid false outage alerts)
 	if result.LatencyMs > 0 {
 		sc.metrics.LatencyMs.With(labels).Observe(result.LatencyMs)
 	}
-	if result.JitterMs > 0 {
-		sc.metrics.JitterMs.With(labels).Set(result.JitterMs)
-	}
-	if result.PacketLossPct > 0 {
-		sc.metrics.PacketLossPct.With(labels).Set(result.PacketLossPct)
-	}
+	// Always set jitter and packet loss metrics when we have a test result
+	// This includes when the value is 0 (actual measurement), not just default values
+	sc.metrics.JitterMs.With(labels).Set(result.JitterMs)
+	sc.metrics.PacketLossPct.With(labels).Set(result.PacketLossPct)
 
 	sc.metrics.TestDurationSeconds.With(labels).Observe(result.TestDurationSec)
 
@@ -166,6 +164,8 @@ func (sc *SpeedtestCollector) collect(ctx context.Context, backendCfg config.Bac
 		"download_mbps", result.DownloadMbps,
 		"upload_mbps", result.UploadMbps,
 		"latency_ms", result.LatencyMs,
+		"jitter_ms", result.JitterMs,
+		"packet_loss_pct", result.PacketLossPct,
 		"duration_seconds", duration)
 
 	if collectorSpan != nil {
@@ -173,6 +173,8 @@ func (sc *SpeedtestCollector) collect(ctx context.Context, backendCfg config.Bac
 			attribute.Float64("download.mbps", result.DownloadMbps),
 			attribute.Float64("upload.mbps", result.UploadMbps),
 			attribute.Float64("latency.ms", result.LatencyMs),
+			attribute.Float64("jitter.ms", result.JitterMs),
+			attribute.Float64("packet_loss.pct", result.PacketLossPct),
 			attribute.Float64("duration.seconds", duration),
 		)
 		collectorSpan.AddEvent("collection_completed")
@@ -330,11 +332,9 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 	uploadMbps := targetServer.ULSpeed.Mbps()
 	duration := time.Since(startTime).Seconds()
 
-	// Extract jitter and packet loss from server if available
-	var jitterMs float64
-	if targetServer.Jitter > 0 {
-		jitterMs = float64(targetServer.Jitter.Milliseconds())
-	}
+	// Extract jitter and packet loss from server
+	// Always extract values (even if 0) since they represent actual measurements
+	jitterMs := float64(targetServer.Jitter.Milliseconds())
 
 	// Use the LossPercent() method to get packet loss percentage
 	packetLossPct := targetServer.PacketLoss.LossPercent()
