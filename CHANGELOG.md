@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/d0ugal/internet-perf-exporter/compare/v0.1.0...v0.1.1) (2025-11-02)
+
+
+### Bug Fixes
+
+* **speedtest:** always export jitter and packet loss metrics ([#17](https://github.com/d0ugal/internet-perf-exporter/issues/17)) ([ec933d8](https://github.com/d0ugal/internet-perf-exporter/commit/ec933d8337abb4b7fe77e32d34504c52bb9d8f3f))
+
 ## [0.1.0](https://github.com/d0ugal/internet-perf-exporter/compare/v0.0.1...v0.1.0) (2025-11-02)
 
 
