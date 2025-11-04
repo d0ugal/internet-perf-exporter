@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.1.2](https://github.com/d0ugal/internet-perf-exporter/compare/v0.1.1...v0.1.2) (2025-11-04)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to f26f940 ([a9b06b0](https://github.com/d0ugal/internet-perf-exporter/commit/a9b06b07d1c22a698a44c322f281c9c5098d0d60))
+* update google.golang.org/genproto/googleapis/api digest to f26f940 ([#19](https://github.com/d0ugal/internet-perf-exporter/issues/19)) ([08bf318](https://github.com/d0ugal/internet-perf-exporter/commit/08bf3189504477bddcb7cb6157fb49809106e17b))
+* update google.golang.org/genproto/googleapis/rpc digest to f26f940 ([#20](https://github.com/d0ugal/internet-perf-exporter/issues/20)) ([8027860](https://github.com/d0ugal/internet-perf-exporter/commit/802786038922a22b913e6622088611616f7816ad))
+* update module github.com/d0ugal/promexporter to v1.9.0 ([d2c30d4](https://github.com/d0ugal/internet-perf-exporter/commit/d2c30d41ae83ed175e69144e824d98c9b8f297ba))
+* update module go.opentelemetry.io/proto/otlp to v1.9.0 ([a6154a6](https://github.com/d0ugal/internet-perf-exporter/commit/a6154a6b84873b7a846597f9ef285dd17505f3e8))
+
 ## [0.1.1](https://github.com/d0ugal/internet-perf-exporter/compare/v0.1.0...v0.1.1) (2025-11-02)
 
 
