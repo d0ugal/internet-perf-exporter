@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/d0ugal/internet-perf-exporter/compare/v0.1.3...v0.1.4) (2025-11-05)
+
+
+### Bug Fixes
+
+* update dependency go to v1.25.4 ([b63a16f](https://github.com/d0ugal/internet-perf-exporter/commit/b63a16f873be8a04d947847c6f6f2e236e847b55))
+
 ## [0.1.3](https://github.com/d0ugal/internet-perf-exporter/compare/v0.1.2...v0.1.3) (2025-11-05)
 
 
