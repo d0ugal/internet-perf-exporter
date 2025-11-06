@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.6](https://github.com/d0ugal/internet-perf-exporter/compare/v0.1.5...v0.1.6) (2025-11-06)
+
+
+### Bug Fixes
+
+* **ci:** fix syntax errors in check-build-needed job ([6c1b482](https://github.com/d0ugal/internet-perf-exporter/commit/6c1b4827b0de1c5e2855b9eb026db560d45a85b4))
+* **ci:** fix syntax errors in check-build-needed job ([48eb2d1](https://github.com/d0ugal/internet-perf-exporter/commit/48eb2d1a69f14a0bcfcfe57c58cf5fa9f6debe47))
+
 ## [0.1.5](https://github.com/d0ugal/internet-perf-exporter/compare/v0.1.4...v0.1.5) (2025-11-06)
 
 
