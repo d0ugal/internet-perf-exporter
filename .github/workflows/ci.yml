@@ -23,7 +23,6 @@ jobs:
       with:
         fetch-depth: 0
         ref: ${{ github.ref }}
-        sha: ${{ github.sha }}
 
     - name: Set up Go 1.25.3
       uses: actions/setup-go@v6
@@ -54,7 +53,6 @@ jobs:
       with:
         fetch-depth: 0
         ref: ${{ github.ref }}
-        sha: ${{ github.sha }}
 
     - name: Run linting using Makefile
       run: make lint-only
@@ -71,7 +69,6 @@ jobs:
       with:
         fetch-depth: 0
         ref: ${{ github.ref }}
-        sha: ${{ github.sha }}
 
     - name: Set up Go 1.25.3
       uses: actions/setup-go@v6
@@ -103,7 +100,6 @@ jobs:
       with:
         fetch-depth: 0
         ref: ${{ github.ref }}
-        sha: ${{ github.sha }}
 
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
@@ -205,7 +201,6 @@ jobs:
       with:
         fetch-depth: 0
         ref: ${{ github.ref }}
-        sha: ${{ github.sha }}
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
@@ -235,7 +230,7 @@ jobs:
           VERSION=${LAST_TAG#v}
           # Count commits since last release
           COMMIT_COUNT=$(git rev-list --count ${LAST_TAG}..HEAD)
-        
+        fi
         
         DEV_TAG="v${VERSION}-dev.${COMMIT_COUNT}.${SHORT_SHA}"
         echo "dev_tag=${DEV_TAG}" >> $GITHUB_OUTPUT
