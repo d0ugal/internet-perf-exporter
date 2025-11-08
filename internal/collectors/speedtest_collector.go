@@ -109,7 +109,10 @@ func (sc *SpeedtestCollector) collect(ctx context.Context, backendCfg config.Bac
 
 	if err != nil {
 		slog.Error("Speedtest collection failed", "error", err)
-		sc.metrics.CollectionFailed.WithLabelValues("speedtest", fmt.Sprintf("%d", interval)).Inc()
+		sc.metrics.CollectionFailed.With(prometheus.Labels{
+			"backend":          "speedtest",
+			"interval_seconds": fmt.Sprintf("%d", interval),
+		}).Inc()
 		if collectorSpan != nil {
 			collectorSpan.RecordError(err)
 		}
@@ -141,7 +144,10 @@ func (sc *SpeedtestCollector) collect(ctx context.Context, backendCfg config.Bac
 		sc.metrics.TestSuccess.With(labels).Set(1)
 	} else {
 		sc.metrics.TestSuccess.With(labels).Set(0)
-		sc.metrics.TestFailedTotal.WithLabelValues("speedtest", "test_failed").Inc()
+		sc.metrics.TestFailedTotal.With(prometheus.Labels{
+			"backend": "speedtest",
+			"reason":  "test_failed",
+		}).Inc()
 	}
 
 	// Server info
@@ -155,10 +161,16 @@ func (sc *SpeedtestCollector) collect(ctx context.Context, backendCfg config.Bac
 	sc.metrics.ServerInfo.With(infoLabels).Set(1)
 
 	// Collection metrics
-	sc.metrics.CollectionDuration.WithLabelValues("speedtest", fmt.Sprintf("%d", interval)).Set(duration)
-	sc.metrics.CollectionSuccess.WithLabelValues("speedtest", fmt.Sprintf("%d", interval)).Inc()
-	sc.metrics.CollectionTimestampGauge.WithLabelValues("speedtest", fmt.Sprintf("%d", interval)).Set(float64(time.Now().Unix()))
-	sc.metrics.CollectionIntervalGauge.WithLabelValues("speedtest").Set(float64(interval))
+	collectionLabels := prometheus.Labels{
+		"backend":          "speedtest",
+		"interval_seconds": fmt.Sprintf("%d", interval),
+	}
+	sc.metrics.CollectionDuration.With(collectionLabels).Set(duration)
+	sc.metrics.CollectionSuccess.With(collectionLabels).Inc()
+	sc.metrics.CollectionTimestampGauge.With(collectionLabels).Set(float64(time.Now().Unix()))
+	sc.metrics.CollectionIntervalGauge.With(prometheus.Labels{
+		"backend": "speedtest",
+	}).Set(float64(interval))
 
 	slog.Info("Speedtest collection completed",
 		"download_mbps", result.DownloadMbps,
