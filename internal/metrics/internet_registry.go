@@ -156,7 +156,6 @@ func NewInternetRegistry(baseRegistry *promexporter_metrics.Registry) *InternetR
 	}
 
 	// Add metric metadata for UI
-	registry.AddMetricInfo("internet_perf_exporter_info", "Information about the internet performance exporter", []string{"version", "commit", "build_date"})
 	registry.AddMetricInfo("internet_perf_exporter_download_speed_mbps", "Download speed in Mbps", []string{"backend", "server_id", "server_location"})
 	registry.AddMetricInfo("internet_perf_exporter_upload_speed_mbps", "Upload speed in Mbps", []string{"backend", "server_id", "server_location"})
 	registry.AddMetricInfo("internet_perf_exporter_latency_ms", "Latency in milliseconds", []string{"backend", "server_id", "server_location"})
