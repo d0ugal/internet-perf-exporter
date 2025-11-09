@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.6](https://github.com/d0ugal/internet-perf-exporter/compare/v0.1.5...v0.1.6) (2025-11-09)
+
+
+### Bug Fixes
+
+* **ci:** fix syntax errors in check-build-needed job ([6c1b482](https://github.com/d0ugal/internet-perf-exporter/commit/6c1b4827b0de1c5e2855b9eb026db560d45a85b4))
+* **ci:** fix syntax errors in check-build-needed job ([48eb2d1](https://github.com/d0ugal/internet-perf-exporter/commit/48eb2d1a69f14a0bcfcfe57c58cf5fa9f6debe47))
+* update module github.com/d0ugal/promexporter to v1.11.2 ([#46](https://github.com/d0ugal/internet-perf-exporter/issues/46)) ([0a405ac](https://github.com/d0ugal/internet-perf-exporter/commit/0a405ac2570e3c9a0d6ae922d20e6091bf35d382))
+* update module github.com/quic-go/quic-go to v0.56.0 ([#40](https://github.com/d0ugal/internet-perf-exporter/issues/40)) ([8bfc910](https://github.com/d0ugal/internet-perf-exporter/commit/8bfc91049b0881c60000fb7f8233fd561be0555e))
+* update module golang.org/x/arch to v0.23.0 ([#42](https://github.com/d0ugal/internet-perf-exporter/issues/42)) ([9ecbd4f](https://github.com/d0ugal/internet-perf-exporter/commit/9ecbd4fd79bf30bfad70a3d97e56dd7f94a2751a))
+* update module golang.org/x/sys to v0.38.0 ([#43](https://github.com/d0ugal/internet-perf-exporter/issues/43)) ([546d19e](https://github.com/d0ugal/internet-perf-exporter/commit/546d19ecd066b277ed83542601a883271a56b2aa))
+
 ## [0.1.5](https://github.com/d0ugal/internet-perf-exporter/compare/v0.1.4...v0.1.5) (2025-11-06)
 
 
