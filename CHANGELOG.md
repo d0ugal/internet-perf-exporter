@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.7](https://github.com/d0ugal/internet-perf-exporter/compare/v0.1.6...v0.1.7) (2025-11-10)
+
+
+### Bug Fixes
+
+* Remove duplicate info metric registration ([#47](https://github.com/d0ugal/internet-perf-exporter/issues/47)) ([c05419c](https://github.com/d0ugal/internet-perf-exporter/commit/c05419c78b8aad4e34282a81eeb38995b99e0973))
+* update module github.com/d0ugal/promexporter to v1.12.0 ([#49](https://github.com/d0ugal/internet-perf-exporter/issues/49)) ([e851b96](https://github.com/d0ugal/internet-perf-exporter/commit/e851b96fd46cffc37e600a612a93a579c6cc2336))
+
 ## [0.1.6](https://github.com/d0ugal/internet-perf-exporter/compare/v0.1.5...v0.1.6) (2025-11-09)
 
 
