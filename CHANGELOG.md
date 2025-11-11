@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.2.0](https://github.com/d0ugal/internet-perf-exporter/compare/v0.1.8...v0.2.0) (2025-11-11)
+
+
+### Features
+
+* **ci:** use RELEASE_TOKEN secret for release-please ([f5e4cbe](https://github.com/d0ugal/internet-perf-exporter/commit/f5e4cbed9f479ce50bc8d84a522e7d9478b498f5))
+* **ci:** use RELEASE_TOKEN secret for release-please ([15add9a](https://github.com/d0ugal/internet-perf-exporter/commit/15add9a3902ff349c54c40d4a35e492660149ff3))
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to 95abcf5 ([#55](https://github.com/d0ugal/internet-perf-exporter/issues/55)) ([3a25181](https://github.com/d0ugal/internet-perf-exporter/commit/3a251814cd587f58fb86663943a8639e5521b3f0))
+* update module github.com/d0ugal/promexporter to v1.12.1 ([#53](https://github.com/d0ugal/internet-perf-exporter/issues/53)) ([15d3d37](https://github.com/d0ugal/internet-perf-exporter/commit/15d3d375f6f6dc743f524062c14f0c5bdd25c971))
+* update module golang.org/x/crypto to v0.44.0 ([#57](https://github.com/d0ugal/internet-perf-exporter/issues/57)) ([9ab0d3a](https://github.com/d0ugal/internet-perf-exporter/commit/9ab0d3a24e76bab2fc3ef58791195e45b4ffe4f4))
+
 ## [0.1.8](https://github.com/d0ugal/internet-perf-exporter/compare/v0.1.7...v0.1.8) (2025-11-11)
 
 
