@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.2.0](https://github.com/d0ugal/internet-perf-exporter/compare/v0.1.8...v0.2.0) (2025-11-12)
+
+
+### Features
+
+* **ci:** ensure CI runs for release-please branches and PRs ([40d2168](https://github.com/d0ugal/internet-perf-exporter/commit/40d216867c221f7784dbde04d39f7d122ed8ac46))
+* **ci:** ensure CI runs for release-please branches and PRs ([1645ae2](https://github.com/d0ugal/internet-perf-exporter/commit/1645ae2da996a74cba636485630af224e60b27df))
+* **ci:** use RELEASE_TOKEN secret for release-please ([f5e4cbe](https://github.com/d0ugal/internet-perf-exporter/commit/f5e4cbed9f479ce50bc8d84a522e7d9478b498f5))
+* **ci:** use RELEASE_TOKEN secret for release-please ([15add9a](https://github.com/d0ugal/internet-perf-exporter/commit/15add9a3902ff349c54c40d4a35e492660149ff3))
+
+
+### Bug Fixes
+
+* **ci:** check github.head_ref for release-please PR detection ([9669f8f](https://github.com/d0ugal/internet-perf-exporter/commit/9669f8f29f7666062f3835ced8a9eeebaceae45a))
+* update google.golang.org/genproto/googleapis/api digest to 95abcf5 ([#55](https://github.com/d0ugal/internet-perf-exporter/issues/55)) ([3a25181](https://github.com/d0ugal/internet-perf-exporter/commit/3a251814cd587f58fb86663943a8639e5521b3f0))
+* update module github.com/d0ugal/promexporter to v1.12.1 ([#53](https://github.com/d0ugal/internet-perf-exporter/issues/53)) ([15d3d37](https://github.com/d0ugal/internet-perf-exporter/commit/15d3d375f6f6dc743f524062c14f0c5bdd25c971))
+* update module github.com/d0ugal/promexporter to v1.12.2 ([#60](https://github.com/d0ugal/internet-perf-exporter/issues/60)) ([f36e97e](https://github.com/d0ugal/internet-perf-exporter/commit/f36e97e652a2db475b3b6d2dd832566672f3dfbc))
+* update module golang.org/x/crypto to v0.44.0 ([#57](https://github.com/d0ugal/internet-perf-exporter/issues/57)) ([9ab0d3a](https://github.com/d0ugal/internet-perf-exporter/commit/9ab0d3a24e76bab2fc3ef58791195e45b4ffe4f4))
+* update module golang.org/x/net to v0.47.0 ([#58](https://github.com/d0ugal/internet-perf-exporter/issues/58)) ([c32886c](https://github.com/d0ugal/internet-perf-exporter/commit/c32886caf2900fcf7a54aaccd3d1d68089b0c6d2))
+
 ## [0.1.8](https://github.com/d0ugal/internet-perf-exporter/compare/v0.1.7...v0.1.8) (2025-11-11)
 
 
