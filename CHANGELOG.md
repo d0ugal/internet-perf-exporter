@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.2](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.1...v0.2.2) (2025-11-18)
+
+
+### Bug Fixes
+
+* update module github.com/prometheus/common to v0.67.3 ([#68](https://github.com/d0ugal/internet-perf-exporter/issues/68)) ([9b7b17e](https://github.com/d0ugal/internet-perf-exporter/commit/9b7b17e602b44d2203a303f65bd27861245d26ef))
+* update module google.golang.org/grpc to v1.77.0 ([#66](https://github.com/d0ugal/internet-perf-exporter/issues/66)) ([92b7de2](https://github.com/d0ugal/internet-perf-exporter/commit/92b7de225dd8ac0dff681f898a25f74751ec8a1c))
+
 ## [0.2.1](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.0...v0.2.1) (2025-11-12)
 
 
