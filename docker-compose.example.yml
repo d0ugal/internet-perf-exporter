@@ -35,5 +35,3 @@ services:
 #       - INTERNET_PERF_EXPORTER_FAST_ENABLED=true
 #       - INTERNET_PERF_EXPORTER_FAST_INTERVAL=1h
 #     restart: unless-stopped
-
-
