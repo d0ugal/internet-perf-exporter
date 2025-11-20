@@ -37,4 +37,3 @@ jobs:
           commit_options: '--no-verify --no-gpg-sign'
           skip_dirty_check: false
 
-

@@ -22,14 +22,14 @@ backends:
     enabled: true
     interval: "1h"      # Run test every hour
     timeout: "5m"       # Test timeout
-    
+
     speedtest:
       # Optional: Select specific server by ID (0 = auto-select closest)
       # server_id: 12345
-      
+
       # Optional: Filter by server name
       # server_name: "Example ISP"
-      
+
       # Optional: Filter by server country
       # server_country: "US"
 
@@ -39,7 +39,7 @@ backends:
     enabled: true
     interval: "1h"      # Run test every hour
     timeout: "5m"       # Test timeout
-    
+
     fast:
       # Optional: Number of retries on failure (default: 1)
       retries: 1
@@ -52,7 +52,7 @@ backends:
 #     enabled: true
 #     interval: "15m"
 #     timeout: "2m"
-#   
+#
 #   fast_daily:
 #     type: "fast"
 #     enabled: true
