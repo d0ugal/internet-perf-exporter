@@ -35,7 +35,10 @@ func (c *Client) runUploadTest(ctx context.Context, maxTime time.Duration) (floa
 	var maxSpeedBps float64
 	
 	done := make(chan struct{})
-	speeds := make([]float64, 0)
+	// Limit speeds slice to prevent unbounded memory growth
+	// We only need recent measurements for averaging, so keep a reasonable buffer
+	const maxSpeedEntries = 100
+	speeds := make([]float64, 0, maxSpeedEntries)
 
 	// Payload size for upload (10MB initial)
 	payloadSize := 10 * 1024 * 1024
@@ -101,6 +104,13 @@ func (c *Client) runUploadTest(ctx context.Context, maxTime time.Duration) (floa
 						speedBps := float64(payloadSize*8) / uploadDuration.Seconds()
 						
 						mu.Lock()
+						// Store measurements with bounded growth
+						// Keep only recent measurements to prevent memory leaks
+						if len(speeds) >= maxSpeedEntries {
+							// Remove oldest entry (FIFO)
+							copy(speeds, speeds[1:])
+							speeds = speeds[:len(speeds)-1]
+						}
 						speeds = append(speeds, speedBps)
 						if speedBps > maxSpeedBps {
 							maxSpeedBps = speedBps

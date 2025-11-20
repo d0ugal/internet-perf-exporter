@@ -33,7 +33,10 @@ func (c *Client) runDownloadTest(ctx context.Context, maxTime time.Duration) (fl
 	var maxSpeedBps float64
 
 	done := make(chan struct{})
-	speeds := make([]float64, 0)
+	// Limit speeds slice to prevent unbounded memory growth
+	// We only need recent measurements for averaging, so keep a reasonable buffer
+	const maxSpeedEntries = 100
+	speeds := make([]float64, 0, maxSpeedEntries)
 
 	// Start multiple concurrent downloads
 	connections := 8
@@ -49,6 +52,8 @@ func (c *Client) runDownloadTest(ctx context.Context, maxTime time.Duration) (fl
 
 			startTime := time.Now()
 			var totalBytes int64
+			lastMeasurementTime := time.Now()
+			const measurementInterval = 200 * time.Millisecond // Throttle measurements to reduce memory pressure
 
 			for time.Since(startTime) < maxTime {
 				select {
@@ -98,17 +103,29 @@ func (c *Client) runDownloadTest(ctx context.Context, maxTime time.Duration) (fl
 							n, err := resp.Body.Read(buffer)
 							totalBytes += int64(n)
 
-							elapsed := time.Since(startTime).Seconds()
-							if elapsed > 0 {
-								speedBps := float64(totalBytes*8) / elapsed // bits per second
+							// Throttle measurements to reduce memory pressure and lock contention
+							// Only record measurements periodically, not on every read
+							now := time.Now()
+							if now.Sub(lastMeasurementTime) >= measurementInterval {
+								elapsed := time.Since(startTime).Seconds()
+								if elapsed > 0 {
+									speedBps := float64(totalBytes*8) / elapsed // bits per second
 
-								mu.Lock()
-								if speedBps > maxSpeedBps {
-									maxSpeedBps = speedBps
+									mu.Lock()
+									if speedBps > maxSpeedBps {
+										maxSpeedBps = speedBps
+									}
+									// Store periodic measurements with bounded growth
+									// Keep only recent measurements to prevent memory leaks
+									if len(speeds) >= maxSpeedEntries {
+										// Remove oldest entry (FIFO)
+										copy(speeds, speeds[1:])
+										speeds = speeds[:len(speeds)-1]
+									}
+									speeds = append(speeds, speedBps)
+									mu.Unlock()
 								}
-								// Store periodic measurements
-								speeds = append(speeds, speedBps)
-								mu.Unlock()
+								lastMeasurementTime = now
 							}
 
 							if err == io.EOF {
