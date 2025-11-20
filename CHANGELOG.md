@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.2.4](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.3...v0.2.4) (2025-11-20)
+
+
+### Bug Fixes
+
+* **ci:** prevent dev-build from running on PRs and fix YAML syntax ([d7ead8d](https://github.com/d0ugal/internet-perf-exporter/commit/d7ead8da0887c595101c2e5d1a607a4a997aeacd))
+* correct indentation and remove trailing spaces ([c8b0b9e](https://github.com/d0ugal/internet-perf-exporter/commit/c8b0b9e006b552bf9a89a8b672af020abe2eae39))
+* correct script content indentation in run blocks ([036ea75](https://github.com/d0ugal/internet-perf-exporter/commit/036ea75a4200582a086229935e474915afa5f343))
+* correct script line indentation ([7c7d299](https://github.com/d0ugal/internet-perf-exporter/commit/7c7d29955dd4549ccbe824c1fc1376e284cd5c9e))
+* correct step indentation and remove trailing spaces ([eecae36](https://github.com/d0ugal/internet-perf-exporter/commit/eecae362f57256708641134f59bd8e5d2c299ffc))
+* prevent memory leaks from unbounded speeds slice growth ([465964f](https://github.com/d0ugal/internet-perf-exporter/commit/465964f971bb2351d44689818fbb22a4bf99b9b1))
+* replace workflow with working version from brother-exporter ([9f69c46](https://github.com/d0ugal/internet-perf-exporter/commit/9f69c4684d5fb85d5d54b7ef60cdb1847b6bd73a))
+* resolve YAML linting issues ([b677e83](https://github.com/d0ugal/internet-perf-exporter/commit/b677e835ad33a10fcf77f39ee27331a256491ccd))
+* resolve YAML linting issues ([3f7f944](https://github.com/d0ugal/internet-perf-exporter/commit/3f7f944c657d513cc4d16fd474eba24d7f68fc3d))
+* update module github.com/d0ugal/promexporter to v1.13.3 ([#75](https://github.com/d0ugal/internet-perf-exporter/issues/75)) ([b8ab50b](https://github.com/d0ugal/internet-perf-exporter/commit/b8ab50b27b29276fce36d6c79d90ce7a8456dc55))
+* update module github.com/d0ugal/promexporter to v1.13.4 ([5847723](https://github.com/d0ugal/internet-perf-exporter/commit/5847723e69899ea1776e709b7a8529c71ae0eb62))
+* update module github.com/d0ugal/promexporter to v1.13.4 ([937deed](https://github.com/d0ugal/internet-perf-exporter/commit/937deed5f1afbce372399927e648f77c7936e70f))
+* update module golang.org/x/crypto to v0.45.0 ([#72](https://github.com/d0ugal/internet-perf-exporter/issues/72)) ([9c601a2](https://github.com/d0ugal/internet-perf-exporter/commit/9c601a25831a2a1bf6ee3d66e99cf56ff9e8b4c3))
+
 ## [0.2.3](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.2...v0.2.3) (2025-11-18)
 
 
