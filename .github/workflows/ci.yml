@@ -18,8 +18,8 @@ jobs:
 
     steps:
       - name: Checkout code
-      uses: actions/checkout@v5
-      with:
+        uses: actions/checkout@v5
+        with:
         fetch-depth: 0
         ref: ${{ github.ref }}
 
@@ -47,8 +47,8 @@ jobs:
 
     steps:
       - name: Checkout code
-      uses: actions/checkout@v5
-      with:
+        uses: actions/checkout@v5
+        with:
         fetch-depth: 0
         ref: ${{ github.ref }}
 
@@ -62,8 +62,8 @@ jobs:
 
     steps:
       - name: Checkout code
-      uses: actions/checkout@v5
-      with:
+        uses: actions/checkout@v5
+        with:
         fetch-depth: 0
         ref: ${{ github.ref }}
 
@@ -116,14 +116,14 @@ jobs:
       should-build: ${{ steps.check.outputs.should-build }}
     steps:
       - name: Checkout code
-      uses: actions/checkout@v5
-      with:
+        uses: actions/checkout@v5
+        with:
         fetch-depth: 0
         ref: ${{ github.ref }}
 
     - name: Check if build should be skipped
-      id: check
-      run: |
+        id: check
+        run: |
         # Only check for push events (dev-build only runs on these)
         if [ "${{ github.event_name }}" != "push" ]; then
           echo "should-build=false" >> $GITHUB_OUTPUT
@@ -132,13 +132,13 @@ jobs:
         
         # Get the current commit SHA
         CURRENT_SHA="${{ github.sha }}"
-        
+
         # Get commit message from git log
         COMMIT_MSG=$(git log -1 --format="%s" "$CURRENT_SHA" 2>/dev/null || echo "")
-        
+
         echo "Checking commit: $CURRENT_SHA"
         echo "Commit message: $COMMIT_MSG"
-        
+
         # Check if it's a release commit (pattern: "chore(main): release" or similar)
         # BUT: Always run CI for release-please branches and PRs
         if echo "$COMMIT_MSG" | grep -qiE "^(chore|release|version).*(release|version|changelog)"; then
@@ -158,12 +158,12 @@ jobs:
           echo "should-build=false" >> $GITHUB_OUTPUT
           exit 0
         fi
-        
+
         # For push events, check changed files against base branch
         # Get the base commit (previous commit for single commits, or base of range)
         BASE_SHA="${{ github.event.before }}"
         HEAD_SHA="${{ github.event.after }}"
-        
+
         if [ -z "$BASE_SHA" ] || [ "$BASE_SHA" = "0000000000000000000000000000000000000000" ]; then
           # Initial commit or no base, check all files
           CHANGED_FILES=$(git ls-tree -r --name-only HEAD)
@@ -171,19 +171,19 @@ jobs:
           # Get list of changed files
           CHANGED_FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
         fi
-        
+
         if [ -z "$CHANGED_FILES" ]; then
           echo "No changed files detected, skipping build"
           echo "should-build=false" >> $GITHUB_OUTPUT
           exit 0
         fi
-        
+
         # Documentation file patterns to ignore
         DOC_PATTERNS="^README\.md$|^CHANGELOG\.md$|^docs/|\.md$|^LICENSE"
-        
+
         # Check if all changed files are documentation
         NON_DOC_FILES=$(echo "$CHANGED_FILES" | grep -vE "$DOC_PATTERNS" || true)
-        
+
         if [ -z "$NON_DOC_FILES" ]; then
           echo "Skip reason: Only documentation files changed"
           echo "Changed files:"
@@ -274,4 +274,3 @@ jobs:
             VERSION=${{ steps.meta.outputs.dev_tag }}
             COMMIT=${{ github.sha }}
             BUILD_DATE=${{ github.event.head_commit.timestamp }}
-
