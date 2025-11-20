@@ -137,7 +137,7 @@ jobs:
           COMMIT_MSG=$(git log -1 --format="%s" "$CURRENT_SHA" 2>/dev/null || echo "")
 
           echo "Checking commit: $CURRENT_SHA"
-        echo "Commit message: $COMMIT_MSG"
+          echo "Commit message: $COMMIT_MSG"
 
           # Check if it's a release commit (pattern: "chore(main): release" or similar)
           # BUT: Always run CI for release-please branches and PRs
