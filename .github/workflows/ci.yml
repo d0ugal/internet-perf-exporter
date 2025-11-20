@@ -121,16 +121,16 @@ jobs:
         fetch-depth: 0
         ref: ${{ github.ref }}
 
-    - name: Check if build should be skipped
+      - name: Check if build should be skipped
         id: check
         run: |
-        # Only check for push events (dev-build only runs on these)
-        if [ "${{ github.event_name }}" != "push" ]; then
-          echo "should-build=false" >> $GITHUB_OUTPUT
-          exit 0
-        fi
-        
-        # Get the current commit SHA
+          # Only check for push events (dev-build only runs on these)
+          if [ "${{ github.event_name }}" != "push" ]; then
+            echo "should-build=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Get the current commit SHA
         CURRENT_SHA="${{ github.sha }}"
 
         # Get commit message from git log
