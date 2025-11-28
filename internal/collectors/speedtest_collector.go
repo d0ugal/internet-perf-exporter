@@ -291,7 +291,7 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 	if err != nil {
 		// Reset DataManager even on error to prevent memory accumulation
 		if targetServer.Context != nil && targetServer.Context.Manager != nil {
-			targetServer.Context.Manager.Reset()
+			targetServer.Context.Reset()
 		}
 		return &TestResult{
 			Backend:         "speedtest",
@@ -310,7 +310,7 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 
 	// Reset DataManager to clear accumulated chunks from ping test
 	if targetServer.Context != nil && targetServer.Context.Manager != nil {
-		targetServer.Context.Manager.Reset()
+		targetServer.Context.Reset()
 	}
 
 	// Run download test with context
@@ -318,7 +318,7 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 	if err != nil {
 		// Reset DataManager even on error to prevent memory accumulation
 		if targetServer.Context != nil && targetServer.Context.Manager != nil {
-			targetServer.Context.Manager.Reset()
+			targetServer.Context.Reset()
 		}
 		return &TestResult{
 			Backend:         "speedtest",
@@ -338,7 +338,7 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 
 	// Reset DataManager to clear accumulated chunks from download test
 	if targetServer.Context != nil && targetServer.Context.Manager != nil {
-		targetServer.Context.Manager.Reset()
+		targetServer.Context.Reset()
 	}
 
 	// Run upload test with context
@@ -346,7 +346,7 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 	if err != nil {
 		// Reset DataManager even on error to prevent memory accumulation
 		if targetServer.Context != nil && targetServer.Context.Manager != nil {
-			targetServer.Context.Manager.Reset()
+			targetServer.Context.Reset()
 		}
 		return &TestResult{
 			Backend:         "speedtest",
@@ -376,7 +376,7 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 	// Reset DataManager to clear accumulated chunks from upload test
 	// This prevents memory accumulation across multiple test runs
 	if targetServer.Context != nil && targetServer.Context.Manager != nil {
-		targetServer.Context.Manager.Reset()
+		targetServer.Context.Reset()
 	}
 
 	return &TestResult{
