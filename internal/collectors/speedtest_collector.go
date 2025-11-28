@@ -289,6 +289,10 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 		latency = result
 	})
 	if err != nil {
+		// Reset DataManager even on error to prevent memory accumulation
+		if targetServer.Context != nil && targetServer.Context.Manager != nil {
+			targetServer.Context.Manager.Reset()
+		}
 		return &TestResult{
 			Backend:         "speedtest",
 			ServerID:        targetServer.ID,
@@ -304,9 +308,18 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 
 	latencyMs := float64(latency.Milliseconds())
 
+	// Reset DataManager to clear accumulated chunks from ping test
+	if targetServer.Context != nil && targetServer.Context.Manager != nil {
+		targetServer.Context.Manager.Reset()
+	}
+
 	// Run download test with context
 	err = targetServer.DownloadTestContext(testCtx)
 	if err != nil {
+		// Reset DataManager even on error to prevent memory accumulation
+		if targetServer.Context != nil && targetServer.Context.Manager != nil {
+			targetServer.Context.Manager.Reset()
+		}
 		return &TestResult{
 			Backend:         "speedtest",
 			ServerID:        targetServer.ID,
@@ -323,9 +336,18 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 	// Use the ByteRate.Mbps() method for accurate conversion
 	downloadMbps := targetServer.DLSpeed.Mbps()
 
+	// Reset DataManager to clear accumulated chunks from download test
+	if targetServer.Context != nil && targetServer.Context.Manager != nil {
+		targetServer.Context.Manager.Reset()
+	}
+
 	// Run upload test with context
 	err = targetServer.UploadTestContext(testCtx)
 	if err != nil {
+		// Reset DataManager even on error to prevent memory accumulation
+		if targetServer.Context != nil && targetServer.Context.Manager != nil {
+			targetServer.Context.Manager.Reset()
+		}
 		return &TestResult{
 			Backend:         "speedtest",
 			ServerID:        targetServer.ID,
@@ -350,6 +372,12 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 
 	// Use the LossPercent() method to get packet loss percentage
 	packetLossPct := targetServer.PacketLoss.LossPercent()
+
+	// Reset DataManager to clear accumulated chunks from upload test
+	// This prevents memory accumulation across multiple test runs
+	if targetServer.Context != nil && targetServer.Context.Manager != nil {
+		targetServer.Context.Manager.Reset()
+	}
 
 	return &TestResult{
 		Backend:         "speedtest",
