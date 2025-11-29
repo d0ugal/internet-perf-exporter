@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.8](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.7...v0.2.8) (2025-11-29)
+
+
+### Bug Fixes
+
+* reset DataManager after each speedtest phase to prevent memory leak ([6fbb906](https://github.com/d0ugal/internet-perf-exporter/commit/6fbb9062f56e8b28ba3d4eb597b2b0d71989087a))
+* update module github.com/d0ugal/promexporter to v1.13.8 ([8bf6258](https://github.com/d0ugal/internet-perf-exporter/commit/8bf62583f13140c100cbbdd4272886384173cd78))
+* update module github.com/goccy/go-yaml to v1.19.0 ([3870ba0](https://github.com/d0ugal/internet-perf-exporter/commit/3870ba060f151e49a04ffe27dea31992f38982c1))
+
 ## [0.2.7](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.6...v0.2.7) (2025-11-26)
 
 
