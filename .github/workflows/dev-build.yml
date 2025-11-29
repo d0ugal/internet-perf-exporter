@@ -7,6 +7,8 @@ on:
       - CHANGELOG.md
       - '**.md'
       - LICENSE
+      - '**/*.example.yml'
+      - '**/*.example.yaml'
 
 env:
   REGISTRY: ghcr.io
@@ -162,4 +164,5 @@ jobs:
             VERSION=${{ steps.meta.outputs.dev_tag }}
             COMMIT=${{ github.sha }}
             BUILD_DATE=${{ github.event.head_commit.timestamp }}
+
 
