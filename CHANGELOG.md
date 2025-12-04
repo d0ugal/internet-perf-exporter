@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.11](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.10...v0.2.11) (2025-12-04)
+
+
+### Bug Fixes
+
+* **workflows:** fix workflow syntax errors, revert Alpine, and enable PR builds ([c770072](https://github.com/d0ugal/internet-perf-exporter/commit/c7700722afba04e4ce0a2eb9cd9f3b0ffcc28c21))
+
 ## [0.2.10](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.9...v0.2.10) (2025-12-04)
 
 
