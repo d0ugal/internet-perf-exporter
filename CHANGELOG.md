@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.12](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.11...v0.2.12) (2025-12-09)
+
+
+### Bug Fixes
+
+* **ci:** add GOMODCACHE env var to fix permission denied error ([42f5cf2](https://github.com/d0ugal/internet-perf-exporter/commit/42f5cf2a15dc53fe2ee61bdd0deaa6e53eb0b4cd))
+* update module golang.org/x/crypto to v0.46.0 ([eb1f180](https://github.com/d0ugal/internet-perf-exporter/commit/eb1f18024f84a0b1f6f643ba73cf6d81de51012e))
+* update module golang.org/x/net to v0.48.0 ([bd25355](https://github.com/d0ugal/internet-perf-exporter/commit/bd253555a0c96c419e4f7904aa4535a484994237))
+* update module golang.org/x/sys to v0.39.0 ([6083448](https://github.com/d0ugal/internet-perf-exporter/commit/60834482675d61d8eea6952518a4e5ad0b627156))
+* update module golang.org/x/text to v0.32.0 ([8e672a2](https://github.com/d0ugal/internet-perf-exporter/commit/8e672a2a0cc58c760d1e973f6a5455c985e13b2d))
+* update opentelemetry-go monorepo to v1.39.0 ([ec68da6](https://github.com/d0ugal/internet-perf-exporter/commit/ec68da6f0c02744fc544556eb76f8ac0af4a63e7))
+* update opentelemetry-go-contrib monorepo to v0.64.0 ([ee6785f](https://github.com/d0ugal/internet-perf-exporter/commit/ee6785f050e2b90f5973db95598d0783a6eefbbd))
+
 ## [0.2.11](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.10...v0.2.11) (2025-12-04)
 
 
