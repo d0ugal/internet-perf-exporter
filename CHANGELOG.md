@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.13](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.12...v0.2.13) (2025-12-12)
+
+
+### Bug Fixes
+
+* update module github.com/d0ugal/promexporter to v1.14.4 ([8c45f13](https://github.com/d0ugal/internet-perf-exporter/commit/8c45f1398da3806cc4b919584c9e0bda877eff2e))
+* update module google.golang.org/protobuf to v1.36.11 ([127b5da](https://github.com/d0ugal/internet-perf-exporter/commit/127b5da7568701cc7b5be5e3b7c52236bd398b24))
+
 ## [0.2.12](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.11...v0.2.12) (2025-12-09)
 
 
