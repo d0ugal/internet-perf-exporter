@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.15](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.14...v0.2.15) (2025-12-17)
+
+
+### Bug Fixes
+
+* update module github.com/goccy/go-yaml to v1.19.1 ([2a62d63](https://github.com/d0ugal/internet-perf-exporter/commit/2a62d6322050c77e1f9da58c70878d14bac1c573))
+
 ## [0.2.14](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.13...v0.2.14) (2025-12-14)
 
 
