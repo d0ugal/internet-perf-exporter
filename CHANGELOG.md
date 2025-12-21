@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.18](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.17...v0.2.18) (2025-12-21)
+
+
+### Bug Fixes
+
+* update module github.com/go-playground/validator/v10 to v10.30.0 ([f39b14f](https://github.com/d0ugal/internet-perf-exporter/commit/f39b14fedca90d875b0f1d4519e6249711e8cd43))
+
 ## [0.2.17](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.16...v0.2.17) (2025-12-21)
 
 
