@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.17](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.16...v0.2.17) (2025-12-21)
+
+
+### Bug Fixes
+
+* update module github.com/d0ugal/promexporter to v1.14.8 ([9cabf77](https://github.com/d0ugal/internet-perf-exporter/commit/9cabf773806f460837c3fb671b2bb1314be79fb0))
+* update module github.com/quic-go/quic-go to v0.58.0 ([a8bf574](https://github.com/d0ugal/internet-perf-exporter/commit/a8bf574ef92b56c454f39df4f0c4985cdc8ef02a))
+
 ## [0.2.16](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.15...v0.2.16) (2025-12-20)
 
 
