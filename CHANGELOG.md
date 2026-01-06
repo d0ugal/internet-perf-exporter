@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.25](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.24...v0.2.25) (2026-01-06)
+
+
+### Bug Fixes
+
+* update module github.com/d0ugal/promexporter to v1.14.13 ([4caea65](https://github.com/d0ugal/internet-perf-exporter/commit/4caea659208a6a554d078065dd34e8f5e2d8933e))
+* update module github.com/prometheus/common to v0.67.5 ([14ca47b](https://github.com/d0ugal/internet-perf-exporter/commit/14ca47bd03c7dd23ee1d04d9b53bbee5c8596002))
+
 ## [0.2.24](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.23...v0.2.24) (2025-12-27)
 
 
