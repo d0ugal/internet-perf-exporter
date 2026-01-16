@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.31](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.30...v0.2.31) (2026-01-16)
+
+
+### Bug Fixes
+
+* update dependency go to v1.25.6 ([af72c24](https://github.com/d0ugal/internet-perf-exporter/commit/af72c244007b1f13de4c16d7739986b24ebf367d))
+* update module github.com/klauspost/compress to v1.18.3 ([e713eb7](https://github.com/d0ugal/internet-perf-exporter/commit/e713eb77d1e0b634a54afa8e2a78cc4f808cf829))
+
 ## [0.2.30](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.29...v0.2.30) (2026-01-14)
 
 
