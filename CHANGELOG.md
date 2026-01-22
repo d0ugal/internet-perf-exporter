@@ -1,5 +1,35 @@
 # Changelog
 
+## [0.2.32](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.31...v0.2.32) (2026-01-17)
+
+
+### Bug Fixes
+
+* update module github.com/d0ugal/promexporter to v1.14.21 ([bfeadd4](https://github.com/d0ugal/internet-perf-exporter/commit/bfeadd4fc7d4d0de396143bec10a2a3cfa37fc20))
+
+## [0.2.31](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.30...v0.2.31) (2026-01-16)
+
+
+### Bug Fixes
+
+* update dependency go to v1.25.6 ([af72c24](https://github.com/d0ugal/internet-perf-exporter/commit/af72c244007b1f13de4c16d7739986b24ebf367d))
+* update module github.com/klauspost/compress to v1.18.3 ([e713eb7](https://github.com/d0ugal/internet-perf-exporter/commit/e713eb77d1e0b634a54afa8e2a78cc4f808cf829))
+
+## [0.2.30](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.29...v0.2.30) (2026-01-14)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to 3f89685 ([e5ab067](https://github.com/d0ugal/internet-perf-exporter/commit/e5ab067613bb3c19c34bf8a10422cdeacbdf6242))
+* update google.golang.org/genproto/googleapis/api digest to 99fd39f ([8a2d4d6](https://github.com/d0ugal/internet-perf-exporter/commit/8a2d4d6556b3f999f72d27fdff4dbcd6271c2b0c))
+* update google.golang.org/genproto/googleapis/rpc digest to 3f89685 ([862f4d0](https://github.com/d0ugal/internet-perf-exporter/commit/862f4d04aa60b3376914cd02ae0e753a210d1f43))
+* update google.golang.org/genproto/googleapis/rpc digest to 99fd39f ([bb13dec](https://github.com/d0ugal/internet-perf-exporter/commit/bb13dec224b2103479af9ecd5d7e36a6d08f24a4))
+* update module github.com/d0ugal/promexporter to v1.14.18 ([628b2d5](https://github.com/d0ugal/internet-perf-exporter/commit/628b2d5e713d7c93f5b2857eb7abf9bc6d11b2e4))
+* update module github.com/d0ugal/promexporter to v1.14.19 ([97953ad](https://github.com/d0ugal/internet-perf-exporter/commit/97953adf4bb909313e74322d87efb66cc72381ae))
+* update module github.com/d0ugal/promexporter to v1.14.20 ([8b075b0](https://github.com/d0ugal/internet-perf-exporter/commit/8b075b014ae6ed76e78df5ac536f0e61003fe606))
+* update module golang.org/x/crypto to v0.47.0 ([543dbae](https://github.com/d0ugal/internet-perf-exporter/commit/543dbaeb65fa6524fd29c117941be93535600701))
+* update module golang.org/x/net to v0.49.0 ([d374925](https://github.com/d0ugal/internet-perf-exporter/commit/d3749251d6920a3805a77a92762b037321eb1d92))
+
 ## [0.2.29](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.28...v0.2.29) (2026-01-11)
 
 
