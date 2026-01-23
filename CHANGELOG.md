@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.2.33](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.32...v0.2.33) (2026-01-23)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to 409b4a9 ([8de7fa3](https://github.com/d0ugal/internet-perf-exporter/commit/8de7fa3fb3afe641b463756519b1abc801da196c))
+* update google.golang.org/genproto/googleapis/api digest to 8e98ce8 ([2a92102](https://github.com/d0ugal/internet-perf-exporter/commit/2a92102fbb13be337eed64e4f20fa9c144969a7a))
+* update google.golang.org/genproto/googleapis/api digest to b8f7ae3 ([b598ede](https://github.com/d0ugal/internet-perf-exporter/commit/b598ede7838f73fa130c6e27208fa6a4a095ee5d))
+* update google.golang.org/genproto/googleapis/rpc digest to 8e98ce8 ([c749564](https://github.com/d0ugal/internet-perf-exporter/commit/c7495647627cce29e338fe7aff73d9442bbbed41))
+* update google.golang.org/genproto/googleapis/rpc digest to b8f7ae3 ([663f8c8](https://github.com/d0ugal/internet-perf-exporter/commit/663f8c8144545771b69a266fb398f80b65869941))
+* update module github.com/bytedance/sonic to v1.15.0 ([93fcae2](https://github.com/d0ugal/internet-perf-exporter/commit/93fcae2c457e93df887cdbfa4c0c1539cee3dea4))
+* update module github.com/bytedance/sonic/loader to v0.5.0 ([7865a5e](https://github.com/d0ugal/internet-perf-exporter/commit/7865a5e10f9d918db1b2d1928b2295e722500f34))
+* update module github.com/d0ugal/promexporter to v1.14.22 ([f02fcab](https://github.com/d0ugal/internet-perf-exporter/commit/f02fcab47f1555a1d123a10f6f98b470a96b89e6))
+* update module github.com/d0ugal/promexporter to v1.14.23 ([e2d5761](https://github.com/d0ugal/internet-perf-exporter/commit/e2d576198eadb23db5df1cb7f578f3c2978aeae4))
+* update module github.com/d0ugal/promexporter to v1.14.24 ([1ff84bd](https://github.com/d0ugal/internet-perf-exporter/commit/1ff84bded678e4dbc7ef1941c7bf698c0dea93c1))
+* update module github.com/grpc-ecosystem/grpc-gateway/v2 to v2.27.5 ([8cf4edc](https://github.com/d0ugal/internet-perf-exporter/commit/8cf4edc78204e50d34d16c5145a3a2475d7b9800))
+
 ## [0.2.32](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.31...v0.2.32) (2026-01-17)
 
 
