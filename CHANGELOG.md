@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.34](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.33...v0.2.34) (2026-01-29)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to 8636f87 ([1d2b5ef](https://github.com/d0ugal/internet-perf-exporter/commit/1d2b5ef2e9d689695cf312ff0111e1e083f35d65))
+* update google.golang.org/genproto/googleapis/api digest to d11affd ([49ce95e](https://github.com/d0ugal/internet-perf-exporter/commit/49ce95ee5e118dfdbea7e7aee359231f8c153ae6))
+* update google.golang.org/genproto/googleapis/rpc digest to d11affd ([aaa5923](https://github.com/d0ugal/internet-perf-exporter/commit/aaa5923e58f3b16dc878375b1c003db5a298c42a))
+* update module github.com/d0ugal/promexporter to v1.14.25 ([4cf6c02](https://github.com/d0ugal/internet-perf-exporter/commit/4cf6c02fe79a112dbea7c73f2fce8b6c4da72054))
+* update module github.com/grpc-ecosystem/grpc-gateway/v2 to v2.27.6 ([b92fc88](https://github.com/d0ugal/internet-perf-exporter/commit/b92fc88dff7c0997124e2979f5fe9dc8efe2decb))
+
 ## [0.2.33](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.32...v0.2.33) (2026-01-23)
 
 
