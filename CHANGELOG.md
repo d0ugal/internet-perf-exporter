@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.2.34](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.33...v0.2.34) (2026-02-06)
+
+
+### Bug Fixes
+
+* update dependency go to v1.25.7 ([3078229](https://github.com/d0ugal/internet-perf-exporter/commit/30782297eb857bf802a53f1f61e3f08af319cfe4))
+* update google.golang.org/genproto/googleapis/api digest to 546029d ([15d8099](https://github.com/d0ugal/internet-perf-exporter/commit/15d809974b84dd5c538b3ef9b4fd418251e7dfa3))
+* update google.golang.org/genproto/googleapis/api digest to 8636f87 ([1d2b5ef](https://github.com/d0ugal/internet-perf-exporter/commit/1d2b5ef2e9d689695cf312ff0111e1e083f35d65))
+* update google.golang.org/genproto/googleapis/api digest to ce8ad4c ([0a4d85b](https://github.com/d0ugal/internet-perf-exporter/commit/0a4d85b4e1b91020546cc15ccb5879aae608bbfb))
+* update google.golang.org/genproto/googleapis/api digest to d11affd ([49ce95e](https://github.com/d0ugal/internet-perf-exporter/commit/49ce95ee5e118dfdbea7e7aee359231f8c153ae6))
+* update google.golang.org/genproto/googleapis/rpc digest to 546029d ([a8ae20b](https://github.com/d0ugal/internet-perf-exporter/commit/a8ae20bdddd3f6e9e66cdd22782a3b23d88adec3))
+* update google.golang.org/genproto/googleapis/rpc digest to ce8ad4c ([c0345a5](https://github.com/d0ugal/internet-perf-exporter/commit/c0345a505cfc40ad4747f68df0500e72d07286c3))
+* update google.golang.org/genproto/googleapis/rpc digest to d11affd ([aaa5923](https://github.com/d0ugal/internet-perf-exporter/commit/aaa5923e58f3b16dc878375b1c003db5a298c42a))
+* update module github.com/d0ugal/promexporter to v1.14.25 ([4cf6c02](https://github.com/d0ugal/internet-perf-exporter/commit/4cf6c02fe79a112dbea7c73f2fce8b6c4da72054))
+* update module github.com/d0ugal/promexporter to v1.14.26 ([6fd3e5f](https://github.com/d0ugal/internet-perf-exporter/commit/6fd3e5f0cb50662f7f8b751362cbbc3dd35f87bd))
+* update module github.com/d0ugal/promexporter to v2 ([ff5100f](https://github.com/d0ugal/internet-perf-exporter/commit/ff5100f0eb37e9f9684563dde19a52eaf9883977))
+* update module github.com/gabriel-vasile/mimetype to v1.4.13 ([5a9a31c](https://github.com/d0ugal/internet-perf-exporter/commit/5a9a31cd3b00468b11b809af849c76c85ecf1720))
+* update module github.com/grpc-ecosystem/grpc-gateway/v2 to v2.27.6 ([b92fc88](https://github.com/d0ugal/internet-perf-exporter/commit/b92fc88dff7c0997124e2979f5fe9dc8efe2decb))
+* update module github.com/grpc-ecosystem/grpc-gateway/v2 to v2.27.7 ([8b8337e](https://github.com/d0ugal/internet-perf-exporter/commit/8b8337e58f53bcfe60a1d07a60918408ecb0d268))
+* update opentelemetry-go monorepo to v1.40.0 ([4eb0b6c](https://github.com/d0ugal/internet-perf-exporter/commit/4eb0b6cbaeba5ab7576b0370f50a28e1533c37f6))
+* update opentelemetry-go-contrib monorepo to v0.65.0 ([399e788](https://github.com/d0ugal/internet-perf-exporter/commit/399e788125ccd64777f6c8a9c8c3f080ae8d8836))
+
 ## [0.2.33](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.32...v0.2.33) (2026-01-23)
 
 
