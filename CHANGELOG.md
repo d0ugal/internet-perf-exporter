@@ -1,5 +1,33 @@
 # Changelog
 
+## [0.2.35](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.34...v0.2.35) (2026-02-28)
+
+
+### Bug Fixes
+
+* update dependency go to v1.26.0 ([6776f20](https://github.com/d0ugal/internet-perf-exporter/commit/6776f204f6839221a68c3d2a95ca349e58d4ce05))
+* update google.golang.org/genproto/googleapis/api digest to 2f722ef ([63f53e3](https://github.com/d0ugal/internet-perf-exporter/commit/63f53e3ffa1add4828ada4d638c23b9166b8ec40))
+* update google.golang.org/genproto/googleapis/api digest to 42d3e9b ([92b0abb](https://github.com/d0ugal/internet-perf-exporter/commit/92b0abb3fe93d54d46b70976cc702957ad422678))
+* update google.golang.org/genproto/googleapis/api digest to 4cfbd41 ([ed24163](https://github.com/d0ugal/internet-perf-exporter/commit/ed24163a3257bf24dfb3b13f569bf9db5d042d3e))
+* update google.golang.org/genproto/googleapis/api digest to a57be14 ([08036ee](https://github.com/d0ugal/internet-perf-exporter/commit/08036eee05bbb1d81ce2d3ddb9c070017aee9e58))
+* update google.golang.org/genproto/googleapis/rpc digest to 2f722ef ([21a288c](https://github.com/d0ugal/internet-perf-exporter/commit/21a288c4c81139d417b1cdf19916711120cc31a4))
+* update google.golang.org/genproto/googleapis/rpc digest to 42d3e9b ([b0eae63](https://github.com/d0ugal/internet-perf-exporter/commit/b0eae631e4a12204636c8c65a2060719b09a4e4e))
+* update google.golang.org/genproto/googleapis/rpc digest to 4cfbd41 ([824a447](https://github.com/d0ugal/internet-perf-exporter/commit/824a4472de5b6540337aeffffc04282380d9ef86))
+* update google.golang.org/genproto/googleapis/rpc digest to a57be14 ([29fe0f9](https://github.com/d0ugal/internet-perf-exporter/commit/29fe0f99705d88fe17d88c966f1c501ade69ed91))
+* update module github.com/gin-gonic/gin to v1.12.0 ([a8c7ffa](https://github.com/d0ugal/internet-perf-exporter/commit/a8c7ffa5fb11a11fd0b5118162dddcaadefec750))
+* update module github.com/grpc-ecosystem/grpc-gateway/v2 to v2.27.8 ([104f57c](https://github.com/d0ugal/internet-perf-exporter/commit/104f57ca87c975c9a8c8f7c19c82d4038c05baae))
+* update module github.com/grpc-ecosystem/grpc-gateway/v2 to v2.28.0 ([540741e](https://github.com/d0ugal/internet-perf-exporter/commit/540741e41f2692bd8f6aa9e21c922b2363076dd8))
+* update module github.com/klauspost/compress to v1.18.4 ([7e83e37](https://github.com/d0ugal/internet-perf-exporter/commit/7e83e374b76f83ef90149258f936c0a5f4087bfb))
+* update module github.com/prometheus/procfs to v0.20.0 ([410fb09](https://github.com/d0ugal/internet-perf-exporter/commit/410fb098ab86dc3a85abfacf1a45628956a12d72))
+* update module github.com/prometheus/procfs to v0.20.1 ([e64017a](https://github.com/d0ugal/internet-perf-exporter/commit/e64017aa5a108ebb3924b4e89369bb4f316d470a))
+* update module golang.org/x/arch to v0.24.0 ([cf9dfc7](https://github.com/d0ugal/internet-perf-exporter/commit/cf9dfc7935b8a152431d942f9d8fc6c420225a09))
+* update module golang.org/x/crypto to v0.48.0 ([89486e6](https://github.com/d0ugal/internet-perf-exporter/commit/89486e6a0bb4d6ff8015aeffef3e53a010147665))
+* update module golang.org/x/net to v0.50.0 ([9862bd8](https://github.com/d0ugal/internet-perf-exporter/commit/9862bd806ba8d300bfdfa59cae1d6d1320376ffb))
+* update module golang.org/x/net to v0.51.0 ([b64912b](https://github.com/d0ugal/internet-perf-exporter/commit/b64912bc9ab56359e8f981f415d6ef90187a35cb))
+* update module golang.org/x/sys to v0.41.0 ([71b08a1](https://github.com/d0ugal/internet-perf-exporter/commit/71b08a1ee45c7c9ef8a116d5f43122fd56e6df96))
+* update module google.golang.org/grpc to v1.79.0 ([0d43f1b](https://github.com/d0ugal/internet-perf-exporter/commit/0d43f1b407b0f43c5c0db23d82ea0d56c90f0ee0))
+* update module google.golang.org/grpc to v1.79.1 ([3487ff6](https://github.com/d0ugal/internet-perf-exporter/commit/3487ff609612df1660691bf3be4a785ed848076e))
+
 ## [0.2.34](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.33...v0.2.34) (2026-02-06)
 
 
