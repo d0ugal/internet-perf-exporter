@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.36](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.35...v0.2.36) (2026-03-24)
+
+
+### Bug Fixes
+
+* update module github.com/pelletier/go-toml/v2 to v2.3.0 ([d8069af](https://github.com/d0ugal/internet-perf-exporter/commit/d8069afa791a72afe9c636aa66dd80a5ed3b4338))
+
 ## [0.2.35](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.34...v0.2.35) (2026-03-23)
 
 
