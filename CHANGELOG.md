@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.38](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.37...v0.2.38) (2026-03-26)
+
+
+### Bug Fixes
+
+* update module github.com/grafana/pyroscope-go to v1.2.8 ([b08ec2c](https://github.com/d0ugal/internet-perf-exporter/commit/b08ec2cf84759e8520f4f4a0e2d2c8927939d39f))
+
 ## [0.2.37](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.36...v0.2.37) (2026-03-24)
 
 
