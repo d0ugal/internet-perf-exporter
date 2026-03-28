@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.39](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.38...v0.2.39) (2026-03-28)
+
+
+### Bug Fixes
+
+* update module github.com/bytedance/sonic/loader to v0.5.1 ([370ad21](https://github.com/d0ugal/internet-perf-exporter/commit/370ad213d18bc5447810014581d4d7ce5aa5b1ac))
+* update module github.com/d0ugal/promexporter to v1.14.29 ([4bb2a03](https://github.com/d0ugal/internet-perf-exporter/commit/4bb2a0346ec917bf3058f34ef156288375d7a476))
+* update module github.com/gin-contrib/sse to v1.1.1 ([33a239e](https://github.com/d0ugal/internet-perf-exporter/commit/33a239e4ead5b8e57b029af391fe310cab48e332))
+
 ## [0.2.38](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.37...v0.2.38) (2026-03-26)
 
 
