@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.40](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.39...v0.2.40) (2026-03-31)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to d5a96ad ([bbcfd14](https://github.com/d0ugal/internet-perf-exporter/commit/bbcfd1437ef7a45e2bb92155cf4be9ed4181393b))
+* update google.golang.org/genproto/googleapis/rpc digest to d5a96ad ([9722294](https://github.com/d0ugal/internet-perf-exporter/commit/9722294d44fe2171982200e59b5b63dea6539a68))
+* update module github.com/d0ugal/promexporter to v1.14.30 ([ed853c5](https://github.com/d0ugal/internet-perf-exporter/commit/ed853c5c8e067951ec6755ce2cd3b5130ee4d925))
+* update module github.com/go-playground/validator/v10 to v10.30.2 ([67255c1](https://github.com/d0ugal/internet-perf-exporter/commit/67255c130942052f5202df6d0478eff5ff414605))
+
 ## [0.2.39](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.38...v0.2.39) (2026-03-28)
 
 
