@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.44](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.43...v0.2.44) (2026-04-03)
+
+
+### Bug Fixes
+
+* update opentelemetry-go monorepo to v1.43.0 ([24b20ce](https://github.com/d0ugal/internet-perf-exporter/commit/24b20ce264845fa4130f451e270fb9e7a27b3ae3))
+
 ## [0.2.43](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.42...v0.2.43) (2026-04-01)
 
 
