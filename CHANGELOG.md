@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.46](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.45...v0.2.46) (2026-04-07)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to 6f92a3b ([cb4261e](https://github.com/d0ugal/internet-perf-exporter/commit/cb4261e646b767cd5a1f209d77b94acfb5e13140))
+* update google.golang.org/genproto/googleapis/api digest to 8fb7ec1 ([2d90dca](https://github.com/d0ugal/internet-perf-exporter/commit/2d90dcaaa0f546a9267c78bce2903d0b2a771f1c))
+* update google.golang.org/genproto/googleapis/rpc digest to 6f92a3b ([6119571](https://github.com/d0ugal/internet-perf-exporter/commit/6119571899a82ebc7874c120dc3ee14f56c9f6a6))
+* update google.golang.org/genproto/googleapis/rpc digest to 8fb7ec1 ([38b5098](https://github.com/d0ugal/internet-perf-exporter/commit/38b50989357175ec8ff9a9c6e8793a0e737ba461))
+
 ## [0.2.45](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.44...v0.2.45) (2026-04-04)
 
 
