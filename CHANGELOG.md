@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.48](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.47...v0.2.48) (2026-04-07)
+
+
+### Bug Fixes
+
+* update module github.com/d0ugal/promexporter to v1.14.35 ([c911a1d](https://github.com/d0ugal/internet-perf-exporter/commit/c911a1da565c5f9c2f51e6b06cec12b0506540e5))
+
 ## [0.2.47](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.46...v0.2.47) (2026-04-07)
 
 
