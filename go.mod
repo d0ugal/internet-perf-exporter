@@ -8,7 +8,7 @@ require (
 	github.com/d0ugal/promexporter v1.14.33
 	github.com/prometheus/client_golang v1.23.2
 	github.com/showwin/speedtest-go v1.7.10
-	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.67.0
+	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.68.0
 	go.opentelemetry.io/otel v1.43.0
 	gopkg.in/yaml.v3 v3.0.1
 )
