@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.49](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.48...v0.2.49) (2026-04-07)
+
+
+### Bug Fixes
+
+* update dependency go to v1.26.2 ([40895ac](https://github.com/d0ugal/internet-perf-exporter/commit/40895ac7b09cd2313b18564bb563b72af18ac65a))
+
 ## [0.2.48](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.47...v0.2.48) (2026-04-07)
 
 
