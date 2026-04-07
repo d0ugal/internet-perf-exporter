@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.47](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.46...v0.2.47) (2026-04-07)
+
+
+### Bug Fixes
+
+* update module github.com/d0ugal/promexporter to v1.14.34 ([aa023ab](https://github.com/d0ugal/internet-perf-exporter/commit/aa023ab44369f1854f4f15ea242fc04de3638af2))
+* update module go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp to v0.68.0 ([6dd111f](https://github.com/d0ugal/internet-perf-exporter/commit/6dd111f628dcad2ea910017aa7cca8105b06eeed))
+* update opentelemetry-go-contrib monorepo to v0.68.0 ([f9beff1](https://github.com/d0ugal/internet-perf-exporter/commit/f9beff1ebc9620b9498b91dbd1f51ee95e69daaa))
+
 ## [0.2.46](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.45...v0.2.46) (2026-04-07)
 
 
