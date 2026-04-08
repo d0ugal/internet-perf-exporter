@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.50](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.49...v0.2.50) (2026-04-08)
+
+
+### Bug Fixes
+
+* update module github.com/d0ugal/promexporter to v1.14.36 ([444e4af](https://github.com/d0ugal/internet-perf-exporter/commit/444e4af20844bdeeca5abaf46239c97fbb9cadb8))
+* update module github.com/mattn/go-isatty to v0.0.21 ([bf25863](https://github.com/d0ugal/internet-perf-exporter/commit/bf2586322beb35527095c15a6cddf49127fcc7cb))
+* update module golang.org/x/sys to v0.43.0 ([4b21dce](https://github.com/d0ugal/internet-perf-exporter/commit/4b21dcebc15a57d4b58a3cdba5c089932560a3e5))
+
 ## [0.2.49](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.48...v0.2.49) (2026-04-07)
 
 
