@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.52](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.51...v0.2.52) (2026-04-09)
+
+
+### Bug Fixes
+
+* update module golang.org/x/crypto to v0.50.0 ([bc703e4](https://github.com/d0ugal/internet-perf-exporter/commit/bc703e4da530aebff27158dd3414320c63558f8f))
+
 ## [0.2.51](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.50...v0.2.51) (2026-04-09)
 
 
