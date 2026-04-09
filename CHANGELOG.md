@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.53](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.52...v0.2.53) (2026-04-09)
+
+
+### Bug Fixes
+
+* update module github.com/d0ugal/promexporter to v1.14.38 ([27935f0](https://github.com/d0ugal/internet-perf-exporter/commit/27935f06368160322c5cacccffb0fd208264b6aa))
+* update module golang.org/x/net to v0.53.0 ([3a204ca](https://github.com/d0ugal/internet-perf-exporter/commit/3a204ca6d611fb4c8464bad9ab2260cda8b57f76))
+
 ## [0.2.52](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.51...v0.2.52) (2026-04-09)
 
 
