@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.56](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.55...v0.2.56) (2026-04-16)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to 85fdc51 ([f971375](https://github.com/d0ugal/internet-perf-exporter/commit/f971375c5f49ad122292a2069bdb2988e55e453f))
+* update google.golang.org/genproto/googleapis/api digest to afd174a ([a72666c](https://github.com/d0ugal/internet-perf-exporter/commit/a72666c70a08a7b0ce39b127f4039b174550d134))
+* update google.golang.org/genproto/googleapis/rpc digest to afd174a ([723ac6f](https://github.com/d0ugal/internet-perf-exporter/commit/723ac6f337cad8e0c04fd791cd821e33f721b991))
+* update module github.com/grpc-ecosystem/grpc-gateway/v2 to v2.29.0 ([1812373](https://github.com/d0ugal/internet-perf-exporter/commit/1812373809d52b7db77fa0133a5deebca5939c62))
+* update module go.mongodb.org/mongo-driver/v2 to v2.5.1 ([bb69f0f](https://github.com/d0ugal/internet-perf-exporter/commit/bb69f0fc532dafea81d65a6b62d35e384c537b00))
+
 ## [0.2.55](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.54...v0.2.55) (2026-04-11)
 
 
