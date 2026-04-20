@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.59](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.58...v0.2.59) (2026-04-20)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/rpc digest to e10c466 ([b397ddb](https://github.com/d0ugal/internet-perf-exporter/commit/b397ddbeebc78ad09ae5090fa36921166deaa21c))
+
 ## [0.2.58](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.57...v0.2.58) (2026-04-20)
 
 
