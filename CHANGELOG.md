@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.58](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.57...v0.2.58) (2026-04-20)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to e10c466 ([9bcc7d3](https://github.com/d0ugal/internet-perf-exporter/commit/9bcc7d30837c9a37393af323885382563626950a))
+
 ## [0.2.57](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.56...v0.2.57) (2026-04-17)
 
 
