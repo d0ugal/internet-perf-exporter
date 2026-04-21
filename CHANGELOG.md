@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.61](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.60...v0.2.61) (2026-04-21)
+
+
+### Bug Fixes
+
+* remove trailing blank line in commits.yml ([739c20a](https://github.com/d0ugal/internet-perf-exporter/commit/739c20a2482eab14d7b92fb72e10c0746257c1cb))
+* update module github.com/d0ugal/promexporter to v1.14.43 ([2cba9c7](https://github.com/d0ugal/internet-perf-exporter/commit/2cba9c7c26ef23f18519f32be9b34774a0d0f449))
+
 ## [0.2.60](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.59...v0.2.60) (2026-04-21)
 
 
