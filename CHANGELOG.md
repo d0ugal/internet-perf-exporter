@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.63](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.62...v0.2.63) (2026-04-26)
+
+
+### Bug Fixes
+
+* use RELEASE_TOKEN in auto-format workflow to trigger CI ([8fc8786](https://github.com/d0ugal/internet-perf-exporter/commit/8fc8786e093d971deb07b4306186085d8f15e666))
+
 ## [0.2.62](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.61...v0.2.62) (2026-04-26)
 
 
