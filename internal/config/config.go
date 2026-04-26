@@ -44,120 +44,83 @@ type FastConfig struct {
 	Retries int `yaml:"retries,omitempty"` // Number of retries on failure (default: 1)
 }
 
-// LoadConfig loads configuration from a YAML file
-func LoadConfig(path string, configFromEnv bool) (*Config, error) {
-	if configFromEnv {
-		return loadFromEnv()
+// LoadConfig loads configuration with priority: env vars > yaml file > defaults.
+// The yaml file is optional; if path is empty or the file does not exist it is
+// silently skipped. Environment variables are always applied on top.
+func LoadConfig(path string) (*Config, error) {
+	var cfg Config
+
+	if path != "" {
+		data, err := os.ReadFile(path)
+		if err == nil {
+			if err := yaml.Unmarshal(data, &cfg); err != nil {
+				return nil, fmt.Errorf("failed to parse config file %s: %w", path, err)
+			}
+		} else if !os.IsNotExist(err) {
+			return nil, fmt.Errorf("failed to read config file %s: %w", path, err)
+		}
 	}
 
-	data, err := os.ReadFile(path)
-	if err != nil {
-		return nil, fmt.Errorf("failed to read config file: %w", err)
-	}
-
-	var config Config
-	if err := yaml.Unmarshal(data, &config); err != nil {
-		return nil, fmt.Errorf("failed to parse config file: %w", err)
-	}
-
-	// Apply generic environment variables (TRACING_ENABLED, PROFILING_ENABLED, etc.)
-	// These are handled by promexporter and are shared across all exporters
-	if err := promexporter_config.ApplyGenericEnvVars(&config.BaseConfig); err != nil {
+	if err := promexporter_config.ApplyGenericEnvVars(&cfg.BaseConfig); err != nil {
 		return nil, fmt.Errorf("failed to apply generic environment variables: %w", err)
 	}
 
-	// Set defaults
-	setDefaults(&config)
+	if err := applyEnvVars(&cfg); err != nil {
+		return nil, err
+	}
 
-	// Validate configuration
-	if err := config.Validate(); err != nil {
+	setDefaults(&cfg)
+
+	if err := cfg.Validate(); err != nil {
 		return nil, fmt.Errorf("configuration validation failed: %w", err)
 	}
 
-	return &config, nil
+	return &cfg, nil
 }
 
-// loadFromEnv loads configuration from environment variables
-func loadFromEnv() (*Config, error) {
-	config := &Config{}
-
-	// Load base configuration from environment
-	baseConfig := &promexporter_config.BaseConfig{}
-
-	// Server configuration
+// applyEnvVars overlays internet-perf-exporter environment variables onto cfg.
+// Only variables that are set (non-empty) are applied.
+func applyEnvVars(cfg *Config) error {
 	if address := os.Getenv("INTERNET_PERF_EXPORTER_SERVER_ADDRESS"); address != "" {
 		if host, portStr, err := net.SplitHostPort(address); err == nil {
-			baseConfig.Server.Host = host
+			cfg.Server.Host = host
 			if port, err := strconv.Atoi(portStr); err != nil {
-				return nil, fmt.Errorf("invalid server port in address: %w", err)
+				return fmt.Errorf("invalid server port in address: %w", err)
 			} else {
-				baseConfig.Server.Port = port
+				cfg.Server.Port = port
 			}
 		} else {
-			return nil, fmt.Errorf("invalid server address format: %w", err)
+			return fmt.Errorf("invalid server address format: %w", err)
 		}
 	} else {
 		if host := os.Getenv("INTERNET_PERF_EXPORTER_SERVER_HOST"); host != "" {
-			baseConfig.Server.Host = host
-		} else {
-			baseConfig.Server.Host = "0.0.0.0"
+			cfg.Server.Host = host
 		}
 		if portStr := os.Getenv("INTERNET_PERF_EXPORTER_SERVER_PORT"); portStr != "" {
 			if port, err := strconv.Atoi(portStr); err != nil {
-				return nil, fmt.Errorf("invalid server port: %w", err)
+				return fmt.Errorf("invalid server port: %w", err)
 			} else {
-				baseConfig.Server.Port = port
+				cfg.Server.Port = port
 			}
-		} else {
-			baseConfig.Server.Port = 8080
 		}
 	}
-
-	// Logging configuration
 	if level := os.Getenv("INTERNET_PERF_EXPORTER_LOGGING_LEVEL"); level != "" {
-		baseConfig.Logging.Level = level
-	} else {
-		baseConfig.Logging.Level = "info"
+		cfg.Logging.Level = level
 	}
-
 	if format := os.Getenv("INTERNET_PERF_EXPORTER_LOGGING_FORMAT"); format != "" {
-		baseConfig.Logging.Format = format
-	} else {
-		baseConfig.Logging.Format = "json"
+		cfg.Logging.Format = format
 	}
-
-	// Metrics configuration
 	if intervalStr := os.Getenv("INTERNET_PERF_EXPORTER_METRICS_COLLECTION_DEFAULT_INTERVAL"); intervalStr != "" {
 		if interval, err := time.ParseDuration(intervalStr); err != nil {
-			return nil, fmt.Errorf("invalid metrics default interval: %w", err)
+			return fmt.Errorf("invalid metrics default interval: %w", err)
 		} else {
-			baseConfig.Metrics.Collection.DefaultInterval = promexporter_config.Duration{Duration: interval}
-			baseConfig.Metrics.Collection.DefaultIntervalSet = true
+			cfg.Metrics.Collection.DefaultInterval = promexporter_config.Duration{Duration: interval}
+			cfg.Metrics.Collection.DefaultIntervalSet = true
 		}
-	} else {
-		baseConfig.Metrics.Collection.DefaultInterval = promexporter_config.Duration{Duration: time.Minute * 5}
 	}
-
-	config.BaseConfig = *baseConfig
-
-	// Apply generic environment variables (TRACING_ENABLED, PROFILING_ENABLED, etc.)
-	// These are handled by promexporter and are shared across all exporters
-	if err := promexporter_config.ApplyGenericEnvVars(&config.BaseConfig); err != nil {
-		return nil, fmt.Errorf("failed to apply generic environment variables: %w", err)
-	}
-
-	// Load backends from environment variables
-	config.loadBackendsFromEnv()
-
-	// Set defaults for any missing values
-	setDefaults(config)
-
-	// Validate configuration
-	if err := config.Validate(); err != nil {
-		return nil, fmt.Errorf("configuration validation failed: %w", err)
-	}
-
-	return config, nil
+	// Append env-configured backends on top of any yaml-configured ones
+	cfg.loadBackendsFromEnv()
+	return nil
 }
 
 // loadBackendsFromEnv loads backend configuration from environment variables
