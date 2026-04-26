@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.62](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.61...v0.2.62) (2026-04-26)
+
+
+### Bug Fixes
+
+* make yaml optional and always overlay env vars on config ([f876778](https://github.com/d0ugal/internet-perf-exporter/commit/f876778a4bde72fe55898faf71cfa97ed8739a36))
+
 ## [0.2.61](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.60...v0.2.61) (2026-04-21)
 
 
