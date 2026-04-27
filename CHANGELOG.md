@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.64](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.63...v0.2.64) (2026-04-27)
+
+
+### Bug Fixes
+
+* update module github.com/mattn/go-isatty to v0.0.22 ([d2d297a](https://github.com/d0ugal/internet-perf-exporter/commit/d2d297a0b0cc6318405c05a86ac2743af8882a74))
+
 ## [0.2.63](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.62...v0.2.63) (2026-04-26)
 
 
