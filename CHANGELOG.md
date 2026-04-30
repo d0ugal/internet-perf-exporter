@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.67](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.66...v0.2.67) (2026-04-30)
+
+
+### Bug Fixes
+
+* update module github.com/cloudwego/base64x to v0.1.7 ([7d2413d](https://github.com/d0ugal/internet-perf-exporter/commit/7d2413df65f7be26d347f556178cc0685d8ddf40))
+* update module github.com/d0ugal/promexporter to v1.14.46 ([2430302](https://github.com/d0ugal/internet-perf-exporter/commit/2430302e15851470854de722215c29488c316ef3))
+* update module github.com/klauspost/compress to v1.18.6 ([4efabed](https://github.com/d0ugal/internet-perf-exporter/commit/4efabed8b91e659cfb260fbab4372e97033e7c35))
+* update module go.mongodb.org/mongo-driver/v2 to v2.6.0 ([c47f86f](https://github.com/d0ugal/internet-perf-exporter/commit/c47f86fb0c9be3d629721df4469d086a8c7b29c3))
+
 ## [0.2.66](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.65...v0.2.66) (2026-04-27)
 
 
