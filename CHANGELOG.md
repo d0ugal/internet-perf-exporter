@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.68](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.67...v0.2.68) (2026-05-01)
+
+
+### Bug Fixes
+
+* update module github.com/d0ugal/promexporter to v1.14.47 ([d2c34ce](https://github.com/d0ugal/internet-perf-exporter/commit/d2c34ced892d2a620339a32153d85703ae920e74))
+* update module github.com/pelletier/go-toml/v2 to v2.3.1 ([564fd91](https://github.com/d0ugal/internet-perf-exporter/commit/564fd91459986ba456ef11b89bf736ef115a603e))
+
 ## [0.2.67](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.66...v0.2.67) (2026-04-30)
 
 
