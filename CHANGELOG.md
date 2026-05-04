@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.69](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.68...v0.2.69) (2026-05-04)
+
+
+### Bug Fixes
+
+* update module github.com/d0ugal/promexporter to v1.14.48 ([bcddce2](https://github.com/d0ugal/internet-perf-exporter/commit/bcddce21826440ea03c96459e8fd2758dd363545))
+* update module google.golang.org/grpc to v1.81.0 ([3a2c224](https://github.com/d0ugal/internet-perf-exporter/commit/3a2c224809979aa26fb2d587e4cf6dec582beeb9))
+
 ## [0.2.68](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.67...v0.2.68) (2026-05-01)
 
 
