@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.70](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.69...v0.2.70) (2026-05-04)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to 60b97b3 ([52af35b](https://github.com/d0ugal/internet-perf-exporter/commit/52af35bffafa1e1fd1f1b725495ff0b39099ce5a))
+* update module github.com/d0ugal/promexporter to v1.14.49 ([81ac91f](https://github.com/d0ugal/internet-perf-exporter/commit/81ac91f9f5331a0eb6e80b6402602a0384b22ffe))
+
 ## [0.2.69](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.68...v0.2.69) (2026-05-04)
 
 
