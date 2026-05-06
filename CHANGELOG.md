@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.72](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.71...v0.2.72) (2026-05-06)
+
+
+### Bug Fixes
+
+* update module github.com/d0ugal/promexporter to v1.14.50 ([bbb5c75](https://github.com/d0ugal/internet-perf-exporter/commit/bbb5c757eaa8a4e99534ab0fe5e5531d287e3ee2))
+* update module github.com/grafana/pyroscope-go/godeltaprof to v0.1.10 ([4e0b1be](https://github.com/d0ugal/internet-perf-exporter/commit/4e0b1be6d878aec67ab12638f9a95cc9e760f02f))
+
 ## [0.2.71](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.70...v0.2.71) (2026-05-04)
 
 
