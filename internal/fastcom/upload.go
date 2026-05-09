@@ -8,6 +8,7 @@ import (
 	"io"
 	"net/http"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"go.opentelemetry.io/otel"
@@ -33,12 +34,18 @@ func (c *Client) runUploadTest(ctx context.Context, maxTime time.Duration) (floa
 	var wg sync.WaitGroup
 	var mu sync.Mutex
 	var maxSpeedBps float64
-	
+
+	// totalBytes is shared across all upload goroutines so we compute
+	// AGGREGATE throughput. The previous version computed
+	//     speedBps := float64(payloadSize*8) / uploadDuration
+	// per-POST and reported max(per-POST speed) — i.e. the throughput of
+	// a single upload, undercounting real bandwidth ~Nx.
+	var totalBytes atomic.Int64
+
 	done := make(chan struct{})
-	// Limit speeds slice to prevent unbounded memory growth
-	// We only need recent measurements for averaging, so keep a reasonable buffer
-	const maxSpeedEntries = 100
-	speeds := make([]float64, 0, maxSpeedEntries)
+
+	// Single global start so every measurement uses the same elapsed.
+	startTime := time.Now()
 
 	// Payload size for upload (10MB initial)
 	payloadSize := 10 * 1024 * 1024
@@ -54,8 +61,6 @@ func (c *Client) runUploadTest(ctx context.Context, maxTime time.Duration) (floa
 		go func(urlIndex int) {
 			defer wg.Done()
 			testURL := c.urls[urlIndex%len(c.urls)]
-			
-			startTime := time.Now()
 
 			for time.Since(startTime) < maxTime {
 				select {
@@ -84,7 +89,6 @@ func (c *Client) runUploadTest(ctx context.Context, maxTime time.Duration) (floa
 					req.ContentLength = int64(payloadSize)
 					req.Header.Set("Content-Type", "application/octet-stream")
 
-					uploadStart := time.Now()
 					resp, err := c.httpClient.Do(req)
 					if err != nil {
 						if c.logger != nil {
@@ -92,43 +96,29 @@ func (c *Client) runUploadTest(ctx context.Context, maxTime time.Duration) (floa
 						}
 						continue
 					}
-					uploadDuration := time.Since(uploadStart)
 					if err := resp.Body.Close(); err != nil {
 						if c.logger != nil {
 							c.logger.Debug("Failed to close response body after upload", "error", err)
 						}
 					}
 
-					if uploadDuration.Seconds() > 0 {
-						// Calculate speed: (payloadSize * 8 bits) / duration in seconds
-						speedBps := float64(payloadSize*8) / uploadDuration.Seconds()
-						
-						mu.Lock()
-						// Store measurements with bounded growth
-						// Keep only recent measurements to prevent memory leaks
-						if len(speeds) >= maxSpeedEntries {
-							// Remove oldest entry (FIFO)
-							copy(speeds, speeds[1:])
-							speeds = speeds[:len(speeds)-1]
-						}
-						speeds = append(speeds, speedBps)
-						if speedBps > maxSpeedBps {
-							maxSpeedBps = speedBps
-						}
-						mu.Unlock()
-					}
+					// We've sent payloadSize bytes by the time the server
+					// has accepted the request. Add to the shared counter
+					// for the next measurement tick to consume.
+					totalBytes.Add(int64(payloadSize))
 				}
 			}
 		}(i)
 	}
 
-	// Collect measurements over time
-	measureTicker := time.NewTicker(1 * time.Second)
+	// Sample aggregate throughput at 200ms intervals — the "max" we report
+	// is the peak aggregate throughput observed during the test.
+	measureTicker := time.NewTicker(200 * time.Millisecond)
 	defer measureTicker.Stop()
-	
+
 	timeout := time.After(maxTime)
 	doneOnce := sync.Once{}
-	
+
 	go func() {
 		for {
 			select {
@@ -136,22 +126,17 @@ func (c *Client) runUploadTest(ctx context.Context, maxTime time.Duration) (floa
 				doneOnce.Do(func() { close(done) })
 				return
 			case <-measureTicker.C:
+				elapsed := time.Since(startTime).Seconds()
+				if elapsed <= 0 {
+					continue
+				}
+
+				bytes := totalBytes.Load()
+				speedBps := float64(bytes*8) / elapsed // aggregate bits per second
+
 				mu.Lock()
-				if len(speeds) > 0 {
-					// Use recent measurements (last window)
-					windowSize := 3
-					if len(speeds) < windowSize {
-						windowSize = len(speeds)
-					}
-					recent := speeds[len(speeds)-windowSize:]
-					var sum float64
-					for _, s := range recent {
-						sum += s
-					}
-					avg := sum / float64(len(recent))
-					if avg > maxSpeedBps {
-						maxSpeedBps = avg
-					}
+				if speedBps > maxSpeedBps {
+					maxSpeedBps = speedBps
 				}
 				mu.Unlock()
 			case <-ctx.Done():
@@ -164,9 +149,20 @@ func (c *Client) runUploadTest(ctx context.Context, maxTime time.Duration) (floa
 	wg.Wait()
 	doneOnce.Do(func() { close(done) })
 
+	// Final measurement after all goroutines have finished.
+	if elapsed := time.Since(startTime).Seconds(); elapsed > 0 {
+		finalBps := float64(totalBytes.Load()*8) / elapsed
+
+		mu.Lock()
+		if finalBps > maxSpeedBps {
+			maxSpeedBps = finalBps
+		}
+		mu.Unlock()
+	}
+
 	mu.Lock()
 	defer mu.Unlock()
-	
+
 	if maxSpeedBps == 0 {
 		err := fmt.Errorf("no speed measurements recorded")
 		span.RecordError(err)
