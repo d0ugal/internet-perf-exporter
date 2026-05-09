@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"go.opentelemetry.io/otel"
@@ -32,11 +33,17 @@ func (c *Client) runDownloadTest(ctx context.Context, maxTime time.Duration) (fl
 	var mu sync.Mutex
 	var maxSpeedBps float64
 
+	// totalBytes is shared across all download goroutines so we compute
+	// AGGREGATE throughput. The previous version kept a per-goroutine
+	// totalBytes and reported max(per-goroutine speed) — undercounting
+	// real bandwidth by a factor of N (8 by default) on multi-connection
+	// downloads.
+	var totalBytes atomic.Int64
+
 	done := make(chan struct{})
-	// Limit speeds slice to prevent unbounded memory growth
-	// We only need recent measurements for averaging, so keep a reasonable buffer
-	const maxSpeedEntries = 100
-	speeds := make([]float64, 0, maxSpeedEntries)
+
+	// Single global start so every measurement uses the same elapsed.
+	startTime := time.Now()
 
 	// Start multiple concurrent downloads
 	connections := 8
@@ -49,11 +56,6 @@ func (c *Client) runDownloadTest(ctx context.Context, maxTime time.Duration) (fl
 		go func(urlIndex int) {
 			defer wg.Done()
 			testURL := c.urls[urlIndex%len(c.urls)]
-
-			startTime := time.Now()
-			var totalBytes int64
-			lastMeasurementTime := time.Now()
-			const measurementInterval = 200 * time.Millisecond // Throttle measurements to reduce memory pressure
 
 			for time.Since(startTime) < maxTime {
 				select {
@@ -101,32 +103,7 @@ func (c *Client) runDownloadTest(ctx context.Context, maxTime time.Duration) (fl
 							return
 						default:
 							n, err := resp.Body.Read(buffer)
-							totalBytes += int64(n)
-
-							// Throttle measurements to reduce memory pressure and lock contention
-							// Only record measurements periodically, not on every read
-							now := time.Now()
-							if now.Sub(lastMeasurementTime) >= measurementInterval {
-								elapsed := time.Since(startTime).Seconds()
-								if elapsed > 0 {
-									speedBps := float64(totalBytes*8) / elapsed // bits per second
-
-									mu.Lock()
-									if speedBps > maxSpeedBps {
-										maxSpeedBps = speedBps
-									}
-									// Store periodic measurements with bounded growth
-									// Keep only recent measurements to prevent memory leaks
-									if len(speeds) >= maxSpeedEntries {
-										// Remove oldest entry (FIFO)
-										copy(speeds, speeds[1:])
-										speeds = speeds[:len(speeds)-1]
-									}
-									speeds = append(speeds, speedBps)
-									mu.Unlock()
-								}
-								lastMeasurementTime = now
-							}
+							totalBytes.Add(int64(n))
 
 							if err == io.EOF {
 								break readLoop
@@ -146,8 +123,10 @@ func (c *Client) runDownloadTest(ctx context.Context, maxTime time.Duration) (fl
 		}(i)
 	}
 
-	// Collect measurements over time
-	measureTicker := time.NewTicker(1 * time.Second)
+	// Sample aggregate throughput at 200ms intervals. The "max" we report is
+	// the peak aggregate throughput observed during the test — readers like
+	// fast.com show this rather than overall mean.
+	measureTicker := time.NewTicker(200 * time.Millisecond)
 	defer measureTicker.Stop()
 
 	timeout := time.After(maxTime)
@@ -160,22 +139,17 @@ func (c *Client) runDownloadTest(ctx context.Context, maxTime time.Duration) (fl
 				doneOnce.Do(func() { close(done) })
 				return
 			case <-measureTicker.C:
+				elapsed := time.Since(startTime).Seconds()
+				if elapsed <= 0 {
+					continue
+				}
+
+				bytes := totalBytes.Load()
+				speedBps := float64(bytes*8) / elapsed // aggregate bits per second
+
 				mu.Lock()
-				if len(speeds) > 0 {
-					// Use recent measurements (last window)
-					windowSize := 3
-					if len(speeds) < windowSize {
-						windowSize = len(speeds)
-					}
-					recent := speeds[len(speeds)-windowSize:]
-					var sum float64
-					for _, s := range recent {
-						sum += s
-					}
-					avg := sum / float64(len(recent))
-					if avg > maxSpeedBps {
-						maxSpeedBps = avg
-					}
+				if speedBps > maxSpeedBps {
+					maxSpeedBps = speedBps
 				}
 				mu.Unlock()
 			case <-ctx.Done():
@@ -187,6 +161,18 @@ func (c *Client) runDownloadTest(ctx context.Context, maxTime time.Duration) (fl
 
 	wg.Wait()
 	doneOnce.Do(func() { close(done) })
+
+	// Final measurement after all goroutines have finished — captures the
+	// last bytes that arrived between the last tick and shutdown.
+	if elapsed := time.Since(startTime).Seconds(); elapsed > 0 {
+		finalBps := float64(totalBytes.Load()*8) / elapsed
+
+		mu.Lock()
+		if finalBps > maxSpeedBps {
+			maxSpeedBps = finalBps
+		}
+		mu.Unlock()
+	}
 
 	mu.Lock()
 	defer mu.Unlock()
