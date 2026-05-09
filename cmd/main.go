@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"log"
 	"log/slog"
 	"os"
@@ -38,10 +37,6 @@ func main() {
 		} else {
 			configPath = "config.yaml"
 		}
-	}
-
-	if os.Getenv("INTERNET_PERF_EXPORTER_CONFIG_FROM_ENV") == "true" {
-		fmt.Fprintln(os.Stderr, "Warning: INTERNET_PERF_EXPORTER_CONFIG_FROM_ENV is deprecated and has no effect. Env vars are always applied on top of yaml config.")
 	}
 
 	cfg, err := config.LoadConfig(configPath)
