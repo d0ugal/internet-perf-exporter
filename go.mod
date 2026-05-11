@@ -5,7 +5,7 @@ go 1.25.0
 toolchain go1.26.3
 
 require (
-	github.com/d0ugal/promexporter v1.14.53
+	github.com/d0ugal/promexporter v1.14.54
 	github.com/prometheus/client_golang v1.23.2
 	github.com/showwin/speedtest-go v1.7.10
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.68.0
