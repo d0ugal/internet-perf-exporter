@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.2.73](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.72...v0.2.73) (2026-05-11)
+
+
+### Bug Fixes
+
+* **fastcom:** aggregate totalBytes across all download goroutines ([181ba05](https://github.com/d0ugal/internet-perf-exporter/commit/181ba05187e73694ae21cc73bff94affb0a909a4))
+* **fastcom:** aggregate upload throughput across all goroutines too ([6b6e21a](https://github.com/d0ugal/internet-perf-exporter/commit/6b6e21af7242341c7f01dd3b47a8f90690b4a8e8))
+* update go toolchain directive to v1.26.3 ([2f458b0](https://github.com/d0ugal/internet-perf-exporter/commit/2f458b0d95d223f40c6240d8d5d9c99642268999))
+* update google.golang.org/genproto/googleapis/api digest to 3700d41 ([9e1ab44](https://github.com/d0ugal/internet-perf-exporter/commit/9e1ab4445b5370ac1d494103341726f5799c5e78))
+* update google.golang.org/genproto/googleapis/rpc digest to 3700d41 ([b30b78e](https://github.com/d0ugal/internet-perf-exporter/commit/b30b78e95756a9691b6513f6c64cfd3c3f9614da))
+* update module github.com/d0ugal/promexporter to v1.14.51 ([838c55c](https://github.com/d0ugal/internet-perf-exporter/commit/838c55c1ce2d0c544d2a8c3b1774f16b1770e61d))
+* update module github.com/d0ugal/promexporter to v1.14.53 ([423e541](https://github.com/d0ugal/internet-perf-exporter/commit/423e5417a9ab755437c78f5196e011695ee96a47))
+* update module github.com/d0ugal/promexporter to v1.14.54 ([7e053b0](https://github.com/d0ugal/internet-perf-exporter/commit/7e053b0356add659e82c7bb758b596d86e1282ef))
+* update module github.com/grafana/pyroscope-go to v1.3.0 ([4591e91](https://github.com/d0ugal/internet-perf-exporter/commit/4591e91e562549118a7e6ac599c50da21d6f6613))
+* update module github.com/quic-go/quic-go to v0.59.1 ([35c4c5c](https://github.com/d0ugal/internet-perf-exporter/commit/35c4c5c3991adad3a4fe59fed36f8c214b14d542))
+* update module golang.org/x/arch to v0.27.0 ([8885453](https://github.com/d0ugal/internet-perf-exporter/commit/888545349aeefc4258ac82abf11101dbb4fb9fbc))
+* update module golang.org/x/crypto to v0.51.0 ([a5d30cd](https://github.com/d0ugal/internet-perf-exporter/commit/a5d30cd39908b3e1f0e9cf89aa386bc671765927))
+* update module golang.org/x/net to v0.54.0 ([1648f29](https://github.com/d0ugal/internet-perf-exporter/commit/1648f29ed1784d0a6e8049fd846ce99749cdd3cd))
+* update module golang.org/x/sys to v0.44.0 ([2c0bdc3](https://github.com/d0ugal/internet-perf-exporter/commit/2c0bdc38d5c76777ff5312921f63eb6de1b813fe))
+* update module golang.org/x/text to v0.37.0 ([c9a548c](https://github.com/d0ugal/internet-perf-exporter/commit/c9a548cdc78b86b2c86572ada00bd718034200b5))
+
 ## [0.2.72](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.71...v0.2.72) (2026-05-06)
 
 
