@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.75](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.74...v0.2.75) (2026-05-14)
+
+
+### Bug Fixes
+
+* update module google.golang.org/grpc to v1.81.1 ([5744771](https://github.com/d0ugal/internet-perf-exporter/commit/5744771869993c4a77409a5846892ddeb0cdfd15))
+
 ## [0.2.74](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.73...v0.2.74) (2026-05-12)
 
 
