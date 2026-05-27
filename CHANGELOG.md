@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.80](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.79...v0.2.80) (2026-05-27)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to 0a33c5d ([d16ad23](https://github.com/d0ugal/internet-perf-exporter/commit/d16ad2336239197620366672e7319dbd2791c5b8))
+* update google.golang.org/genproto/googleapis/api digest to 3dc84a4 ([3bda6fb](https://github.com/d0ugal/internet-perf-exporter/commit/3bda6fb0864a499d30d8fb17b03782b8fad79373))
+* update google.golang.org/genproto/googleapis/api digest to 7f3bc5b ([c1665ad](https://github.com/d0ugal/internet-perf-exporter/commit/c1665ad334f651f8ece6ceee9490f3f426718524))
+* update google.golang.org/genproto/googleapis/api digest to 9641223 ([8fd79eb](https://github.com/d0ugal/internet-perf-exporter/commit/8fd79ebed5f1523f8c0728aa87d19e5505eeae90))
+* update google.golang.org/genproto/googleapis/rpc digest to 0a33c5d ([4410cca](https://github.com/d0ugal/internet-perf-exporter/commit/4410ccabe7da9f762d5908992973c1a4efb3a46d))
+* update google.golang.org/genproto/googleapis/rpc digest to 3dc84a4 ([fdf0f14](https://github.com/d0ugal/internet-perf-exporter/commit/fdf0f146cbfb444302a561cdfa6f550a5e502b61))
+* update module github.com/d0ugal/promexporter to v1.14.59 ([690b293](https://github.com/d0ugal/internet-perf-exporter/commit/690b293aeed0a5baaccbef0f55a7d39f1b462ed2))
+
 ## [0.2.79](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.78...v0.2.79) (2026-05-22)
 
 
