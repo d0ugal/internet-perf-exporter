@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.81](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.80...v0.2.81) (2026-05-28)
+
+
+### Bug Fixes
+
+* update module github.com/d0ugal/promexporter to v1.14.60 ([52940dc](https://github.com/d0ugal/internet-perf-exporter/commit/52940dca7fe6fe751e4ec0c622583adc79249084))
+* update module github.com/grafana/pyroscope-go to v1.3.1 ([6b40443](https://github.com/d0ugal/internet-perf-exporter/commit/6b40443cc9f7018e97df25c8b0350197c2591679))
+* update module github.com/grafana/pyroscope-go/godeltaprof to v0.1.11 ([b744bd8](https://github.com/d0ugal/internet-perf-exporter/commit/b744bd82a7c8ea4123acaeddbf7455940d28ff1f))
+* update opentelemetry-go monorepo to v1.44.0 ([8cc4cef](https://github.com/d0ugal/internet-perf-exporter/commit/8cc4cef8ca81a003193bd12b7badda1f7027d0ee))
+* update opentelemetry-go-contrib monorepo to v0.69.0 ([954fc8e](https://github.com/d0ugal/internet-perf-exporter/commit/954fc8e2a43c850f727dd8205751d1914136e778))
+
 ## [0.2.80](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.79...v0.2.80) (2026-05-27)
 
 
