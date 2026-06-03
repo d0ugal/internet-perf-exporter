@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.83](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.82...v0.2.83) (2026-06-03)
+
+
+### Bug Fixes
+
+* update go toolchain directive to v1.26.4 ([faa50d9](https://github.com/d0ugal/internet-perf-exporter/commit/faa50d9ab44f43ab5d89c3be7c49f65e504e1401))
+* update module github.com/d0ugal/promexporter to v1.14.62 ([5d7239c](https://github.com/d0ugal/internet-perf-exporter/commit/5d7239c3b3460df08a8d9664076b4666e0ba930a))
+* update module github.com/go-playground/validator/v10 to v10.30.3 ([a50983a](https://github.com/d0ugal/internet-perf-exporter/commit/a50983a3184ff6117b39526722ab487e94373249))
+* update module github.com/prometheus/common to v0.68.1 ([f555e92](https://github.com/d0ugal/internet-perf-exporter/commit/f555e920ad58477271af9b5195f1af39cd696151))
+
 ## [0.2.82](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.81...v0.2.82) (2026-05-29)
 
 
