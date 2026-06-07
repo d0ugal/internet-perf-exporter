@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.86](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.85...v0.2.86) (2026-06-07)
+
+
+### Bug Fixes
+
+* update module github.com/quic-go/quic-go to v0.60.0 ([f2c9861](https://github.com/d0ugal/internet-perf-exporter/commit/f2c986111eaae2d518695d675602d17ccdb02f54))
+
 ## [0.2.85](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.84...v0.2.85) (2026-06-05)
 
 
