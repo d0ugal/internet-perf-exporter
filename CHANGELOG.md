@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.2.87](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.86...v0.2.87) (2026-06-11)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to 4308a22 ([c9bca29](https://github.com/d0ugal/internet-perf-exporter/commit/c9bca29ce3373c065e536c2b4198fa3dbc5c06d7))
+* update google.golang.org/genproto/googleapis/api digest to 7ab31c2 ([9107ff2](https://github.com/d0ugal/internet-perf-exporter/commit/9107ff2462b12637e89362313025201c2090ec2d))
+* update google.golang.org/genproto/googleapis/rpc digest to 4308a22 ([4bd7a2f](https://github.com/d0ugal/internet-perf-exporter/commit/4bd7a2f88e8195abb4a904591eaa926822087a87))
+* update google.golang.org/genproto/googleapis/rpc digest to 6235662 ([1245a79](https://github.com/d0ugal/internet-perf-exporter/commit/1245a79dbb101c54cef8d66c4774f092d32ff717))
+* update google.golang.org/genproto/googleapis/rpc digest to 7ab31c2 ([e63aec4](https://github.com/d0ugal/internet-perf-exporter/commit/e63aec4bd00d5bc33c9d2e2508cb98f2761da415))
+* update module github.com/felixge/httpsnoop to v1.1.0 ([d832a7f](https://github.com/d0ugal/internet-perf-exporter/commit/d832a7fb73637fdf467022b210b75058480cd3cb))
+* update module golang.org/x/arch to v0.28.0 ([75660c4](https://github.com/d0ugal/internet-perf-exporter/commit/75660c487cfff443301adbe3f54b843f0c7492e8))
+* update module golang.org/x/crypto to v0.53.0 ([36868c3](https://github.com/d0ugal/internet-perf-exporter/commit/36868c3b261e0cd96b8990f5ae3d1d321bf50378))
+* update module golang.org/x/net to v0.56.0 ([e78d34c](https://github.com/d0ugal/internet-perf-exporter/commit/e78d34cb65d5c28f992697cbd9dc0d4b0017042d))
+* update module golang.org/x/sys to v0.46.0 ([bb76387](https://github.com/d0ugal/internet-perf-exporter/commit/bb7638714a5a559f9a5c1231180386446b20fbea))
+
 ## [0.2.86](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.85...v0.2.86) (2026-06-07)
 
 
