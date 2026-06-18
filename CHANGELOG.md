@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.89](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.88...v0.2.89) (2026-06-18)
+
+
+### Bug Fixes
+
+* update module github.com/cenkalti/backoff/v5 to v6 ([b07c984](https://github.com/d0ugal/internet-perf-exporter/commit/b07c9843c447573ddf0db1342691730d7f61783c))
+* update module github.com/pelletier/go-toml/v2 to v2.4.0 ([55b71b2](https://github.com/d0ugal/internet-perf-exporter/commit/55b71b2fbd2355deb0be83f5016384a0bc692147))
+* update module github.com/prometheus/common to v0.69.0 ([cff5d6e](https://github.com/d0ugal/internet-perf-exporter/commit/cff5d6e3a8274a9e98caf226f8d4308c0f549900))
+* update module go.mongodb.org/mongo-driver/v2 to v2.6.1 ([fdafe24](https://github.com/d0ugal/internet-perf-exporter/commit/fdafe24db6bba1624f76da639633d1427f08ae83))
+* update module go.mongodb.org/mongo-driver/v2 to v2.7.0 ([d50d83a](https://github.com/d0ugal/internet-perf-exporter/commit/d50d83ac75a9bd1f6747ddafccb4afb16b290fca))
+
 ## [0.2.88](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.87...v0.2.88) (2026-06-16)
 
 
