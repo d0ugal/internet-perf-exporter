@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.92](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.91...v0.2.92) (2026-06-24)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to b703f56 ([ea9f8f2](https://github.com/d0ugal/internet-perf-exporter/commit/ea9f8f26c44d07acb02882b8e6267b5375c4a677))
+* update google.golang.org/genproto/googleapis/rpc digest to b703f56 ([fb17620](https://github.com/d0ugal/internet-perf-exporter/commit/fb1762063157316c2ef85e21b98662e7a8c185da))
+* update module github.com/pelletier/go-toml/v2 to v2.4.1 ([6f6d0df](https://github.com/d0ugal/internet-perf-exporter/commit/6f6d0df73b3f584f1b5d3828abb06c4e3f1dac81))
+* update module github.com/pelletier/go-toml/v2 to v2.4.2 ([85dbd5e](https://github.com/d0ugal/internet-perf-exporter/commit/85dbd5e5831cc9f2b79068e9632fd42ef9015fb3))
+
 ## [0.2.91](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.90...v0.2.91) (2026-06-19)
 
 
