@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.93](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.92...v0.2.93) (2026-06-27)
+
+
+### Bug Fixes
+
+* update module github.com/prometheus/procfs to v0.21.0 ([d3c2f66](https://github.com/d0ugal/internet-perf-exporter/commit/d3c2f66885680cb35ca1fd5f612dd8e2ba3458b2))
+
 ## [0.2.92](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.91...v0.2.92) (2026-06-24)
 
 
