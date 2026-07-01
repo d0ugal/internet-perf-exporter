@@ -6,14 +6,13 @@ import (
 	"log/slog"
 	"time"
 
-	"internet-perf-exporter/internal/config"
-	"internet-perf-exporter/internal/fastcom"
-	"internet-perf-exporter/internal/metrics"
-
 	"github.com/d0ugal/promexporter/app"
 	"github.com/d0ugal/promexporter/tracing"
 	"github.com/prometheus/client_golang/prometheus"
 	"go.opentelemetry.io/otel/attribute"
+	"internet-perf-exporter/internal/config"
+	"internet-perf-exporter/internal/fastcom"
+	"internet-perf-exporter/internal/metrics"
 )
 
 // FastCollector manages fast.com tests
@@ -27,6 +26,7 @@ type FastCollector struct {
 // NewFastCollector creates a new fast.com collector
 func NewFastCollector(cfg *config.Config, registry *metrics.InternetRegistry, app *app.App) *FastCollector {
 	backend := &FastBackend{}
+
 	return &FastCollector{
 		config:  cfg,
 		metrics: registry,
@@ -93,10 +93,12 @@ func (fc *FastCollector) collect(ctx context.Context, backendCfg config.BackendC
 
 	// Create span for collection
 	tracer := fc.app.GetTracer()
+
 	var collectorSpan *tracing.CollectorSpan
 
 	if tracer != nil && tracer.IsEnabled() {
 		collectorSpan = tracer.NewCollectorSpan(ctx, "fast-collector", "collect-fast")
+
 		ctx = collectorSpan.Context()
 		defer collectorSpan.End()
 	}
@@ -113,9 +115,11 @@ func (fc *FastCollector) collect(ctx context.Context, backendCfg config.BackendC
 			"backend":          "fast",
 			"interval_seconds": fmt.Sprintf("%d", interval),
 		}).Inc()
+
 		if collectorSpan != nil {
 			collectorSpan.RecordError(err)
 		}
+
 		return
 	}
 
@@ -137,9 +141,11 @@ func (fc *FastCollector) collect(ctx context.Context, backendCfg config.BackendC
 	if result.LatencyMs > 0 {
 		fc.metrics.LatencyMs.With(labels).Observe(result.LatencyMs)
 	}
+
 	if result.JitterMs > 0 {
 		fc.metrics.JitterMs.With(labels).Set(result.JitterMs)
 	}
+
 	if result.PacketLossPct > 0 {
 		fc.metrics.PacketLossPct.With(labels).Set(result.PacketLossPct)
 	}

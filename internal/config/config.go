@@ -84,6 +84,7 @@ func applyEnvVars(cfg *Config) error {
 	if address := os.Getenv("INTERNET_PERF_EXPORTER_SERVER_ADDRESS"); address != "" {
 		if host, portStr, err := net.SplitHostPort(address); err == nil {
 			cfg.Server.Host = host
+
 			if port, err := strconv.Atoi(portStr); err != nil {
 				return fmt.Errorf("invalid server port in address: %w", err)
 			} else {
@@ -96,6 +97,7 @@ func applyEnvVars(cfg *Config) error {
 		if host := os.Getenv("INTERNET_PERF_EXPORTER_SERVER_HOST"); host != "" {
 			cfg.Server.Host = host
 		}
+
 		if portStr := os.Getenv("INTERNET_PERF_EXPORTER_SERVER_PORT"); portStr != "" {
 			if port, err := strconv.Atoi(portStr); err != nil {
 				return fmt.Errorf("invalid server port: %w", err)
@@ -104,12 +106,15 @@ func applyEnvVars(cfg *Config) error {
 			}
 		}
 	}
+
 	if level := os.Getenv("INTERNET_PERF_EXPORTER_LOGGING_LEVEL"); level != "" {
 		cfg.Logging.Level = level
 	}
+
 	if format := os.Getenv("INTERNET_PERF_EXPORTER_LOGGING_FORMAT"); format != "" {
 		cfg.Logging.Format = format
 	}
+
 	if intervalStr := os.Getenv("INTERNET_PERF_EXPORTER_METRICS_COLLECTION_DEFAULT_INTERVAL"); intervalStr != "" {
 		if interval, err := time.ParseDuration(intervalStr); err != nil {
 			return fmt.Errorf("invalid metrics default interval: %w", err)
@@ -120,6 +125,7 @@ func applyEnvVars(cfg *Config) error {
 	}
 	// Append env-configured backends on top of any yaml-configured ones
 	cfg.loadBackendsFromEnv()
+
 	return nil
 }
 
@@ -149,14 +155,17 @@ func (c *Config) loadBackendsFromEnv() {
 		}
 
 		speedtestConfig := &SpeedtestConfig{}
+
 		if serverIDStr := os.Getenv("INTERNET_PERF_EXPORTER_SPEEDTEST_SERVER_ID"); serverIDStr != "" {
 			if serverID, err := strconv.Atoi(serverIDStr); err == nil {
 				speedtestConfig.ServerID = serverID
 			}
 		}
+
 		if serverName := os.Getenv("INTERNET_PERF_EXPORTER_SPEEDTEST_SERVER_NAME"); serverName != "" {
 			speedtestConfig.ServerName = serverName
 		}
+
 		if serverCountry := os.Getenv("INTERNET_PERF_EXPORTER_SPEEDTEST_SERVER_COUNTRY"); serverCountry != "" {
 			speedtestConfig.ServerCountry = serverCountry
 		}
@@ -188,6 +197,7 @@ func (c *Config) loadBackendsFromEnv() {
 		}
 
 		fastConfig := &FastConfig{}
+
 		if retriesStr := os.Getenv("INTERNET_PERF_EXPORTER_FAST_RETRIES"); retriesStr != "" {
 			if retries, err := strconv.Atoi(retriesStr); err == nil && retries > 0 {
 				fastConfig.Retries = retries
@@ -201,7 +211,6 @@ func (c *Config) loadBackendsFromEnv() {
 		c.Backends["fast"] = backend
 	}
 }
-
 
 // setDefaults sets default values for configuration
 func setDefaults(config *Config) {
@@ -231,6 +240,7 @@ func setDefaults(config *Config) {
 			backend.Interval = Duration{Duration: time.Hour}
 			config.Backends[name] = backend
 		}
+
 		if backend.Timeout.Duration == 0 {
 			backend.Timeout = Duration{Duration: time.Minute * 5}
 			config.Backends[name] = backend
@@ -275,6 +285,7 @@ func (c *Config) validateServerConfig() error {
 	if c.Server.Port < 1 || c.Server.Port > 65535 {
 		return fmt.Errorf("port must be between 1 and 65535, got %d", c.Server.Port)
 	}
+
 	return nil
 }
 
@@ -314,6 +325,7 @@ func (c *Config) validateMetricsConfig() error {
 
 func (c *Config) validateBackendsConfig() error {
 	enabledCount := 0
+
 	for name, backend := range c.Backends {
 		if name == "" {
 			return fmt.Errorf("backend name cannot be empty")
@@ -325,6 +337,7 @@ func (c *Config) validateBackendsConfig() error {
 
 		if backend.Enabled {
 			enabledCount++
+
 			if backend.Interval.Seconds() < 60 {
 				return fmt.Errorf("backend %s interval must be at least 60 seconds, got %d", name, int(backend.Interval.Seconds()))
 			}
@@ -366,6 +379,7 @@ func (c *Config) GetDisplayConfig() map[string]interface{} {
 				"timeout":  backend.Timeout.String(),
 			}
 		}
+
 		config["Backends"] = backends
 	} else {
 		config["Backends"] = "None configured"

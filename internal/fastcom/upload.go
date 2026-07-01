@@ -24,16 +24,20 @@ func (c *Client) runUploadTest(ctx context.Context, maxTime time.Duration) (floa
 	span.SetAttributes(
 		attribute.String("upload.max_time", maxTime.String()),
 	)
+
 	if len(c.urls) == 0 {
 		err := fmt.Errorf("no test URLs available")
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
+
 		return 0, err
 	}
 
-	var wg sync.WaitGroup
-	var mu sync.Mutex
-	var maxSpeedBps float64
+	var (
+		wg          sync.WaitGroup
+		mu          sync.Mutex
+		maxSpeedBps float64
+	)
 
 	// totalBytes is shared across all upload goroutines so we compute
 	// AGGREGATE throughput. The previous version computed
@@ -60,6 +64,7 @@ func (c *Client) runUploadTest(ctx context.Context, maxTime time.Duration) (floa
 		wg.Add(1)
 		go func(urlIndex int) {
 			defer wg.Done()
+
 			testURL := c.urls[urlIndex%len(c.urls)]
 
 			for time.Since(startTime) < maxTime {
@@ -75,14 +80,16 @@ func (c *Client) runUploadTest(ctx context.Context, maxTime time.Duration) (floa
 						if c.logger != nil {
 							c.logger.Debug("Failed to generate random payload", "error", err)
 						}
+
 						continue
 					}
 
-					req, err := http.NewRequestWithContext(ctx, "POST", testURL, io.NopCloser(bytes.NewReader(payload)))
+					req, err := http.NewRequestWithContext(ctx, http.MethodPost, testURL, io.NopCloser(bytes.NewReader(payload)))
 					if err != nil {
 						if c.logger != nil {
 							c.logger.Debug("Failed to create upload request", "error", err)
 						}
+
 						continue
 					}
 
@@ -94,8 +101,10 @@ func (c *Client) runUploadTest(ctx context.Context, maxTime time.Duration) (floa
 						if c.logger != nil {
 							c.logger.Debug("Upload request failed", "error", err)
 						}
+
 						continue
 					}
+
 					if err := resp.Body.Close(); err != nil {
 						if c.logger != nil {
 							c.logger.Debug("Failed to close response body after upload", "error", err)
@@ -167,6 +176,7 @@ func (c *Client) runUploadTest(ctx context.Context, maxTime time.Duration) (floa
 		err := fmt.Errorf("no speed measurements recorded")
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
+
 		return 0, err
 	}
 
@@ -179,4 +189,3 @@ func (c *Client) runUploadTest(ctx context.Context, maxTime time.Duration) (floa
 
 	return resultMbps, nil
 }
-
