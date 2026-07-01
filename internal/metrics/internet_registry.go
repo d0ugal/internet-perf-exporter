@@ -15,8 +15,8 @@ type InternetRegistry struct {
 	UploadSpeedMbps   *prometheus.GaugeVec
 
 	// Latency metrics (documented)
-	LatencyMs    *prometheus.HistogramVec
-	JitterMs     *prometheus.GaugeVec
+	LatencyMs     *prometheus.HistogramVec
+	JitterMs      *prometheus.GaugeVec
 	PacketLossPct *prometheus.GaugeVec
 
 	// Test metrics (documented)
@@ -171,4 +171,3 @@ func NewInternetRegistry(baseRegistry *promexporter_metrics.Registry) *InternetR
 
 	return registry
 }
-

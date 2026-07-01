@@ -2,6 +2,7 @@ package collectors
 
 import (
 	"context"
+
 	"internet-perf-exporter/internal/config"
 )
 
@@ -33,4 +34,3 @@ type Backend interface {
 	// IsEnabled returns whether this backend is enabled
 	IsEnabled() bool
 }
-

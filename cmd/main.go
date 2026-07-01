@@ -6,13 +6,13 @@ import (
 	"log/slog"
 	"os"
 
+	"github.com/d0ugal/promexporter/app"
+	"github.com/d0ugal/promexporter/logging"
+	promexporter_metrics "github.com/d0ugal/promexporter/metrics"
 	"internet-perf-exporter/internal/collectors"
 	"internet-perf-exporter/internal/config"
 	"internet-perf-exporter/internal/metrics"
 	"internet-perf-exporter/internal/version"
-	"github.com/d0ugal/promexporter/app"
-	"github.com/d0ugal/promexporter/logging"
-	promexporter_metrics "github.com/d0ugal/promexporter/metrics"
 )
 
 func main() {
@@ -75,4 +75,3 @@ func main() {
 		log.Fatalf("Failed to run application: %v", err)
 	}
 }
-

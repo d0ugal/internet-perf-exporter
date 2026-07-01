@@ -22,16 +22,20 @@ func (c *Client) runDownloadTest(ctx context.Context, maxTime time.Duration) (fl
 	span.SetAttributes(
 		attribute.String("download.max_time", maxTime.String()),
 	)
+
 	if len(c.urls) == 0 {
 		err := fmt.Errorf("no test URLs available")
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
+
 		return 0, err
 	}
 
-	var wg sync.WaitGroup
-	var mu sync.Mutex
-	var maxSpeedBps float64
+	var (
+		wg          sync.WaitGroup
+		mu          sync.Mutex
+		maxSpeedBps float64
+	)
 
 	// totalBytes is shared across all download goroutines so we compute
 	// AGGREGATE throughput. The previous version kept a per-goroutine
@@ -55,6 +59,7 @@ func (c *Client) runDownloadTest(ctx context.Context, maxTime time.Duration) (fl
 		wg.Add(1)
 		go func(urlIndex int) {
 			defer wg.Done()
+
 			testURL := c.urls[urlIndex%len(c.urls)]
 
 			for time.Since(startTime) < maxTime {
@@ -64,11 +69,12 @@ func (c *Client) runDownloadTest(ctx context.Context, maxTime time.Duration) (fl
 				case <-done:
 					return
 				default:
-					req, err := http.NewRequestWithContext(ctx, "GET", testURL, nil)
+					req, err := http.NewRequestWithContext(ctx, http.MethodGet, testURL, nil)
 					if err != nil {
 						if c.logger != nil {
 							c.logger.Debug("Failed to create download request", "error", err)
 						}
+
 						return
 					}
 
@@ -77,6 +83,7 @@ func (c *Client) runDownloadTest(ctx context.Context, maxTime time.Duration) (fl
 						if c.logger != nil {
 							c.logger.Debug("Download request failed", "error", err)
 						}
+
 						continue
 					}
 
@@ -93,6 +100,7 @@ func (c *Client) runDownloadTest(ctx context.Context, maxTime time.Duration) (fl
 									c.logger.Debug("Failed to close response body on context cancel", "error", err)
 								}
 							}
+
 							return
 						case <-done:
 							if err := resp.Body.Close(); err != nil {
@@ -100,6 +108,7 @@ func (c *Client) runDownloadTest(ctx context.Context, maxTime time.Duration) (fl
 									c.logger.Debug("Failed to close response body on done", "error", err)
 								}
 							}
+
 							return
 						default:
 							n, err := resp.Body.Read(buffer)
@@ -108,11 +117,13 @@ func (c *Client) runDownloadTest(ctx context.Context, maxTime time.Duration) (fl
 							if err == io.EOF {
 								break readLoop
 							}
+
 							if err != nil {
 								break readLoop
 							}
 						}
 					}
+
 					if err := resp.Body.Close(); err != nil {
 						if c.logger != nil {
 							c.logger.Debug("Failed to close response body after read", "error", err)
@@ -181,6 +192,7 @@ func (c *Client) runDownloadTest(ctx context.Context, maxTime time.Duration) (fl
 		err := fmt.Errorf("no speed measurements recorded")
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
+
 		return 0, err
 	}
 

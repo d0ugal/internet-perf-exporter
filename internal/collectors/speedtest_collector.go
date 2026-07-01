@@ -6,14 +6,13 @@ import (
 	"log/slog"
 	"time"
 
-	"internet-perf-exporter/internal/config"
-	"internet-perf-exporter/internal/metrics"
-
 	"github.com/d0ugal/promexporter/app"
 	"github.com/d0ugal/promexporter/tracing"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/showwin/speedtest-go/speedtest"
 	"go.opentelemetry.io/otel/attribute"
+	"internet-perf-exporter/internal/config"
+	"internet-perf-exporter/internal/metrics"
 )
 
 // SpeedtestCollector manages speedtest.net tests
@@ -27,6 +26,7 @@ type SpeedtestCollector struct {
 // NewSpeedtestCollector creates a new speedtest collector
 func NewSpeedtestCollector(cfg *config.Config, registry *metrics.InternetRegistry, app *app.App) *SpeedtestCollector {
 	backend := &SpeedtestBackend{}
+
 	return &SpeedtestCollector{
 		config:  cfg,
 		metrics: registry,
@@ -93,10 +93,12 @@ func (sc *SpeedtestCollector) collect(ctx context.Context, backendCfg config.Bac
 
 	// Create span for collection
 	tracer := sc.app.GetTracer()
+
 	var collectorSpan *tracing.CollectorSpan
 
 	if tracer != nil && tracer.IsEnabled() {
 		collectorSpan = tracer.NewCollectorSpan(ctx, "speedtest-collector", "collect-speedtest")
+
 		ctx = collectorSpan.Context()
 		defer collectorSpan.End()
 	}
@@ -113,9 +115,11 @@ func (sc *SpeedtestCollector) collect(ctx context.Context, backendCfg config.Bac
 			"backend":          "speedtest",
 			"interval_seconds": fmt.Sprintf("%d", interval),
 		}).Inc()
+
 		if collectorSpan != nil {
 			collectorSpan.RecordError(err)
 		}
+
 		return
 	}
 
@@ -207,8 +211,10 @@ func (sb *SpeedtestBackend) IsEnabled() bool {
 func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfig) (*TestResult, error) {
 	// Create a context with timeout if configured
 	testCtx := ctx
+
 	if cfg.Timeout.Duration > 0 {
 		var cancel context.CancelFunc
+
 		testCtx, cancel = context.WithTimeout(ctx, cfg.Timeout.Duration)
 		defer cancel()
 	}
@@ -285,6 +291,7 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 
 	// Test latency (ping) with context
 	var latency time.Duration
+
 	err = targetServer.PingTestContext(testCtx, func(result time.Duration) {
 		latency = result
 	})
@@ -293,6 +300,7 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 		if targetServer.Context != nil && targetServer.Context.Manager != nil {
 			targetServer.Context.Reset()
 		}
+
 		return &TestResult{
 			Backend:         "speedtest",
 			ServerID:        targetServer.ID,
@@ -320,6 +328,7 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 		if targetServer.Context != nil && targetServer.Context.Manager != nil {
 			targetServer.Context.Reset()
 		}
+
 		return &TestResult{
 			Backend:         "speedtest",
 			ServerID:        targetServer.ID,
@@ -348,6 +357,7 @@ func (sb *SpeedtestBackend) RunTest(ctx context.Context, cfg config.BackendConfi
 		if targetServer.Context != nil && targetServer.Context.Manager != nil {
 			targetServer.Context.Reset()
 		}
+
 		return &TestResult{
 			Backend:         "speedtest",
 			ServerID:        targetServer.ID,

@@ -18,6 +18,7 @@ func main() {
 		skipUpload = flag.Bool("skip-upload", false, "Skip upload test (faster)")
 		skipPing   = flag.Bool("skip-ping", false, "Skip ping test (faster)")
 	)
+
 	flag.Parse()
 
 	// Setup logging
@@ -59,7 +60,7 @@ func main() {
 	// Note: The current implementation always runs all tests
 	// We could modify the client to support skipping phases, but for now
 	// we'll just run it and report the results
-	
+
 	result, err := client.RunTest(ctx, *timeout)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "❌ Error: %v\n", err)
@@ -73,31 +74,32 @@ func main() {
 	fmt.Println("Results:")
 	fmt.Println("-------")
 	fmt.Printf("  Download:  %8.2f Mbps\n", result.DownloadMbps)
-	
+
 	if *skipUpload {
 		fmt.Printf("  Upload:    %8s (skipped)\n", "-")
 	} else {
 		fmt.Printf("  Upload:    %8.2f Mbps\n", result.UploadMbps)
 	}
-	
+
 	if *skipPing {
 		fmt.Printf("  Latency:   %8s (skipped)\n", "-")
 	} else {
 		fmt.Printf("  Latency:   %8.2f ms\n", result.LatencyMs)
 	}
-	
+
 	fmt.Printf("  Duration:  %8.2f seconds\n", duration.Seconds())
 	fmt.Println()
 
 	// Show a summary
 	fmt.Println("Summary:")
 	fmt.Println("-------")
+
 	if result.DownloadMbps > 0 {
 		fmt.Printf("  ✓ Download test successful\n")
 	} else {
 		fmt.Printf("  ✗ Download test failed\n")
 	}
-	
+
 	if !*skipUpload {
 		if result.UploadMbps > 0 {
 			fmt.Printf("  ✓ Upload test successful\n")
@@ -105,7 +107,7 @@ func main() {
 			fmt.Printf("  ✗ Upload test failed or not supported\n")
 		}
 	}
-	
+
 	if !*skipPing {
 		if result.LatencyMs > 0 {
 			fmt.Printf("  ✓ Latency test successful\n")
@@ -114,4 +116,3 @@ func main() {
 		}
 	}
 }
-
