@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.2.94](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.93...v0.2.94) (2026-07-01)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to 925bb5d ([fd91074](https://github.com/d0ugal/internet-perf-exporter/commit/fd91074e2cd48b13d7011407ed43b98bfda0437a))
+* update google.golang.org/genproto/googleapis/rpc digest to 925bb5d ([b3b19aa](https://github.com/d0ugal/internet-perf-exporter/commit/b3b19aa9b13ebe884980a68144dbe663d9aae750))
+* update module github.com/cenkalti/backoff/v5 to v7 ([dc345ed](https://github.com/d0ugal/internet-perf-exporter/commit/dc345edd448e0c0573f35e29fa25b8e4f24e1754))
+* update module github.com/klauspost/compress to v1.18.7 ([28f658f](https://github.com/d0ugal/internet-perf-exporter/commit/28f658fd93702bdc5c2ff1e9791071bbc0197fab))
+* update module github.com/klauspost/compress to v1.19.0 ([d4e0d9e](https://github.com/d0ugal/internet-perf-exporter/commit/d4e0d9ec28a7c0cd786a985e22c011aaca6c2614))
+* update module github.com/klauspost/cpuid/v2 to v2.4.0 ([2389675](https://github.com/d0ugal/internet-perf-exporter/commit/2389675e76b2817752ed4b1de3683b3a5212495e))
+* update module github.com/prometheus/procfs to v0.21.1 ([f241435](https://github.com/d0ugal/internet-perf-exporter/commit/f24143547d4f59184aa3761aaadc26e29e638591))
+* update module google.golang.org/grpc to v1.82.0 ([1095999](https://github.com/d0ugal/internet-perf-exporter/commit/1095999995397b4026654f4e440c665e6decdf70))
+
 ## [0.2.93](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.92...v0.2.93) (2026-06-27)
 
 
