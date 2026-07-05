@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.95](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.94...v0.2.95) (2026-07-05)
+
+
+### Bug Fixes
+
+* update module github.com/grafana/pyroscope-go to v1.4.0 ([20e4b6b](https://github.com/d0ugal/internet-perf-exporter/commit/20e4b6b4c43deefa355198bfd1a517d76412edcc))
+* update module github.com/pelletier/go-toml/v2 to v2.4.3 ([ca2f2a1](https://github.com/d0ugal/internet-perf-exporter/commit/ca2f2a1440f7869efbe542e9bff0d8c11b762e69))
+
 ## [0.2.94](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.93...v0.2.94) (2026-07-01)
 
 
