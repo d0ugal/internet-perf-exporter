@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.96](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.95...v0.2.96) (2026-07-07)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to f0a9213 ([0d58488](https://github.com/d0ugal/internet-perf-exporter/commit/0d584887a55b3571db911609b639acd4b27cad5a))
+* update google.golang.org/genproto/googleapis/rpc digest to f0a9213 ([5012d50](https://github.com/d0ugal/internet-perf-exporter/commit/5012d504245431bc42b95d405f1a73f539430f92))
+* update module golang.org/x/text to v0.39.0 ([615b1cc](https://github.com/d0ugal/internet-perf-exporter/commit/615b1cc0c5eb257c91d6cf31de25b3e77b8ddfc1))
+
 ## [0.2.95](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.94...v0.2.95) (2026-07-05)
 
 
