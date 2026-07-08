@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.97](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.96...v0.2.97) (2026-07-08)
+
+
+### Bug Fixes
+
+* update go toolchain directive to v1.26.5 ([3d3638a](https://github.com/d0ugal/internet-perf-exporter/commit/3d3638ae862a9f4b87631b3fdbace2e2ab80866d))
+* update module github.com/d0ugal/promexporter to v1.14.65 ([50cae38](https://github.com/d0ugal/internet-perf-exporter/commit/50cae38478686d858bb8604b66d554ea8af134a5))
+
 ## [0.2.96](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.95...v0.2.96) (2026-07-07)
 
 
