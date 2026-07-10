@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.2.98](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.97...v0.2.98) (2026-07-10)
+
+
+### Bug Fixes
+
+* update module github.com/d0ugal/promexporter to v1.14.66 ([28d2e33](https://github.com/d0ugal/internet-perf-exporter/commit/28d2e33c46287819269507af12a4c35af5e54c21))
+* update module github.com/grafana/pyroscope-go to v1.4.1 ([7d8e282](https://github.com/d0ugal/internet-perf-exporter/commit/7d8e2822c20b93244b526c994107c6e4d2837046))
+* update module github.com/grafana/pyroscope-go/godeltaprof to v0.1.12 ([d760322](https://github.com/d0ugal/internet-perf-exporter/commit/d760322a0d441bc1ca88962c11ec8ec20a458a00))
+* update module github.com/prometheus/common to v0.70.0 ([95b33e5](https://github.com/d0ugal/internet-perf-exporter/commit/95b33e5e1ad0cd52a72f9e57d8dd68795ec2da79))
+* update module go.mongodb.org/mongo-driver/v2 to v2.8.0 ([9cf58c1](https://github.com/d0ugal/internet-perf-exporter/commit/9cf58c158c42a1ae478c823ba6445274fce3105e))
+* update module golang.org/x/arch to v0.29.0 ([d8f0645](https://github.com/d0ugal/internet-perf-exporter/commit/d8f06452b4b7f2d31c431a4aed61ff36e61dacfb))
+* update module golang.org/x/crypto to v0.54.0 ([7317a6e](https://github.com/d0ugal/internet-perf-exporter/commit/7317a6e33b2afecf8febea42d58fe2c70d09402e))
+* update module golang.org/x/net to v0.57.0 ([b227a2e](https://github.com/d0ugal/internet-perf-exporter/commit/b227a2e64586e25304e638818bd15553a6312d6d))
+* update module golang.org/x/sys to v0.47.0 ([b06050f](https://github.com/d0ugal/internet-perf-exporter/commit/b06050f797b70a033c8a33b20fc2cc97df3edd70))
+
 ## [0.2.97](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.96...v0.2.97) (2026-07-08)
 
 
