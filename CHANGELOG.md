@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.2.102](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.101...v0.2.102) (2026-08-08)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to 6ac0973 ([#632](https://github.com/d0ugal/internet-perf-exporter/issues/632)) ([18b3a5d](https://github.com/d0ugal/internet-perf-exporter/commit/18b3a5dadd510fa8ba8b081022745060f0cfe506))
+* update google.golang.org/genproto/googleapis/api digest to c8921c7 ([#640](https://github.com/d0ugal/internet-perf-exporter/issues/640)) ([3ed86c5](https://github.com/d0ugal/internet-perf-exporter/commit/3ed86c5cf10fc9757e6f6d103b2eb726c4207742))
+* update google.golang.org/genproto/googleapis/rpc digest to 6ac0973 ([#633](https://github.com/d0ugal/internet-perf-exporter/issues/633)) ([f3d695f](https://github.com/d0ugal/internet-perf-exporter/commit/f3d695f25c4f9170fe2b2b547269a66c3337205e))
+* update google.golang.org/genproto/googleapis/rpc digest to c8921c7 ([#641](https://github.com/d0ugal/internet-perf-exporter/issues/641)) ([e59c45b](https://github.com/d0ugal/internet-perf-exporter/commit/e59c45b01ffd70099f167fcc10f857bdbd876e3c))
+* update module github.com/d0ugal/promexporter to v1.14.68 ([#630](https://github.com/d0ugal/internet-perf-exporter/issues/630)) ([4938183](https://github.com/d0ugal/internet-perf-exporter/commit/4938183b00818981e65415a8646f68efbe204a2d))
+* update module github.com/grpc-ecosystem/grpc-gateway/v2 to v2.30.0 ([#638](https://github.com/d0ugal/internet-perf-exporter/issues/638)) ([2c9b2c5](https://github.com/d0ugal/internet-perf-exporter/commit/2c9b2c5316f42f51ae63a6388f520f8aef9cda08))
+* update module github.com/klauspost/compress to v1.19.2 ([#639](https://github.com/d0ugal/internet-perf-exporter/issues/639)) ([40fcc84](https://github.com/d0ugal/internet-perf-exporter/commit/40fcc84763112bdac119cee3930da18221bdf53d))
+* update module github.com/showwin/speedtest-go to v1.7.11 ([#634](https://github.com/d0ugal/internet-perf-exporter/issues/634)) ([307da0e](https://github.com/d0ugal/internet-perf-exporter/commit/307da0e349622defea08dbb0ccb7c93752251a1c))
+* update module github.com/ugorji/go/codec to v1.3.2 ([#636](https://github.com/d0ugal/internet-perf-exporter/issues/636)) ([0e3d420](https://github.com/d0ugal/internet-perf-exporter/commit/0e3d42085bc1eb5d58dd2cede359d8700487f1a5))
+* update module golang.org/x/arch to v0.30.0 ([#642](https://github.com/d0ugal/internet-perf-exporter/issues/642)) ([a02a0a7](https://github.com/d0ugal/internet-perf-exporter/commit/a02a0a7e306614948cc5236821d97c5bd8c9959d))
+* update opentelemetry-go monorepo to v1.45.0 ([#635](https://github.com/d0ugal/internet-perf-exporter/issues/635)) ([1597e22](https://github.com/d0ugal/internet-perf-exporter/commit/1597e22b9c32bfecd9001775a28aa675b72205c0))
+* update opentelemetry-go-contrib monorepo to v0.70.0 ([#637](https://github.com/d0ugal/internet-perf-exporter/issues/637)) ([717e4db](https://github.com/d0ugal/internet-perf-exporter/commit/717e4db908a9909e5db8015a5334bb21ce5e8842))
+
 ## [0.2.101](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.100...v0.2.101) (2026-07-30)
 
 
