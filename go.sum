@@ -98,8 +98,8 @@ github.com/quic-go/quic-go v0.61.0 h1:ui88A53s8MSVYLC56en0KQ17HARk+9986Dn0SBfKNv
 github.com/quic-go/quic-go v0.61.0/go.mod h1:9So2anK4Tp22URSQq00k+Vo2PNkle96ycDPDHL4s9vs=
 github.com/rogpeppe/go-internal v1.14.1 h1:UQB4HGPB6osV0SQTLymcB4TgvyWu6ZyliaW0tI/otEQ=
 github.com/rogpeppe/go-internal v1.14.1/go.mod h1:MaRKkUm5W0goXpeCfT7UZI6fk/L7L7so1lCWt35ZSgc=
-github.com/showwin/speedtest-go v1.7.11 h1:IMm3MSDewzOmgZSg6+It9AlxKYT9JBK1cxb0PF52DYE=
-github.com/showwin/speedtest-go v1.7.11/go.mod h1:MAtq5zxTo0kbqC90RStARJV6DQwDzvtPM6VF5AKzpYc=
+github.com/showwin/speedtest-go v1.8.0 h1:WZGQqfnxI35NHQBhZP4fFR2WMLIvHN/lH+y/qcvHKcQ=
+github.com/showwin/speedtest-go v1.8.0/go.mod h1:MAtq5zxTo0kbqC90RStARJV6DQwDzvtPM6VF5AKzpYc=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.4.0/go.mod h1:YvHI0jy2hoMjB+UWwv71VJQ9isScKT/TqJzVSSt89Yw=
 github.com/stretchr/objx v0.5.0/go.mod h1:Yh+to48EsGEfYuaHDzXPcE3xhTkx73EhmCGUpEOglKo=
