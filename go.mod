@@ -1,13 +1,13 @@
 module internet-perf-exporter
 
-go 1.25.0
+go 1.26
 
 toolchain go1.27.0
 
 require (
 	github.com/d0ugal/promexporter v1.14.69
 	github.com/prometheus/client_golang v1.24.1
-	github.com/showwin/speedtest-go v1.8.0
+	github.com/showwin/speedtest-go v1.8.2
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.70.0
 	go.opentelemetry.io/otel v1.45.0
 	gopkg.in/yaml.v3 v3.0.1
