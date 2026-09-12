@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.2.104](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.103...v0.2.104) (2026-09-12)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to f61a6ca ([#706](https://github.com/d0ugal/internet-perf-exporter/issues/706)) ([cd34ca2](https://github.com/d0ugal/internet-perf-exporter/commit/cd34ca2fbd049e879d399da798ff500b1e8066e8))
+* update google.golang.org/genproto/googleapis/rpc digest to f61a6ca ([#707](https://github.com/d0ugal/internet-perf-exporter/issues/707)) ([505afdc](https://github.com/d0ugal/internet-perf-exporter/commit/505afdc50e32cfc124c00b31514c22829d17704a))
+* update google.golang.org/genproto/googleapis/rpc digest to f8649dd ([#697](https://github.com/d0ugal/internet-perf-exporter/issues/697)) ([8a31533](https://github.com/d0ugal/internet-perf-exporter/commit/8a315336232a45602b49297c39dad3cf1ffa5233))
+* update module github.com/bytedance/sonic to v1.15.4 ([#705](https://github.com/d0ugal/internet-perf-exporter/issues/705)) ([a0aad49](https://github.com/d0ugal/internet-perf-exporter/commit/a0aad49268e21384a681d5fa2872fc9c8b4e4c65))
+* update module go.mongodb.org/mongo-driver/v2 to v2.9.1 ([#704](https://github.com/d0ugal/internet-perf-exporter/issues/704)) ([d7738a8](https://github.com/d0ugal/internet-perf-exporter/commit/d7738a8d103228d5776a76a724dfc89b87796122))
+* update module golang.org/x/arch to v0.31.0 ([#700](https://github.com/d0ugal/internet-perf-exporter/issues/700)) ([bc13f62](https://github.com/d0ugal/internet-perf-exporter/commit/bc13f62e765f9d7817291bac4eaa13c0792dfd35))
+* update module golang.org/x/crypto to v0.57.0 ([#702](https://github.com/d0ugal/internet-perf-exporter/issues/702)) ([8931901](https://github.com/d0ugal/internet-perf-exporter/commit/8931901c81a970bf06c30e4617d530212b0796b6))
+* update module golang.org/x/net to v0.59.0 ([#703](https://github.com/d0ugal/internet-perf-exporter/issues/703)) ([e1baadc](https://github.com/d0ugal/internet-perf-exporter/commit/e1baadc2285078e5ac5bc50309c682820716e5e3))
+* update module golang.org/x/sys to v0.48.0 ([#701](https://github.com/d0ugal/internet-perf-exporter/issues/701)) ([36c4daa](https://github.com/d0ugal/internet-perf-exporter/commit/36c4daa784a93994b63baf2fe949e865e8c69ccd))
+
 ## [0.2.103](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.102...v0.2.103) (2026-09-08)
 
 
