@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.105](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.104...v0.2.105) (2026-09-22)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to b142276 ([#726](https://github.com/d0ugal/internet-perf-exporter/issues/726)) ([2dcfb4d](https://github.com/d0ugal/internet-perf-exporter/commit/2dcfb4df3717d2901fdf2c507dc040adba17c51e))
+* update google.golang.org/genproto/googleapis/api digest to cecb647 ([#721](https://github.com/d0ugal/internet-perf-exporter/issues/721)) ([264904e](https://github.com/d0ugal/internet-perf-exporter/commit/264904ed3d66bd855acf363e99d0678e618c1751))
+* update google.golang.org/genproto/googleapis/api digest to eeb232e ([#715](https://github.com/d0ugal/internet-perf-exporter/issues/715)) ([7567025](https://github.com/d0ugal/internet-perf-exporter/commit/75670251c01ad3eef05f7f0535f41d8216eb0abf))
+* update google.golang.org/genproto/googleapis/rpc digest to cecb647 ([#722](https://github.com/d0ugal/internet-perf-exporter/issues/722)) ([fe3b2f9](https://github.com/d0ugal/internet-perf-exporter/commit/fe3b2f958d66a868787b4754539b76c2d3ee5de7))
+* update google.golang.org/genproto/googleapis/rpc digest to eeb232e ([#717](https://github.com/d0ugal/internet-perf-exporter/issues/717)) ([c313903](https://github.com/d0ugal/internet-perf-exporter/commit/c3139035f86357845319b8fc247ad22569612dea))
+* update module github.com/go-playground/universal-translator to v0.18.2 ([#723](https://github.com/d0ugal/internet-perf-exporter/issues/723)) ([3cd606f](https://github.com/d0ugal/internet-perf-exporter/commit/3cd606f93003c8ab267d6859efbe7268b8a455cc))
+* update module github.com/go-playground/validator/v10 to v10.30.5 ([#724](https://github.com/d0ugal/internet-perf-exporter/issues/724)) ([60012db](https://github.com/d0ugal/internet-perf-exporter/commit/60012db6c166c054eed25a54fb12cb9a59d2d03f))
+
 ## [0.2.104](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.103...v0.2.104) (2026-09-12)
 
 
