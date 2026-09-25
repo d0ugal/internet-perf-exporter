@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.106](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.105...v0.2.106) (2026-09-25)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/rpc digest to b142276 ([#727](https://github.com/d0ugal/internet-perf-exporter/issues/727)) ([48a29a5](https://github.com/d0ugal/internet-perf-exporter/commit/48a29a59af6eaf8790a19dd12987c8861f51bb37))
+* update module github.com/grpc-ecosystem/grpc-gateway/v2 to v2.31.0 ([#732](https://github.com/d0ugal/internet-perf-exporter/issues/732)) ([f1f3399](https://github.com/d0ugal/internet-perf-exporter/commit/f1f339918277945f32f47c784e4f186a04964803))
+* update module github.com/klauspost/compress to v1.20.1 ([#731](https://github.com/d0ugal/internet-perf-exporter/issues/731)) ([58b55dc](https://github.com/d0ugal/internet-perf-exporter/commit/58b55dce855659c7d22960c9ae907aeb022b8066))
+* update module github.com/quic-go/quic-go to v0.63.0 ([#728](https://github.com/d0ugal/internet-perf-exporter/issues/728)) ([629a2e9](https://github.com/d0ugal/internet-perf-exporter/commit/629a2e9456b304230640a95afcee0f2e565a7e28))
+* update module google.golang.org/grpc to v1.84.0 ([#713](https://github.com/d0ugal/internet-perf-exporter/issues/713)) ([c8fb588](https://github.com/d0ugal/internet-perf-exporter/commit/c8fb5888faf8ed90f9dd5b28aa1b3ff576e723a6))
+
 ## [0.2.105](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.104...v0.2.105) (2026-09-22)
 
 
