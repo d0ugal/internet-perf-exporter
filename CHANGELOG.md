@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.108](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.107...v0.2.108) (2026-10-02)
+
+
+### Bug Fixes
+
+* update opentelemetry-go-contrib monorepo to v0.72.0 ([#746](https://github.com/d0ugal/internet-perf-exporter/issues/746)) ([043c533](https://github.com/d0ugal/internet-perf-exporter/commit/043c5339db50f56fb535f9be24c2556c688efbcb))
+
 ## [0.2.107](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.106...v0.2.107) (2026-10-02)
 
 
