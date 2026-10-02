@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.107](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.106...v0.2.107) (2026-10-02)
+
+
+### Bug Fixes
+
+* update module github.com/d0ugal/promexporter to v1.14.70 ([#739](https://github.com/d0ugal/internet-perf-exporter/issues/739)) ([bb01abe](https://github.com/d0ugal/internet-perf-exporter/commit/bb01abeabc25500a38e52d5a7aa711f906747dcc))
+* update module github.com/d0ugal/promexporter to v1.14.71 ([#744](https://github.com/d0ugal/internet-perf-exporter/issues/744)) ([08092a0](https://github.com/d0ugal/internet-perf-exporter/commit/08092a04fbe8e7ac1c03770555451aa3ef3de384))
+* update module github.com/goccy/go-json to v0.11.2 ([#740](https://github.com/d0ugal/internet-perf-exporter/issues/740)) ([f1da77e](https://github.com/d0ugal/internet-perf-exporter/commit/f1da77e580139d3a097701285db03152f425539d))
+* update module github.com/grafana/pyroscope-go to v1.4.3 ([#742](https://github.com/d0ugal/internet-perf-exporter/issues/742)) ([0e308e7](https://github.com/d0ugal/internet-perf-exporter/commit/0e308e748a6fe66289c1a18a3c40e7391902b1f6))
+* update module go.opentelemetry.io/proto/otlp to v1.11.1 ([#743](https://github.com/d0ugal/internet-perf-exporter/issues/743)) ([109d958](https://github.com/d0ugal/internet-perf-exporter/commit/109d958d42de8ba1401296ea781688dd80ab172a))
+* update opentelemetry-go monorepo to v1.47.0 ([#745](https://github.com/d0ugal/internet-perf-exporter/issues/745)) ([492de08](https://github.com/d0ugal/internet-perf-exporter/commit/492de0895acfb1a17bbb1f85a76aa851903ff3a7))
+
 ## [0.2.106](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.105...v0.2.106) (2026-09-29)
 
 
