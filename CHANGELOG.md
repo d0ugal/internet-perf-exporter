@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.108](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.107...v0.2.108) (2026-10-06)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to fad4113 ([#748](https://github.com/d0ugal/internet-perf-exporter/issues/748)) ([1ea3585](https://github.com/d0ugal/internet-perf-exporter/commit/1ea3585bed945d4cf6a77df1c4405d406b1c08dd))
+* update google.golang.org/genproto/googleapis/rpc digest to fad4113 ([#749](https://github.com/d0ugal/internet-perf-exporter/issues/749)) ([4a315d5](https://github.com/d0ugal/internet-perf-exporter/commit/4a315d58b92d03a592d3d469ac0983e75c607b09))
+* update opentelemetry-go-contrib monorepo to v0.72.0 ([#746](https://github.com/d0ugal/internet-perf-exporter/issues/746)) ([043c533](https://github.com/d0ugal/internet-perf-exporter/commit/043c5339db50f56fb535f9be24c2556c688efbcb))
+
 ## [0.2.107](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.106...v0.2.107) (2026-10-02)
 
 
