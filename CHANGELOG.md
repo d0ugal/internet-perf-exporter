@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.109](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.108...v0.2.109) (2026-10-07)
+
+
+### Bug Fixes
+
+* update module go.mongodb.org/mongo-driver/v2 to v2.9.2 ([#750](https://github.com/d0ugal/internet-perf-exporter/issues/750)) ([0ae19f5](https://github.com/d0ugal/internet-perf-exporter/commit/0ae19f55e6566a95d2a41ebf6a15b48302995d33))
+
 ## [0.2.108](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.107...v0.2.108) (2026-10-06)
 
 
