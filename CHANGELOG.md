@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.2.110](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.109...v0.2.110) (2026-10-10)
+
+
+### Bug Fixes
+
+* update go toolchain directive to v1.27.2 ([#756](https://github.com/d0ugal/internet-perf-exporter/issues/756)) ([e6f8a61](https://github.com/d0ugal/internet-perf-exporter/commit/e6f8a619779e38b18065e5b57de09315477c37e7))
+* update module github.com/prometheus/client_golang to v1.25.0 ([#753](https://github.com/d0ugal/internet-perf-exporter/issues/753)) ([c589009](https://github.com/d0ugal/internet-perf-exporter/commit/c58900989456e854cd07c9ebecfde897e38c9ef8))
+* update module golang.org/x/arch to v0.32.0 ([#759](https://github.com/d0ugal/internet-perf-exporter/issues/759)) ([225b0ac](https://github.com/d0ugal/internet-perf-exporter/commit/225b0ac4d7b34558b8c2327ff1a44c9f7da7de0a))
+* update module golang.org/x/crypto to v0.58.0 ([#762](https://github.com/d0ugal/internet-perf-exporter/issues/762)) ([8307518](https://github.com/d0ugal/internet-perf-exporter/commit/830751884bb34814b3102f87abed1101beed234a))
+* update module golang.org/x/net to v0.60.0 ([#757](https://github.com/d0ugal/internet-perf-exporter/issues/757)) ([b507117](https://github.com/d0ugal/internet-perf-exporter/commit/b507117ddd7a19ec7b66151a4a49b5416852d532))
+* update module golang.org/x/net to v0.61.0 ([#763](https://github.com/d0ugal/internet-perf-exporter/issues/763)) ([a1e12d4](https://github.com/d0ugal/internet-perf-exporter/commit/a1e12d409bd0716db294f05f2f0342ccb03e1f3f))
+* update module golang.org/x/sys to v0.49.0 ([#760](https://github.com/d0ugal/internet-perf-exporter/issues/760)) ([9b53919](https://github.com/d0ugal/internet-perf-exporter/commit/9b53919c4dc31bf291462a199316c3c99f13e86d))
+* update module golang.org/x/text to v0.43.0 ([#761](https://github.com/d0ugal/internet-perf-exporter/issues/761)) ([bc430aa](https://github.com/d0ugal/internet-perf-exporter/commit/bc430aa5be41929c9a9302b1b93063fd5736ecbb))
+
 ## [0.2.109](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.108...v0.2.109) (2026-10-07)
 
 
