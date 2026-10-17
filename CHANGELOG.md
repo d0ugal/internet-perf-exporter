@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.111](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.110...v0.2.111) (2026-10-17)
+
+
+### Bug Fixes
+
+* update module github.com/d0ugal/promexporter to v1.14.72 ([#769](https://github.com/d0ugal/internet-perf-exporter/issues/769)) ([d6c5d81](https://github.com/d0ugal/internet-perf-exporter/commit/d6c5d818cb15216b24abbd510af6e768ad78533c))
+* update module github.com/gabriel-vasile/mimetype to v1.4.16 ([#775](https://github.com/d0ugal/internet-perf-exporter/issues/775)) ([1624ab9](https://github.com/d0ugal/internet-perf-exporter/commit/1624ab9c7bfdc404081c025ddcdf3dff514c8dcd))
+* update module github.com/grpc-ecosystem/grpc-gateway/v2 to v2.32.0 ([#771](https://github.com/d0ugal/internet-perf-exporter/issues/771)) ([57fdb5c](https://github.com/d0ugal/internet-perf-exporter/commit/57fdb5c48aacedce29beb6fd250289cf32215e55))
+* update module github.com/klauspost/cpuid/v2 to v2.4.1 ([#773](https://github.com/d0ugal/internet-perf-exporter/issues/773)) ([8ea23c8](https://github.com/d0ugal/internet-perf-exporter/commit/8ea23c8d108f76854054e6643db6bea5002557a4))
+* update module github.com/quic-go/quic-go to v0.64.0 ([#772](https://github.com/d0ugal/internet-perf-exporter/issues/772)) ([c032146](https://github.com/d0ugal/internet-perf-exporter/commit/c0321463c8b7c7d33a8b622c871333bc1f1ebc02))
+
 ## [0.2.110](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.109...v0.2.110) (2026-10-13)
 
 
