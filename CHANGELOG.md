@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.112](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.111...v0.2.112) (2026-10-23)
+
+
+### Bug Fixes
+
+* update go toolchain directive to v1.27.3 ([#780](https://github.com/d0ugal/internet-perf-exporter/issues/780)) ([9939c63](https://github.com/d0ugal/internet-perf-exporter/commit/9939c632d60f8fd03f265ae15beebab124e07ec7))
+* update google.golang.org/genproto/googleapis/api digest to ce908d2 ([#776](https://github.com/d0ugal/internet-perf-exporter/issues/776)) ([2d75797](https://github.com/d0ugal/internet-perf-exporter/commit/2d75797ae6ea10880bac4d8210813adbc3099669))
+* update google.golang.org/genproto/googleapis/rpc digest to ce908d2 ([#777](https://github.com/d0ugal/internet-perf-exporter/issues/777)) ([fd6e78b](https://github.com/d0ugal/internet-perf-exporter/commit/fd6e78b89c0136f899fb20eac024f8622a3db2b6))
+* update module github.com/bytedance/sonic/loader to v0.5.3 ([#783](https://github.com/d0ugal/internet-perf-exporter/issues/783)) ([8fb5cc2](https://github.com/d0ugal/internet-perf-exporter/commit/8fb5cc222b17930e642b93a5380edadfb7578c16))
+* update module github.com/d0ugal/promexporter to v1.14.73 ([#781](https://github.com/d0ugal/internet-perf-exporter/issues/781)) ([f65256a](https://github.com/d0ugal/internet-perf-exporter/commit/f65256a22a41903a63abad2fdf0980549b7b966b))
+* update module github.com/prometheus/procfs to v0.23.0 ([#790](https://github.com/d0ugal/internet-perf-exporter/issues/790)) ([7f5f46d](https://github.com/d0ugal/internet-perf-exporter/commit/7f5f46d3cf52f26a6d4bf88f18c2453807bd9ef2))
+* update module github.com/quic-go/quic-go to v0.64.1 ([#782](https://github.com/d0ugal/internet-perf-exporter/issues/782)) ([046a086](https://github.com/d0ugal/internet-perf-exporter/commit/046a086c1b8c4272f5762d6e6667d8bbf091901d))
+
 ## [0.2.111](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.110...v0.2.111) (2026-10-17)
 
 
