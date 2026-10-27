@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.114](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.113...v0.2.114) (2026-10-27)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to 2ffab32 ([#793](https://github.com/d0ugal/internet-perf-exporter/issues/793)) ([b381bbf](https://github.com/d0ugal/internet-perf-exporter/commit/b381bbf16cc17741e0e1b93b3dc973cdff8f20cb))
+* update google.golang.org/genproto/googleapis/rpc digest to 2ffab32 ([#794](https://github.com/d0ugal/internet-perf-exporter/issues/794)) ([942d558](https://github.com/d0ugal/internet-perf-exporter/commit/942d558d763bb5711ae77b30c2922f745d469c0a))
+* update module github.com/bytedance/sonic to v1.15.5 ([#797](https://github.com/d0ugal/internet-perf-exporter/issues/797)) ([4a9de57](https://github.com/d0ugal/internet-perf-exporter/commit/4a9de57c775610adc5986e989e943070cfcb619c))
+
 ## [0.2.113](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.112...v0.2.113) (2026-10-24)
 
 
