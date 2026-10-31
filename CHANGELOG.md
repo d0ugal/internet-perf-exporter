@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.2.115](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.114...v0.2.115) (2026-10-31)
+
+
+### Bug Fixes
+
+* update module github.com/gin-contrib/sse to v1.2.0 ([#808](https://github.com/d0ugal/internet-perf-exporter/issues/808)) ([c4d3bd5](https://github.com/d0ugal/internet-perf-exporter/commit/c4d3bd5231637e414fa0dc445f66af8ab443a47d))
+* update module github.com/goccy/go-json to v0.12.0 ([#804](https://github.com/d0ugal/internet-perf-exporter/issues/804)) ([8b5be73](https://github.com/d0ugal/internet-perf-exporter/commit/8b5be73cab7783b7d502e0b4f7c5dbe369ea2e0c))
+* update module github.com/grpc-ecosystem/grpc-gateway/v2 to v2.33.0 ([#798](https://github.com/d0ugal/internet-perf-exporter/issues/798)) ([9544495](https://github.com/d0ugal/internet-perf-exporter/commit/9544495009ae8945530eaec9d0f39ccef5003161))
+* update module github.com/hashicorp/go-uuid to v1.0.4 ([#803](https://github.com/d0ugal/internet-perf-exporter/issues/803)) ([62d445b](https://github.com/d0ugal/internet-perf-exporter/commit/62d445b7f280b0238133a7d1c77e5b299be55fd8))
+* update module github.com/pandatix/go-abnf to v0.5.3 ([#805](https://github.com/d0ugal/internet-perf-exporter/issues/805)) ([a6288e7](https://github.com/d0ugal/internet-perf-exporter/commit/a6288e7f355e6f8b119c4c85aa92f90bccc96531))
+* update module github.com/pandatix/go-abnf to v0.5.4 ([#807](https://github.com/d0ugal/internet-perf-exporter/issues/807)) ([ed96d94](https://github.com/d0ugal/internet-perf-exporter/commit/ed96d94bb2b2203ec8ae651b0e6403772df869be))
+* update module github.com/pandatix/go-abnf to v0.5.5 ([#809](https://github.com/d0ugal/internet-perf-exporter/issues/809)) ([23cdd66](https://github.com/d0ugal/internet-perf-exporter/commit/23cdd66ccb589ba4dd77d107dcf8ab71271c9630))
+* update module github.com/prometheus/common to v0.73.0 ([#802](https://github.com/d0ugal/internet-perf-exporter/issues/802)) ([4f8d661](https://github.com/d0ugal/internet-perf-exporter/commit/4f8d6618e4549307f22a6593141bcdeed2783b15))
+* update module github.com/prometheus/common to v0.73.1 ([#806](https://github.com/d0ugal/internet-perf-exporter/issues/806)) ([d53b426](https://github.com/d0ugal/internet-perf-exporter/commit/d53b426c86d205fb6a1cadf283f566e6bc900e23))
+* update module golang.org/x/net to v0.62.0 ([#799](https://github.com/d0ugal/internet-perf-exporter/issues/799)) ([b1cbe72](https://github.com/d0ugal/internet-perf-exporter/commit/b1cbe72d612f4875a14b333ce5dd9b3bc5c3a463))
+* update module google.golang.org/grpc to v1.85.0 ([#801](https://github.com/d0ugal/internet-perf-exporter/issues/801)) ([9a98182](https://github.com/d0ugal/internet-perf-exporter/commit/9a98182c1839c12715ffd44ec0b50c46fad7b515))
+
 ## [0.2.114](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.113...v0.2.114) (2026-10-27)
 
 
