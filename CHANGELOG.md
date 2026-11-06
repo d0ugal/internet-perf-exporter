@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.116](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.115...v0.2.116) (2026-11-06)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to d1e00e9 ([#816](https://github.com/d0ugal/internet-perf-exporter/issues/816)) ([dc53415](https://github.com/d0ugal/internet-perf-exporter/commit/dc534152622004091615acabd0a56a88955d603b))
+* update google.golang.org/genproto/googleapis/rpc digest to d1e00e9 ([#817](https://github.com/d0ugal/internet-perf-exporter/issues/817)) ([e6fdb42](https://github.com/d0ugal/internet-perf-exporter/commit/e6fdb423c43170d887c09836958fcc366f47cf57))
+* update module github.com/klauspost/cpuid/v2 to v2.4.2 ([#813](https://github.com/d0ugal/internet-perf-exporter/issues/813)) ([867f77f](https://github.com/d0ugal/internet-perf-exporter/commit/867f77fdc7c87a422eefd7540f2054448832d404))
+* update module go.mongodb.org/mongo-driver/v2 to v2.9.3 ([#814](https://github.com/d0ugal/internet-perf-exporter/issues/814)) ([e4f0fca](https://github.com/d0ugal/internet-perf-exporter/commit/e4f0fcac6723ff87dfe9950409a7f8c066bfa8b0))
+
 ## [0.2.115](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.114...v0.2.115) (2026-11-03)
 
 
