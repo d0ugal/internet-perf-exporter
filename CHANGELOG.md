@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.117](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.116...v0.2.117) (2026-11-10)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to 09e21b2 ([#830](https://github.com/d0ugal/internet-perf-exporter/issues/830)) ([4a15110](https://github.com/d0ugal/internet-perf-exporter/commit/4a1511089152ce6ad9f47046f5a19ff75f160de9))
+* update google.golang.org/genproto/googleapis/rpc digest to 09e21b2 ([#831](https://github.com/d0ugal/internet-perf-exporter/issues/831)) ([d8ee4ea](https://github.com/d0ugal/internet-perf-exporter/commit/d8ee4eaf28cc67680ad13737bf15bf533cf8d52d))
+* update module github.com/gin-contrib/sse to v1.2.1 ([#826](https://github.com/d0ugal/internet-perf-exporter/issues/826)) ([3243a46](https://github.com/d0ugal/internet-perf-exporter/commit/3243a4622fb85eec306b489242d1dc243e0695f9))
+* update module github.com/klauspost/compress to v1.20.4 ([#828](https://github.com/d0ugal/internet-perf-exporter/issues/828)) ([4068492](https://github.com/d0ugal/internet-perf-exporter/commit/4068492f00373d5e87de86f0842d953809f7def8))
+* update module go.mongodb.org/mongo-driver/v2 to v2.10.0 ([#824](https://github.com/d0ugal/internet-perf-exporter/issues/824)) ([5bad20f](https://github.com/d0ugal/internet-perf-exporter/commit/5bad20fc472edab507c0c8fb4700bf270ad17540))
+* update module golang.org/x/arch to v0.33.0 ([#829](https://github.com/d0ugal/internet-perf-exporter/issues/829)) ([fd8ce83](https://github.com/d0ugal/internet-perf-exporter/commit/fd8ce83b07f43a450d28f66535d1692631400c56))
+* update module golang.org/x/sys to v0.50.0 ([#832](https://github.com/d0ugal/internet-perf-exporter/issues/832)) ([047ba13](https://github.com/d0ugal/internet-perf-exporter/commit/047ba137fe2914c0ab925db948dec91ed9356736))
+
 ## [0.2.116](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.115...v0.2.116) (2026-11-06)
 
 
