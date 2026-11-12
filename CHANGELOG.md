@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.118](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.117...v0.2.118) (2026-11-12)
+
+
+### Bug Fixes
+
+* update go toolchain directive to v1.27.4 ([#838](https://github.com/d0ugal/internet-perf-exporter/issues/838)) ([b2e7832](https://github.com/d0ugal/internet-perf-exporter/commit/b2e78323db8e8ca038b03907ad2c073b42324e20))
+* update module github.com/d0ugal/promexporter to v1.14.76 ([#835](https://github.com/d0ugal/internet-perf-exporter/issues/835)) ([ac40054](https://github.com/d0ugal/internet-perf-exporter/commit/ac400545a993af36a907242a02d6e4f314ff41b9))
+* update module github.com/d0ugal/promexporter to v1.14.77 ([#841](https://github.com/d0ugal/internet-perf-exporter/issues/841)) ([91c6136](https://github.com/d0ugal/internet-perf-exporter/commit/91c6136d71e3630d2e5a187c5e3e66bf5c003e1a))
+* update module github.com/grafana/pyroscope-go to v1.5.0 ([#836](https://github.com/d0ugal/internet-perf-exporter/issues/836)) ([16b6362](https://github.com/d0ugal/internet-perf-exporter/commit/16b636232d15c4c4b051e8ffa945906a0d26ed96))
+* update module github.com/prometheus/common to v0.74.0 ([#842](https://github.com/d0ugal/internet-perf-exporter/issues/842)) ([c0a3813](https://github.com/d0ugal/internet-perf-exporter/commit/c0a3813edb259d8ee1ec385af23c234aded58c65))
+* update module golang.org/x/crypto to v0.59.0 ([#840](https://github.com/d0ugal/internet-perf-exporter/issues/840)) ([4473126](https://github.com/d0ugal/internet-perf-exporter/commit/4473126ae73cff1f3d6bd6f87db7e238c6591534))
+* update module golang.org/x/text to v0.44.0 ([#833](https://github.com/d0ugal/internet-perf-exporter/issues/833)) ([56c4234](https://github.com/d0ugal/internet-perf-exporter/commit/56c42345651a91b576412dc5c2686d1c5374bbe0))
+
 ## [0.2.117](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.116...v0.2.117) (2026-11-10)
 
 
