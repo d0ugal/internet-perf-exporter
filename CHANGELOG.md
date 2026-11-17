@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.119](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.118...v0.2.119) (2026-11-17)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to fd2c768 ([#844](https://github.com/d0ugal/internet-perf-exporter/issues/844)) ([aabb675](https://github.com/d0ugal/internet-perf-exporter/commit/aabb675eeb435ca3d82ab32ecec893c10acbc6d9))
+* update module github.com/grpc-ecosystem/grpc-gateway/v2 to v2.34.0 ([#847](https://github.com/d0ugal/internet-perf-exporter/issues/847)) ([7c9a96e](https://github.com/d0ugal/internet-perf-exporter/commit/7c9a96e149f07e2abdceef18bcca24a6b75a6ef9))
+
 ## [0.2.118](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.117...v0.2.118) (2026-11-17)
 
 
