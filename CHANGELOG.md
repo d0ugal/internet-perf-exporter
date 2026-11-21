@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.121](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.120...v0.2.121) (2026-11-20)
+
+
+### Bug Fixes
+
+* update module github.com/d0ugal/promexporter to v1.14.78 ([#856](https://github.com/d0ugal/internet-perf-exporter/issues/856)) ([4beae8a](https://github.com/d0ugal/internet-perf-exporter/commit/4beae8af07e2d208e73a33ab27cbe9283e0b1beb))
+* update module github.com/klauspost/compress to v1.20.5 ([#854](https://github.com/d0ugal/internet-perf-exporter/issues/854)) ([a429023](https://github.com/d0ugal/internet-perf-exporter/commit/a429023a1f61cf2e89363ace8d903650339d16e6))
+* update module go.opentelemetry.io/auto/sdk to v1.2.2 ([#857](https://github.com/d0ugal/internet-perf-exporter/issues/857)) ([ac9dffc](https://github.com/d0ugal/internet-perf-exporter/commit/ac9dffcf85e887add7013c669f1a19fe67c05a85))
+
 ## [0.2.120](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.119...v0.2.120) (2026-11-20)
 
 
