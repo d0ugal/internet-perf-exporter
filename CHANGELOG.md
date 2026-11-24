@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.121](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.120...v0.2.121) (2026-11-24)
+
+
+### Bug Fixes
+
+* update google.golang.org/genproto/googleapis/api digest to 1e707ab ([#858](https://github.com/d0ugal/internet-perf-exporter/issues/858)) ([fdccb0d](https://github.com/d0ugal/internet-perf-exporter/commit/fdccb0db892186778f4d1dd4d6dfbc9b659e594d))
+* update google.golang.org/genproto/googleapis/rpc digest to 1e707ab ([#859](https://github.com/d0ugal/internet-perf-exporter/issues/859)) ([423d142](https://github.com/d0ugal/internet-perf-exporter/commit/423d14201d400ba79d57cdbd15649b5c92f644a9))
+* update module github.com/d0ugal/promexporter to v1.14.78 ([#856](https://github.com/d0ugal/internet-perf-exporter/issues/856)) ([4beae8a](https://github.com/d0ugal/internet-perf-exporter/commit/4beae8af07e2d208e73a33ab27cbe9283e0b1beb))
+* update module github.com/klauspost/compress to v1.20.5 ([#854](https://github.com/d0ugal/internet-perf-exporter/issues/854)) ([a429023](https://github.com/d0ugal/internet-perf-exporter/commit/a429023a1f61cf2e89363ace8d903650339d16e6))
+* update module github.com/quic-go/quic-go to v0.66.0 ([#860](https://github.com/d0ugal/internet-perf-exporter/issues/860)) ([b07084d](https://github.com/d0ugal/internet-perf-exporter/commit/b07084dab80c1168913eae5f15908e1139f44d9a))
+* update module go.opentelemetry.io/auto/sdk to v1.2.2 ([#857](https://github.com/d0ugal/internet-perf-exporter/issues/857)) ([ac9dffc](https://github.com/d0ugal/internet-perf-exporter/commit/ac9dffcf85e887add7013c669f1a19fe67c05a85))
+
 ## [0.2.120](https://github.com/d0ugal/internet-perf-exporter/compare/v0.2.119...v0.2.120) (2026-11-20)
 
 
